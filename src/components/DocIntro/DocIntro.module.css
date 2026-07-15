@@ -1,0 +1,27 @@
+.intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-1-5);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-05) var(--spacing-1-5);
+  border-radius: var(--radius-full);
+  background: var(--material-card-moderate);
+  color: var(--text-base-primary);
+  font-size: var(--typography-body-small-size);
+  line-height: var(--typography-body-small-line-height);
+  font-weight: var(--typography-body-small-strong-weight);
+  white-space: nowrap;
+}
+
+.description {
+  margin: 0;
+  color: var(--text-base-secondary);
+  font-size: var(--typography-body-large-size);
+  line-height: var(--typography-body-large-line-height);
+  font-weight: var(--typography-body-large-weight);
+}

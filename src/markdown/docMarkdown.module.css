@@ -1,0 +1,474 @@
+/* Doc markdown prose — single source of truth. See .cursor/rules/doc-markdown.mdc */
+
+.markdownBody {
+  width: 100%;
+  color: var(--text-base-primary);
+  font-size: var(--typography-body-small-size);
+  line-height: var(--typography-body-small-line-height);
+  font-weight: var(--typography-body-small-weight);
+  /* Reset body-level typography tuning; values inherit to all markdown descendants. */
+  text-rendering: auto;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+}
+
+.markdownBody > :first-child {
+  margin-top: 0;
+}
+
+.markdownBody h1 {
+  margin: var(--scale-10) 0 0;
+  scroll-margin-top: var(--doc-sticky-title-height, calc(var(--doc-page-inset-top, 3vh) + var(--scale-7-5)));
+  scroll-margin-bottom: var(--doc-page-inset-bottom, 4vh);
+  color: var(--text-base-primary);
+  font-size: var(--typography-title-medium-size);
+  line-height: var(--typography-title-medium-line-height);
+  font-weight: var(--typography-title-medium-weight);
+}
+
+.markdownBody h1:first-child {
+  margin-top: 0;
+}
+
+/* 章内小节：与 h1 同级章节标题区分，避免视觉上被拆成独立大块 */
+.markdownBody h2 {
+  margin: var(--spacing-6) 0 0;
+  color: var(--text-base-primary);
+  font-size: var(--typography-title-size);
+  line-height: var(--typography-title-line-height);
+  font-weight: var(--typography-title-weight);
+}
+
+.markdownBody h1 + h2 {
+  margin-top: var(--spacing-3);
+}
+
+.markdownBody h2:first-child {
+  margin-top: 0;
+}
+
+.markdownBody h3,
+.markdownBody h4,
+.markdownBody h5,
+.markdownBody h6 {
+  margin: var(--spacing-2-5) 0 0;
+  color: var(--text-base-primary);
+}
+
+.markdownBody h3 {
+  font-size: var(--typography-body-medium-size);
+  line-height: var(--typography-body-medium-line-height);
+  font-weight: var(--weight-medium);
+}
+
+.markdownBody h4,
+.markdownBody h5,
+.markdownBody h6 {
+  font-weight: var(--typography-body-large-strong-weight);
+}
+
+.markdownBody h4 {
+  font-size: var(--typography-body-medium-size);
+  line-height: var(--typography-body-medium-line-height);
+}
+
+.markdownBody p {
+  margin: var(--spacing-3) 0 0;
+}
+
+.markdownBody blockquote,
+.markdownBody pre,
+.markdownBody hr {
+  margin: var(--spacing-3) 0 0;
+}
+
+/* Lists — frozen. See doc-markdown.mdc § Lists */
+.markdownBody ul {
+  margin: var(--spacing-2) 0 0;
+}
+
+.markdownBody ol {
+  margin: var(--spacing-2-5) 0 0;
+}
+
+.markdownBody > ul > li + li,
+.markdownBody > ol > li + li {
+  margin-top: var(--spacing-2);
+}
+
+.markdownBody li ul li + li,
+.markdownBody li ol li + li {
+  margin-top: var(--spacing-2);
+}
+
+.markdownBody a {
+  color: var(--text-base-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.markdownBody a:hover {
+  color: var(--text-base-secondary);
+}
+
+.markdownBody strong {
+  font-weight: var(--weight-medium);
+}
+
+.markdownBody :not(pre) > code {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--material-card-moderate);
+  color: #006e41;
+  color: color(display-p3 0 0.4314 0.2549);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: var(--typography-footnote-large-size);
+  line-height: var(--typography-footnote-large-line-height);
+}
+
+[data-theme='dark'] .markdownBody :not(pre) > code {
+  color: #69b091;
+  color: color(display-p3 0.41 0.69 0.57);
+}
+
+/* GFM fenced blocks (classes come from v-html — must use :global). */
+.markdownBody :global(.docs-code-block) {
+  margin: var(--spacing-2) 0 0;
+  border-radius: var(--radius-md);
+  background: var(--material-card-subtle);
+  overflow: hidden;
+}
+
+.markdownBody :global(.docs-code-chrome) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-1-5) var(--spacing-1-5) var(--spacing-2-5);
+}
+
+.markdownBody :global(.docs-code-lang) {
+  color: var(--text-base-secondary);
+  font-family: var(--font-family-text);
+  font-size: var(--typography-body-medium-size);
+  line-height: var(--typography-body-medium-line-height);
+  font-weight: var(--typography-body-medium-weight);
+}
+
+.markdownBody :global(.docs-code-copy) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  margin: 0;
+  padding: var(--spacing-05);
+  border: 0;
+  border-radius: var(--radius-xs);
+  appearance: none;
+  background: transparent;
+  color: var(--text-base-secondary);
+  cursor: pointer;
+}
+
+.markdownBody :global(.docs-code-copy:hover) {
+  color: var(--text-base-primary);
+  background: var(--event-hover-secondary);
+}
+
+.markdownBody :global(.docs-code-copy:focus-visible) {
+  outline: var(--stroke-lg) solid var(--material-brand-primary);
+  outline-offset: 2px;
+}
+
+.markdownBody :global(.docs-code-copy--copied) {
+  color: #006e41;
+  color: color(display-p3 0 0.4314 0.2549);
+}
+
+.markdownBody :global(.docs-code-copy--copied:hover) {
+  color: #006e41;
+  color: color(display-p3 0 0.4314 0.2549);
+  background: transparent;
+}
+
+[data-theme='dark'] .markdownBody :global(.docs-code-copy--copied),
+[data-theme='dark'] .markdownBody :global(.docs-code-copy--copied:hover) {
+  color: #338a66;
+  color: color(display-p3 0.2 0.54 0.4);
+}
+
+.markdownBody :global(.docs-code-block pre.docs-fence-highlighted) {
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: var(--spacing-2) var(--spacing-4) var(--spacing-4);
+}
+
+.markdownBody :global(pre.docs-fence) {
+  padding: var(--spacing-2);
+  border-radius: var(--radius-md);
+  overflow-x: hidden;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.markdownBody :global(pre.docs-fence-plain) {
+  background: var(--material-card-subtle);
+  color: var(--text-base-primary);
+}
+
+.markdownBody :global(pre.docs-fence-highlighted) {
+  background: var(--material-card-subtle);
+  color: var(--text-base-primary);
+}
+
+.markdownBody :global(pre.docs-fence-highlighted .hljs) {
+  color: var(--text-base-primary);
+}
+
+/* Light syntax theme — sRGB fallback + display-p3 canonical values. */
+.markdownBody :global(pre.docs-fence-highlighted .hljs-comment),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-quote),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-deletion),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-meta) {
+  color: #6b7280;
+  color: color(display-p3 0.4196 0.4706 0.502);
+}
+
+.markdownBody :global(pre.docs-fence-highlighted .hljs-keyword),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-selector-tag),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-name),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-selector-id),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-selector-class) {
+  color: #006e41;
+  color: color(display-p3 0 0.4314 0.2549);
+}
+
+.markdownBody :global(pre.docs-fence-highlighted .hljs-title),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-title.class_),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-title.function_),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-function .hljs-title),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-section) {
+  color: #6d28d9;
+  color: color(display-p3 0.4275 0.1569 0.851);
+}
+
+.markdownBody :global(pre.docs-fence-highlighted .hljs-string),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-template-variable),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-variable),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-literal) {
+  color: #b45309;
+  color: color(display-p3 0.7059 0.3255 0.0353);
+}
+
+.markdownBody :global(pre.docs-fence-highlighted .hljs-type),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-built_in),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-selector-attr),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-selector-pseudo),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-addition) {
+  color: #0369a1;
+  color: color(display-p3 0.0118 0.4118 0.6314);
+}
+
+.markdownBody :global(pre.docs-fence-highlighted .hljs-number),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-regexp),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-link) {
+  color: #9333ea;
+  color: color(display-p3 0.5765 0.2 0.9176);
+}
+
+.markdownBody :global(pre.docs-fence-highlighted .hljs-attr) {
+  color: #006e41;
+  color: color(display-p3 0 0.4314 0.2549);
+}
+
+.markdownBody :global(pre.docs-fence-highlighted .hljs-symbol),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-attribute),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-property) {
+  color: #0f766e;
+  color: color(display-p3 0.0588 0.4627 0.4314);
+}
+
+.markdownBody :global(pre.docs-fence-highlighted .hljs-params),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-punctuation),
+.markdownBody :global(pre.docs-fence-highlighted .hljs-operator) {
+  color: var(--text-base-primary);
+}
+
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-comment),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-quote),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-deletion),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-meta) {
+  color: #9ca3af;
+  color: color(display-p3 0.6118 0.6392 0.6863);
+}
+
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-keyword),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-selector-tag),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-name),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-selector-id),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-selector-class) {
+  color: #f472b6;
+  color: color(display-p3 0.9569 0.4471 0.7137);
+}
+
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-title),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-title.class_),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-title.function_),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-function .hljs-title),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-section) {
+  color: #a3e635;
+  color: color(display-p3 0.6392 0.902 0.2078);
+}
+
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-string),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-template-variable),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-variable),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-literal) {
+  color: #fbbf24;
+  color: color(display-p3 0.9843 0.749 0.1412);
+}
+
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-type),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-built_in),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-selector-attr),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-selector-pseudo),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-addition) {
+  color: #38bdf8;
+  color: color(display-p3 0.2196 0.7412 0.9725);
+}
+
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-number),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-regexp),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-link) {
+  color: #c084fc;
+  color: color(display-p3 0.7529 0.5176 0.9882);
+}
+
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-symbol),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-attribute),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-attr),
+[data-theme='dark'] .markdownBody :global(pre.docs-fence-highlighted .hljs-property) {
+  color: #2dd4bf;
+  color: color(display-p3 0.1765 0.8314 0.749);
+}
+
+.markdownBody :global(pre.docs-fence code) {
+  display: block;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: inherit;
+  overflow-wrap: inherit;
+  word-break: inherit;
+}
+
+.markdownBody blockquote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+  padding-left: var(--spacing-2);
+  border-left: var(--stroke-xl) solid var(--stroke-divider-page);
+  color: var(--text-base-secondary);
+}
+
+.markdownBody blockquote > * {
+  margin: 0;
+}
+
+/* Table — frozen. See doc-markdown.mdc § Table */
+.markdownBody :global(.docs-table-scroll) {
+  max-width: 100%;
+  margin-top: var(--spacing-2);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.markdownBody :global(.docs-table-scroll) table {
+  width: max(100%, calc(70 * var(--scale-base)));
+  min-width: calc(70 * var(--scale-base));
+  margin: 0;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.markdownBody th,
+.markdownBody td {
+  box-sizing: border-box;
+  height: var(--scale-5);
+  min-height: var(--scale-5);
+  padding: var(--spacing-1) var(--spacing-1-5);
+  border: var(--stroke-xs) solid var(--stroke-outline-deep);
+  text-align: left;
+  vertical-align: middle;
+  font-size: var(--typography-footnote-large-size);
+  line-height: var(--typography-footnote-large-line-height);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.markdownBody th {
+  background: var(--material-card-shallow);
+  font-weight: var(--typography-body-medium-strong-weight);
+}
+
+.markdownBody th :not(pre) > code,
+.markdownBody td :not(pre) > code {
+  display: inline;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.markdownBody img {
+  max-width: 100%;
+  height: auto;
+  box-shadow: var(--effect-shadow-subtle);
+}
+
+.markdownBody :global(.docs-media-frame) {
+  display: inline-block;
+  max-width: 100%;
+  margin-top: var(--spacing-3);
+}
+
+.markdownBody :global(.docs-media-frame) video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: var(--stroke-xs) solid var(--stroke-outline-shallow);
+  border-radius: var(--radius-md);
+  box-shadow: var(--effect-shadow-subtle);
+}
+
+.markdownBody :global(a.docs-develop-link) {
+  color: var(--text-brand-primary);
+  font-weight: var(--typography-body-small-strong-weight);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.markdownBody :global(a.docs-develop-link:hover) {
+  color: var(--event-hover-brand);
+}
+
+.markdownBody :global(a.docs-develop-link:active) {
+  color: var(--event-active-brand);
+}
+
+.markdownBody hr {
+  display: none;
+  margin: 0;
+  border: 0;
+}

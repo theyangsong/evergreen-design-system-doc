@@ -1,0 +1,226 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: max-content;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  gap: var(--spacing-3);
+  overflow: hidden;
+}
+
+.toggle {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: none;
+  align-self: stretch;
+  width: 100%;
+  min-height: 48px;
+  padding: var(--spacing-05);
+  border-radius: var(--radius-full);
+  background: var(--material-card-moderate);
+  box-sizing: border-box;
+}
+
+.toggleIndicator {
+  position: absolute;
+  top: var(--spacing-05);
+  left: 0;
+  box-sizing: border-box;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--material-same-white-tertiary);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, width, opacity;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toggleIndicator {
+    transition: opacity var(--eds-motion-indicator-opacity-duration) ease;
+  }
+
+  .toggleIndicatorMove {
+    transition:
+      transform var(--eds-motion-indicator-duration) var(--eds-motion-ease-standard),
+      width var(--eds-motion-indicator-duration) var(--eds-motion-ease-standard),
+      opacity var(--eds-motion-indicator-opacity-duration) ease;
+  }
+}
+
+.toggleIndicatorVisible {
+  opacity: 1;
+}
+
+.toggleButton {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-1);
+  height: 40px;
+  padding: var(--spacing-1-5) var(--spacing-2-5);
+  border: 0;
+  border-radius: var(--radius-full);
+  appearance: none;
+  background-color: transparent;
+  color: var(--text-base-primary);
+  cursor: pointer;
+  font-size: var(--typography-footnote-large-size);
+  line-height: var(--typography-footnote-large-line-height);
+  font-weight: var(--typography-footnote-large-strong-weight);
+  white-space: nowrap;
+}
+
+.toggleButtonActive {
+  color: var(--text-base-primary);
+}
+
+.toggleIcon {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+}
+
+.toggleIcon :global(path[stroke]),
+.toggleIcon :global(circle[stroke]),
+.toggleIcon :global(rect[stroke]) {
+  stroke: var(--stroke-base-primary);
+}
+
+.tocBlock {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  width: 100%;
+  min-height: 0;
+  padding: 0 var(--spacing-05);
+  gap: var(--spacing-025);
+  overflow-y: auto;
+  overscroll-behavior: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tocBlock::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin: 0;
+  padding: 0 var(--spacing-2-5) var(--spacing-1);
+  color: var(--text-base-tertiary);
+  font-size: var(--typography-bar-size);
+  line-height: var(--typography-bar-line-height);
+  font-weight: var(--typography-bar-weight);
+}
+
+.list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  width: 100%;
+  gap: var(--spacing-025);
+}
+
+.activeIndicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  border: var(--stroke-sm) solid var(--stroke-base-secondary);
+  border-radius: var(--radius-full);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, height, opacity;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .activeIndicator {
+    transition: opacity var(--eds-motion-indicator-opacity-duration) ease;
+  }
+
+  .activeIndicatorMove {
+    transition:
+      transform var(--eds-motion-indicator-duration) var(--eds-motion-ease-standard),
+      height var(--eds-motion-indicator-duration) var(--eds-motion-ease-standard),
+      opacity var(--eds-motion-indicator-opacity-duration) ease;
+  }
+}
+
+.activeIndicatorVisible {
+  opacity: 1;
+}
+
+.link {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: calc(
+    var(--typography-footnote-large-strong-line-height) + 2 * var(--spacing-1)
+  );
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2-5);
+  border: var(--stroke-xs) solid transparent;
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  color: var(--text-base-primary);
+  font-size: var(--typography-footnote-large-size);
+  line-height: var(--typography-footnote-large-line-height);
+  font-weight: var(--typography-footnote-large-weight);
+  white-space: nowrap;
+  transition:
+    background-color var(--eds-motion-hover-duration) ease,
+    color var(--eds-motion-hover-duration) ease,
+    border-color var(--eds-motion-hover-duration) ease;
+}
+
+.link:hover:not(.linkActive) {
+  background-color: var(--event-hover);
+  color: var(--text-base-primary);
+}
+
+.link:focus-visible {
+  background-color: var(--event-focus-secondary);
+  color: var(--text-base-primary);
+  font-weight: var(--typography-footnote-large-strong-weight);
+  outline: none;
+}
+
+.linkActive {
+  color: var(--text-base-primary);
+  font-weight: var(--typography-footnote-large-strong-weight);
+}
+
+.linkActive:hover {
+  background-color: transparent;
+  color: var(--text-base-primary);
+}
+
+.linkActive:focus-visible {
+  background-color: var(--event-focus-secondary);
+  color: var(--text-base-primary);
+  font-weight: var(--typography-footnote-large-strong-weight);
+}
+
+@media (max-width: 1100px) {
+  .sidebar {
+    display: none;
+  }
+}

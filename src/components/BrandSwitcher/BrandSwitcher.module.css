@@ -1,0 +1,122 @@
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.helpButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--eds-hover-transition-duration) ease,
+    outline-color var(--eds-hover-transition-duration) ease;
+}
+
+.helpButton:hover {
+  background: var(--event-hover);
+}
+
+.helpButtonOpen,
+.helpButtonOpen:hover {
+  background: var(--event-focus-secondary);
+}
+
+.helpButton:focus-visible {
+  background: var(--event-focus-secondary);
+  outline: var(--stroke-lg) solid var(--event-focus-primary);
+  outline-offset: 2px;
+}
+
+.helpDot {
+  width: var(--icon-md);
+  height: var(--icon-md);
+  border-radius: var(--radius-full);
+  background: var(--material-brand-primary);
+}
+
+.popoverShell {
+  position: fixed;
+  z-index: 1000;
+  transform: translateY(-50%) translateX(var(--spacing-1));
+}
+
+:global([data-theme='light']) .menu:global(.effect-flotation-box),
+:global([data-theme='dark']) .menu:global(.effect-flotation-box) {
+  padding: var(--spacing-05);
+  border-radius: var(--scale-1-5);
+}
+
+.menu {
+  box-sizing: border-box;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.listItem {
+  align-self: stretch;
+  width: 100%;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-1-5);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: var(--scale-8);
+  min-height: 23px;
+  margin: 0;
+  padding: var(--spacing-1-5) var(--spacing-2);
+  border: 0;
+  border-radius: var(--scale-1-5);
+  background: transparent;
+  color: var(--text-base-primary);
+  font-family: inherit;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--eds-hover-transition-duration) ease;
+}
+
+.item:hover:not(.itemActive) {
+  background: var(--event-hover);
+}
+
+.itemActive {
+  background: color-mix(in display-p3, var(--eds-base) 7%, transparent);
+}
+
+.itemActive:hover {
+  background: color-mix(in display-p3, var(--eds-base) 7%, transparent);
+}
+
+.label {
+  font-size: var(--typography-body-small-size);
+  line-height: var(--typography-body-small-line-height);
+  font-weight: var(--typography-body-small-strong-weight);
+}
+
+.swatch {
+  flex: none;
+  width: var(--scale-2);
+  height: var(--scale-2);
+  border-radius: var(--radius-full);
+}

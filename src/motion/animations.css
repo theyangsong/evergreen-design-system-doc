@@ -1,0 +1,54 @@
+@keyframes eds-motion-page-enter {
+  0% {
+    opacity: var(--eds-motion-page-enter-opacity-from);
+    transform: translateY(var(--eds-motion-page-enter-start-y));
+  }
+
+  14% {
+    opacity: 1;
+    transform: translateY(var(--eds-motion-page-enter-fall-to));
+  }
+
+  24% {
+    transform: translateY(var(--eds-motion-page-enter-bounce));
+  }
+
+  34% {
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .eds-motion-page-enter {
+    animation: eds-motion-page-enter var(--eds-motion-page-enter-duration) both;
+    animation-timing-function: var(--eds-motion-ease-page-enter);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .eds-motion-indicator-move {
+    transition:
+      transform var(--eds-motion-indicator-duration) var(--eds-motion-ease-standard),
+      width var(--eds-motion-indicator-duration) var(--eds-motion-ease-standard),
+      height var(--eds-motion-indicator-duration) var(--eds-motion-ease-standard),
+      opacity var(--eds-motion-indicator-opacity-duration) ease;
+  }
+
+  .eds-motion-indicator-fade {
+    transition: opacity var(--eds-motion-indicator-opacity-duration) ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eds-motion-page-enter,
+  .eds-motion-indicator-move,
+  .eds-motion-indicator-fade {
+    animation: none;
+    transition: none;
+  }
+}

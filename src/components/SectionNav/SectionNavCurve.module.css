@@ -1,0 +1,13 @@
+.curve {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  width: 100px;
+  height: 100%;
+  pointer-events: none;
+}
+
+.curve path {
+  fill: var(--section-nav-background);
+}

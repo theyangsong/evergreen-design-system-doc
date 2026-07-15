@@ -1,0 +1,39 @@
+{
+  "name": "evergreen-design-system-doc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EverGreen Design System documentation site — consumes Website tokens",
+  "type": "module",
+  "scripts": {
+    "predev": "pnpm --dir ../evergreen-design-system-website build:tokens",
+    "dev": "vite",
+    "prebuild": "pnpm --dir ../evergreen-design-system-website build:tokens",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@blocksuite/blocks": "0.19.5",
+    "@blocksuite/presets": "0.19.5",
+    "@blocksuite/store": "0.19.5",
+    "@blocksuite/icons": "^2.1.75",
+    "@evergreen/tokens": "link:../evergreen-design-system-website/packages/tokens",
+    "highlight.js": "^11.11.1",
+    "marked": "^18.0.5",
+    "three": "0.160.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.160.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vue-tsc": "^2.2.0"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@9.15.4"
+}

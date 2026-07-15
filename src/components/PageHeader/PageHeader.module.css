@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  width: 100%;
+}
+
+.description {
+  margin: 0;
+  align-self: stretch;
+  color: var(--text-base-primary);
+  font-size: var(--typography-body-medium-size);
+  line-height: var(--typography-body-medium-line-height);
+  font-weight: var(--typography-body-medium-weight);
+}

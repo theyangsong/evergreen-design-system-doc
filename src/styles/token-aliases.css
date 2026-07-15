@@ -1,0 +1,29 @@
+/**
+ * Maps legacy Desktop-era typography token names used in doc CSS
+ * to EverGreen Design System (Website) semantic tokens.
+ */
+:root {
+  --typography-display-size: var(--typography-display-small-size);
+  --typography-display-weight: var(--typography-display-small-weight);
+  --typography-display-line-height: var(--typography-display-small-line-height);
+
+  --typography-headline-size: var(--typography-headline-small-size);
+  --typography-headline-weight: var(--typography-headline-small-weight);
+  --typography-headline-line-height: var(--typography-headline-small-line-height);
+
+  --typography-title-size: var(--typography-title-small-size);
+  --typography-title-weight: var(--typography-title-small-weight);
+  --typography-title-line-height: var(--typography-title-small-line-height);
+
+  --typography-footnote-size: var(--typography-footnote-medium-size);
+  --typography-footnote-weight: var(--typography-footnote-medium-weight);
+  --typography-footnote-line-height: var(--typography-footnote-medium-line-height);
+
+  --typography-footnote-strong-size: var(--typography-footnote-medium-strong-size);
+  --typography-footnote-strong-weight: var(--typography-footnote-medium-strong-weight);
+  --typography-footnote-strong-line-height: var(--typography-footnote-medium-strong-line-height);
+
+  --typography-bar-size: var(--typography-footnote-medium-size);
+  --typography-bar-weight: var(--typography-footnote-medium-weight);
+  --typography-bar-line-height: var(--typography-footnote-medium-line-height);
+}

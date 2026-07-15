@@ -1,0 +1,24 @@
+---
+description: Prevent text layout breaks when switching doc pages
+globs: src/**/*
+alwaysApply: false
+---
+
+# No Text Break on Page Navigation
+
+When switching doc pages, text must not flash, reflow, or break mid-layout.
+
+## Required patterns
+
+- Reset `[data-doc-scroll]` to `top: 0` synchronously in `router.beforeEach` when `to.path !== from.path` (before the new page paints).
+- Cancel in-flight eased scroll animations before route changes.
+- Do not defer page scroll reset with `requestAnimationFrame` unless scrolling to a hash anchor.
+- Keep stable typography metrics across interactive states (e.g. TOC active links: same `font-size` / `line-height`, change weight/color only).
+- When a child uses a larger `font-size` with automatic line height, set `line-height: normal` explicitly so it does not inherit a fixed px `line-height` from an ancestor (which clips glyphs).
+- Reserve height for sticky page titles (`min-height: 1lh` on the title text) so title swaps do not collapse layout.
+- Prefer `font-synthesis: none` globally to avoid synthetic bold reflow.
+
+## Avoid
+
+- Font-size changes on active/inactive nav states when labels use `white-space: nowrap`.
+- Rendering new page content while the scroll container is still at the previous page's scroll position.

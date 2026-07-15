@@ -1,0 +1,19 @@
+.block {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: var(--spacing-2);
+  align-items: start;
+}
+
+.label {
+  padding-top: var(--spacing-05);
+  color: var(--text-base-tertiary);
+  font-size: var(--typography-footnote-size);
+  line-height: var(--typography-footnote-line-height);
+  font-weight: var(--typography-footnote-weight);
+  white-space: nowrap;
+}
+
+.content {
+  min-width: 0;
+}

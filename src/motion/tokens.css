@@ -1,0 +1,27 @@
+:root {
+  /* Durations */
+  --eds-motion-hover-duration: 0.35s;
+  --eds-motion-curved-panel-open-duration: 0.6s;
+  --eds-motion-curved-panel-close-duration: 0.4s;
+  --eds-motion-indicator-duration: 0.28s;
+  --eds-motion-indicator-opacity-duration: 0.3s;
+  --eds-motion-page-enter-duration: 1800ms;
+  --eds-motion-chrome-fade-duration: 0.24s;
+
+  /* Easings */
+  --eds-motion-ease-curved-panel: cubic-bezier(0.76, 0, 0.24, 1);
+  --eds-motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --eds-motion-ease-page-enter: cubic-bezier(0, 0, 0.2, 1);
+
+  /* Curved panel geometry */
+  --eds-motion-curved-panel-width: 100px;
+
+  /* Page enter distances */
+  --eds-motion-page-enter-start-y: -20px;
+  --eds-motion-page-enter-fall-to: 10px;
+  --eds-motion-page-enter-bounce: -5px;
+  --eds-motion-page-enter-opacity-from: 0;
+
+  /* Back-compat aliases (prefer --eds-motion-* in new code) */
+  --eds-hover-transition-duration: var(--eds-motion-hover-duration);
+}

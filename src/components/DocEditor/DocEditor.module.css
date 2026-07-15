@@ -1,0 +1,42 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1-5);
+  width: 100%;
+}
+
+.status {
+  margin: 0;
+  color: var(--text-base-secondary);
+  font-size: var(--typography-body-small-size);
+  line-height: var(--typography-body-small-line-height);
+}
+
+.error {
+  margin: 0;
+  padding: var(--spacing-1-5) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  background: var(--material-danger-quaternary);
+  color: var(--text-danger-primary);
+  font-size: var(--typography-body-small-size);
+  line-height: var(--typography-body-small-line-height);
+}
+
+.editor {
+  width: 100%;
+  min-height: 320px;
+}
+
+.editor :global(page-editor) {
+  display: block;
+  width: 100%;
+  min-height: 320px;
+}
+
+.editor :global(.affine-page-root-block-container) {
+  padding: 0;
+}
+
+.editor :global(.affine-paragraph-block-container) {
+  color: var(--text-base-primary);
+}

@@ -1,0 +1,38 @@
+---
+description: DocsLayout molde shadow — frozen; do not move or toggle effect-molde-level
+globs: src/layouts/**/*
+alwaysApply: false
+---
+
+# DocsLayout Molde Shadow (冻结)
+
+**Do not change** the docs shell shadow architecture unless the user explicitly requests it.
+
+## Shadow placement (fixed)
+
+Molde left shadow (`effect-molde-level` → `--effect-shadow-molde`) is **always** on the content shell, never toggled by nav state:
+
+| Page | Element | Classes |
+|------|---------|---------|
+| Doc pages | `contentShell` | `contentShell` + `contentShellDoc` + `effect-molde-level` |
+| Explore | `contentShell` | `contentShell` + `effect-molde-level` |
+
+`main` is a **transparent container only** — no `effect-molde-level`, no `box-shadow`, no `background`.
+
+## CSS constraints (fixed)
+
+```css
+/* main — must stay overflow: visible or left shadow is clipped */
+.main { overflow: visible; background: transparent; }
+
+/* contentShell — carries background + molde shadow */
+.contentShell { background: var(--content-background); }
+```
+
+- Do **not** move shadow back to `main` when section nav is collapsed.
+- Do **not** conditionally add/remove `effect-molde-level` based on `sectionNavOpen`.
+- Do **not** set `main { overflow: hidden }` — it clips `contentShell` box-shadow.
+
+## Section nav shadow (separate)
+
+`.layoutSectionNavOpen .sectionNavShell` keeps its own right-edge shadow — independent from content molde shadow. Do not merge or duplicate onto `contentShell`.

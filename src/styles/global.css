@@ -1,0 +1,105 @@
+@import '@evergreen/tokens';
+@import '@/styles/token-aliases.css';
+@import '@/motion/tokens.css';
+@import '@/motion/animations.css';
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('@/assets/fonts/IBMPlexMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('@/assets/fonts/IBMPlexMono-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root,
+[data-theme='light'] {
+  /* 壳层背景：设计稿硬编码 display-p3，不映射 token */
+  --page-background: #faf9f6;
+  --page-background: color(display-p3 0.9804 0.9765 0.9647);
+  --content-background: #fcfbf8;
+  --content-background: color(display-p3 0.9882 0.9843 0.9725);
+  --nav-background: #f4f3f0;
+  --nav-background: color(display-p3 0.9569 0.9529 0.9412);
+  --section-nav-background: #f4f3f0;
+  --section-nav-background: color(display-p3 0.9569 0.9529 0.9412);
+}
+
+[data-theme='dark'] {
+  --content-background: #252422;
+  --content-background: color(display-p3 0.1454 0.142 0.1319);
+  --nav-background: #1f1e1c;
+  --nav-background: color(display-p3 0.1211 0.1174 0.11);
+  --section-nav-background: #1f1e1c;
+  --section-nav-background: color(display-p3 0.1211 0.1174 0.11);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--page-background);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-text);
+  font-size: var(--typography-body-small-size);
+  line-height: var(--typography-body-small-line-height);
+  font-synthesis: none;
+  color: var(--text-base-primary);
+}
+
+/*
+ * font-weight / font-size / line-height must not transition — browsers cannot
+ * interpolate them cleanly and glyphs appear clipped ("吃字") during hover/focus.
+ */
+a,
+button,
+[role='tab'],
+[role='link'] {
+  font-synthesis: none;
+  transition:
+    background-color var(--eds-motion-hover-duration) ease,
+    background var(--eds-motion-hover-duration) ease,
+    color var(--eds-motion-hover-duration) ease,
+    border-color var(--eds-motion-hover-duration) ease,
+    outline-color var(--eds-motion-hover-duration) ease,
+    box-shadow var(--eds-motion-hover-duration) ease,
+    opacity var(--eds-motion-hover-duration) ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+.hideScrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hideScrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}

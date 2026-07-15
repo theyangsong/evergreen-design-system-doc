@@ -1,0 +1,26 @@
+.notFound {
+  padding: var(--spacing-10) 0;
+}
+
+.title {
+  margin: 0 0 var(--spacing-3);
+  font-size: var(--typography-headline-size);
+  line-height: var(--typography-headline-line-height);
+  font-weight: var(--typography-headline-weight);
+}
+
+.body {
+  margin: 0;
+  color: var(--text-base-secondary);
+}
+
+.link {
+  color: var(--text-brand-primary);
+  font-weight: var(--weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link:hover {
+  color: var(--material-brand-primary);
+}

@@ -1,0 +1,71 @@
+---
+description: Initial-based person avatar — Figma web3 palette, avatar-gen-js hash; reuse via @/personAvatar
+globs: src/personAvatar/**,src/components/DocMetaPanel/**
+alwaysApply: false
+---
+
+# Person Avatar (冻结)
+
+Deterministic **initial + colored circle** avatars for person names. Do not duplicate hash/color logic or hardcode palette elsewhere.
+
+## Single source of truth
+
+| Concern | File |
+|---------|------|
+| Hash + palette + name parsing | `src/personAvatar/personAvatar.ts` |
+| Avatar UI | `src/personAvatar/PersonAvatar.vue` |
+| Avatar styles | `src/personAvatar/PersonAvatar.module.css` |
+| Public API | `src/personAvatar/index.ts` |
+
+## Usage
+
+```ts
+import { PersonAvatar, getAvatarColor, getPersonInitial, parsePersonList } from '@/personAvatar';
+```
+
+```html
+<PersonAvatar name="EDS Yang" />
+```
+
+Multi-person row (e.g. DocMetaPanel 维护/贡献):
+
+```html
+<span v-for="name in parsePersonList(value)" :key="name">
+  <PersonAvatar :name="name" />
+  <span>{{ name }}</span>
+</span>
+```
+
+## Color (frozen)
+
+- Palette: Figma **web3-avatar-1…20**
+- Selection: `hashString(name) % 20` — same hash as [avatar-gen-js](https://github.com/kohaiy/avatar-gen-js/)
+- Same name → same color (deterministic)
+
+## Initial (frozen)
+
+- Strip trailing `.`, take **last word** first letter, uppercase
+- `EDS Yang` → `Y`; `Jojo` → `J`; `Dev.` → `D`
+
+## Avatar chrome (frozen)
+
+| Property | Value |
+|----------|-------|
+| Size | 16×16px |
+| Shape | `border-radius: var(--radius-full)` (squircle via global corner-smoothing) |
+| Background | inline `backgroundColor` from `getAvatarColor(name)` |
+| Text color | `var(--text-same-white-primary)` |
+| Font | `var(--font-family-text)`, 8px, weight **600**, line-height 1 |
+
+## Person list layout (DocMetaPanel)
+
+- Fields: **维护**, **贡献** only
+- Separator: none — use `gap: var(--spacing-1)` on `.personList`
+- Avatar ↔ name gap: `var(--spacing-05)` on `.person`
+- Value font: global `var(--font-family-text)` (not IBM Plex Mono)
+
+## When adding avatars elsewhere
+
+1. Import `PersonAvatar` from `@/personAvatar` — do not copy SVG/CSS
+2. New palette entries: update `WEB3_AVATAR_COLORS` in `personAvatar.ts` + this rule
+3. Different size: extend `PersonAvatar` with a `size` prop — do not fork a second avatar component

@@ -1,0 +1,48 @@
+---
+description: Doc site only consumes Website packages (tokens / components / scenes)
+globs: src/**/*
+alwaysApply: false
+---
+
+# Website Package Dependency
+
+Doc site (`evergreen-design-system-doc`) **only** imports from three published packages in sibling repo `evergreen-design-system-website`:
+
+| Package | Path | What to import |
+|---------|------|----------------|
+| `@evergreen/tokens` | `packages/tokens` | CSS variables (`@import '@evergreen/tokens'`), `liquid-glass`, `corner-smoothing` |
+| `@evergreen/components` | `packages/components` | Vue UI primitives (Button, Input, NavBar, …) when doc needs live previews |
+| `@evergreen/scenes` | `packages/scenes` | Composed marketing/business blocks when doc needs scene demos |
+
+Link in `package.json` (add components/scenes when needed):
+
+```json
+"@evergreen/tokens": "link:../evergreen-design-system-website/packages/tokens"
+```
+
+Dev rebuild: `plugins/evergreen-tokens-dev.ts` watches `packages/tokens/spec/`. `predev` / `prebuild` run `build:tokens` in website repo.
+
+## Do NOT import from website
+
+- Website repo has **no app layer** — only `packages/*`. Never deep-import website source paths.
+- Do not point any `@evergreen/*` at `evergreen-design-system-desktop`.
+- Do not copy token/component/scene **source** into doc — consume built packages.
+
+## Doc-owned (stays in this repo)
+
+Everything that is not the three packages above lives under `src/`:
+
+| Concern | Location |
+|---------|----------|
+| App shell & doc chrome | `src/layouts/`, `src/components/AppRail`, `SectionNav`, `PageToc`, `BrandSwitcher`, `DocMetaPanel`, … |
+| Markdown pipeline | `src/markdown/` |
+| Motion | `src/motion/` |
+| Theme | `src/composables/useTheme*.ts` |
+| Person avatar | `src/personAvatar/` |
+| Doc content | `src/content/docs/` |
+| Router & nav config | `src/router/`, `src/config/` |
+| Shell hardcoded colors | `src/styles/global.css` |
+| Legacy token name aliases | `src/styles/token-aliases.css` |
+| BlockSuite editor | `src/components/DocEditor/` |
+
+When adding a feature, ask: **is it a reusable design-system primitive or scene?** → website package. **Is it doc-site-specific?** → this repo.

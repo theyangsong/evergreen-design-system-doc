@@ -1,0 +1,121 @@
+.page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(145deg, #0d5a3a 0%, #106b45 45%, #0a4f34 100%);
+}
+
+.canvasHost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.canvasHost canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.brandLogo {
+  position: absolute;
+  top: var(--spacing-6);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 56px;
+  height: 56px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: calc(18vh + var(--spacing-16));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.entry {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--spacing-4) var(--spacing-8);
+  border: var(--stroke-xs) solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  font-size: var(--typography-title-size);
+  line-height: var(--typography-title-line-height);
+  font-weight: 600;
+  pointer-events: auto;
+  transition:
+    background var(--eds-hover-transition-duration) ease,
+    border-color var(--eds-hover-transition-duration) ease;
+}
+
+.entry:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.entryHint {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-6);
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.footerTagline {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.footerLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  pointer-events: auto;
+}
+
+.footerLink {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footerLink:hover {
+  color: rgba(255, 255, 255, 0.85);
+}

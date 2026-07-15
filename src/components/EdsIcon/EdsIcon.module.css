@@ -1,0 +1,33 @@
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.icon :global(svg) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.stroke :global(path[stroke]),
+.stroke :global(circle[stroke]),
+.stroke :global(rect[stroke]) {
+  stroke: var(--stroke-base-secondary);
+}
+
+.fill :global(path[fill]:not([fill='none'])),
+.fill :global(circle[fill]:not([fill='none'])) {
+  fill: var(--material-base-primary);
+}
+
+.mixed :global(path[stroke]),
+.mixed :global(circle[stroke]),
+.mixed :global(rect[stroke]) {
+  stroke: var(--stroke-base-secondary);
+}
+
+.mixed :global(path[fill]:not([fill='none'])),
+.mixed :global(circle[fill]:not([fill='none'])) {
+  fill: var(--material-base-primary);
+}

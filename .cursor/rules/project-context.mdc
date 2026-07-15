@@ -1,0 +1,66 @@
+---
+description: EverGreen doc site — repo layout, migration origin, conventions (always apply)
+alwaysApply: true
+---
+
+# Project Context — evergreen-design-system-doc
+
+## Origin
+
+Standalone doc site **split from** `evergreen-design-system-desktop/apps/website`. Do **not** edit the desktop repo. Historical paths like `apps/website/src/...` in old notes map to **`src/...`** in this repo.
+
+## Repository boundary (核心原则)
+
+**从 `evergreen-design-system-website` 只引用规范包：**
+
+| 允许引用 | 包名 |
+|----------|------|
+| Tokens | `@evergreen/tokens` |
+| 组件 | `@evergreen/components` |
+| 场景化组件 | `@evergreen/scenes` |
+
+**其余一切均在本文档站仓库内实现** — 壳层、布局、导航、Markdown、动效、主题、文档内容、路由、编辑器集成等，不得放在 website 或 desktop 仓库。
+
+```
+website 仓库 = 仅 packages/（tokens + components + scenes）
+doc 仓库   = 文档站应用 + 所有 doc 专属代码
+```
+
+## Sibling layout (required)
+
+```
+Projects/
+  evergreen-design-system-doc/        ← this repo (app)
+  evergreen-design-system-website/  ← design system packages only
+```
+
+- Tokens: `link:../evergreen-design-system-website/packages/tokens`
+- Components / scenes: link same way when doc needs them (not wired yet)
+- `predev` / `prebuild` run `pnpm --dir ../evergreen-design-system-website build:tokens`
+- Dev: `pnpm dev` → **http://localhost:5176/**
+
+## Module map (doc-owned, canonical paths)
+
+| Area | Path | Notes |
+|------|------|-------|
+| Markdown | `src/markdown/` | `renderMarkdown`, `docMarkdown.module.css` |
+| Motion | `src/motion/` | `useCurvedPanelTransition`, page enter |
+| Theme | `src/composables/useTheme*.ts` | Doc-owned |
+| Person avatar | `src/personAvatar/` | `@/personAvatar` |
+| Shell colors | `src/styles/global.css` | Hardcoded P3 — `hardcoded-shell-colors.mdc` |
+| Token aliases | `src/styles/token-aliases.css` | Desktop-era names → Website semantic |
+| Layout | `src/layouts/DocsLayout.*` | Molde shadow on `contentShell` — frozen |
+| Rules | `.cursor/rules/*.mdc` | Frozen specs; globs use `src/**` |
+
+## Spacing / typography conventions
+
+- **Halve doc content spacing** by smaller token **names** (`spacing-5` → `spacing-2-5`), not parent `--spacing-*` overrides on `.contentShellDoc`.
+- Hover on nav/menu: `var(--event-hover)`.
+- Common sizes: 14px `footnote-large`, 16px `body-small`, 18px `body-medium`, 24px `title`, 32px `title-medium`, 64px `headline-large`.
+- Inline code: hardcoded `1px 6px` + `border-radius: 6px`.
+
+## Frozen rule files
+
+- `website-token-dependency.mdc` — website 三包边界
+- `doc-markdown.mdc`, `docs-layout-molde-shadow.mdc`, `person-avatar.mdc`
+- `hardcoded-shell-colors.mdc`, `corner-smoothing.mdc`, `display-p3-color-usage.mdc`, `no-text-break-on-nav.mdc`

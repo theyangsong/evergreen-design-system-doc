@@ -1,0 +1,55 @@
+---
+description: All border-radius uses Figma/iOS squircle smoothing at 60% via global runtime
+globs: src/**/*
+alwaysApply: false
+---
+
+# Corner Smoothing (平滑圆角)
+
+Every rounded corner in this project uses **Figma/iOS squircle** at **60%** smoothing. Do not rely on plain CSS `border-radius` alone for final appearance.
+
+## Token & runtime
+
+- Smoothing level: `--corner-smoothing: 0.6` (in `../evergreen-design-system-website/packages/tokens/spec/scale/semantic.json`)
+- Radius tokens: `var(--radius-xs|sm|md|lg|full)` — never hardcode px radii in components unless explicitly frozen (e.g. inline code `6px`)
+- Global init (already wired): `initCornerSmoothing()` in `src/main.ts`
+- Engine: `@evergreen/tokens/corner-smoothing` (bundles `figma-squircle`, applies `clip-path: path(...)`)
+
+## CSS rules
+
+- Put `border-radius` on **the element that is visually rounded** (the painted surface), not only on a wrapper with `overflow: hidden`.
+- Prefer radius tokens over `--scale-*` unless matching an existing effect spec (e.g. `effect-flotation-box` uses `var(--scale-3)`).
+
+```css
+/* ❌ BAD — radius on wrapper; img won't get squircle */
+.logo { border-radius: var(--radius-md); overflow: hidden; }
+.logoImage { display: block; }
+
+/* ✅ GOOD — radius on the visible element */
+.logoImage { border-radius: var(--radius-md); }
+```
+
+- Do **not** add per-component squircle JS or custom `clip-path` — the global scanner binds all non-zero `border-radius` automatically.
+- Opt out only when squircle breaks an effect: `data-no-corner-smoothing` on element or ancestor.
+
+## Effect boxes
+
+- Apply smoothing only on the **root** `.effect-flotation-box` / `.effect-popup-box` (handled by runtime; internal `__fill`, `__glass`, etc. are skipped).
+- Do not duplicate `clip-path` on effect sub-layers.
+
+## Dynamic UI (Teleport / v-if)
+
+After async mount, rescan so elements with layout get bound:
+
+```ts
+import { rescanCornerSmoothing } from '@evergreen/tokens/corner-smoothing';
+
+nextTick(() => {
+  if (rootRef.value) rescanCornerSmoothing(rootRef.value);
+});
+```
+
+## Known limits
+
+- `clip-path` may clip outer `box-shadow` on the same element; use opt-out if glow is critical.
+- `%` radii (e.g. `50%` circles) are skipped — already continuous curves.

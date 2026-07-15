@@ -1,0 +1,16 @@
+/* Person avatar — frozen. See .cursor/rules/person-avatar.mdc */
+
+.avatar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  color: var(--text-same-white-primary);
+  font: 600 8px/1 var(--font-family-text);
+  letter-spacing: 0;
+  text-transform: uppercase;
+}

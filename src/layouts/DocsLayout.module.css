@@ -1,0 +1,207 @@
+.layout {
+  --doc-app-rail-width: 92px;
+  --doc-section-nav-width: 268px;
+  --section-nav-current-width: 0px;
+  --doc-main-column: minmax(0, 702px);
+  --doc-shell-width: 930px;
+
+  display: grid;
+  grid-template-columns: var(--doc-app-rail-width) var(--section-nav-current-width) minmax(0, 1fr);
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--content-background);
+}
+
+.layoutNoSectionNav {
+  grid-template-columns: var(--doc-app-rail-width) minmax(0, 1fr);
+}
+
+.layoutExplore {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.layoutNavCollapsed {
+  --doc-main-column: minmax(0, 817px);
+  --doc-shell-width: 1045px;
+}
+
+.sectionNavShell {
+  position: relative;
+  display: flex;
+  align-self: stretch;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: var(--doc-section-nav-width);
+}
+
+.sectionNavShellAnimating {
+  max-width: none;
+}
+
+.sectionNavShellCollapsed {
+  pointer-events: none;
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.layoutSectionNavOpen .sectionNavShell {
+  box-shadow: 2px 0 var(--scale-4) 0 var(--effect-vulvar-shadow-subtle);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  /* visible：避免裁切 contentShell 向左延伸的 molde 阴影 */
+  overflow: visible;
+  overscroll-behavior: none;
+  background: transparent;
+}
+
+.mainExplore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 0;
+  overflow: visible;
+}
+
+.mainExplore .contentShell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentShell {
+  box-sizing: border-box;
+  flex: 1;
+  align-self: stretch;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  background: var(--content-background);
+  transition: box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contentShellDoc {
+  --doc-page-inset-top: 3vh;
+  --doc-page-inset-bottom: 4vh;
+  --doc-page-max-width: 1280px;
+  --doc-page-inset-inline-min: 10%;
+  --doc-sticky-title-height: calc(
+    var(--spacing-4) + var(--typography-footnote-strong-line-height) + var(--spacing-1) +
+      var(--scale-6) + var(--spacing-05) + var(--spacing-2-5)
+  );
+
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  scroll-padding-top: var(--doc-sticky-title-height);
+  scroll-padding-bottom: var(--doc-page-inset-bottom, 4vh);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-inline: max(
+    var(--doc-page-inset-inline-min),
+    calc((100% - var(--doc-page-max-width)) / 2)
+  );
+  display: block;
+  isolation: isolate;
+}
+
+.contentShellDoc::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+@media (max-width: 1200px) {
+  .layout {
+    position: relative;
+    grid-template-columns: var(--doc-app-rail-width) minmax(0, 1fr);
+  }
+
+  .layoutSectionNavOpen {
+    grid-template-columns: var(--doc-app-rail-width) var(--section-nav-current-width) minmax(0, 1fr);
+  }
+
+  .layoutSectionNavOpen .sectionNavShell {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    z-index: auto;
+    height: auto;
+    box-shadow: 2px 0 var(--scale-4) 0 var(--effect-vulvar-shadow-subtle);
+  }
+
+  .layoutNavCollapsed {
+    grid-template-columns: var(--doc-app-rail-width) minmax(0, 1fr);
+  }
+
+  .sectionNavShellCollapsed {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--doc-app-rail-width);
+    z-index: 10;
+    height: 100%;
+    box-shadow: 2px 0 var(--scale-4) 0 var(--effect-vulvar-shadow-subtle);
+  }
+}
+
+.showOnMobile {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .contentShellDoc {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    --doc-mobile-header-height: calc(var(--spacing-2) * 2 + var(--scale-5));
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hideOnMobile {
+    display: none;
+  }
+
+  .showOnMobile {
+    display: block;
+  }
+
+  .main {
+    padding-top: var(--doc-mobile-header-height);
+  }
+
+  .contentShell {
+    width: 100%;
+  }
+
+  .contentShellDoc {
+    padding-inline: var(--spacing-4);
+  }
+
+  .contentShell:not(.contentShellDoc) {
+    padding-top: var(--spacing-4);
+  }
+}

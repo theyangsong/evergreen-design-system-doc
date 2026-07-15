@@ -1,0 +1,152 @@
+---
+description: Doc-site markdown rendering — frozen prose/code/table rules; do not re-tune per document
+globs: src/markdown/**,src/content/docs/**/*.md,src/views/DocPageView.vue
+alwaysApply: false
+---
+
+# Doc Markdown (冻结)
+
+**Do not** add per-page or per-document markdown CSS in `DocPageView.module.css`. All prose rules live in one module.
+
+## Frozen decisions (session checkpoint)
+
+| Area | Rule | Do not |
+|------|------|--------|
+| Lists | No `padding-left` on `ul`/`ol`; top-level `li + li` → `spacing-2` | Re-add list indent without explicit request |
+| Table `th`/`td` | `height/min-height: scale-5` (40px); `footnote-large` 14px | Revert to 38px or body-medium size |
+| Table `th` | bg `material-card-shallow`; border `stroke-outline-deep` | Use `moderate` / `subtle` for header bg |
+| Inline code | `padding: 1px 6px`; `border-radius: 6px`; `display: inline-block` | Use spacing tokens for inline-code padding (broken under doc spacing halving) |
+| Code blocks | Chrome + highlighted `pre`; **no line-number gutter** | Re-add line nums (reverted) |
+| Preview caption | Frozen line `组件能力示例。查看演示` → brand link to 开发指南 tab | Custom per-component caption text |
+
+## Single source of truth
+
+| Concern | File |
+|---------|------|
+| Render pipeline | `src/markdown/renderMarkdown.ts` |
+| Prose + code styles | `src/markdown/docMarkdown.module.css` |
+| Copy button handler | `src/markdown/useDocMarkdownCopy.ts` |
+| Public API | `src/markdown/index.ts` |
+
+Usage in views:
+
+```ts
+import { docMarkdownStyles, renderMarkdown, useDocMarkdownCopy } from '@/markdown';
+```
+
+```html
+<div :class="docMarkdownStyles.markdownBody" v-html="html" @click="handleMarkdownBodyClick" />
+```
+
+## Renderer rules (`renderMarkdown.ts`)
+
+- GFM on; `breaks: false`
+- `h1`: strip leading `N.` from title text; map `id` via `sectionIdsByTitle`
+- Fenced code **with** lang → `docs-code-block` + chrome (lang label + copy) + `docs-fence-highlighted` + hljs
+- Fenced code **without** lang → `docs-fence-plain` (ASCII diagrams)
+- Image shorthand: line `!filename.png` → `/docs/{imageAssetDir}/filename.png` (set `imageAssetDir` on doc page config); `!filename.mp4` (or `.webm`/`.mov`) → `<video controls playsinline>`
+- `img` / `video` — `max-width: 100%`; `box-shadow: var(--effect-shadow-subtle)`
+- Preview demo link — exact line `组件能力示例。查看演示` → `查看演示` link (`data-doc-develop-link`) switches PageToc to **开发指南** tab; style: `text-brand-primary`, weight 500, underline; hover `event-hover-brand`; active `event-active-brand`
+- Supported langs: js/ts/tsx/json/css/bash (+ aliases)
+
+## Preview block (frozen, all component docs)
+
+Every component design doc (`*.design.md`) **must** start with this block when a visual preview exists:
+
+```md
+# 预览
+
+!preview-image.png
+
+组件能力示例。查看演示
+```
+
+| Part | Rule |
+|------|------|
+| `h1` | Always `# 预览` (maps to section id `预览`) |
+| Image | One `!filename` line (requires `imageAssetDir` on page config) |
+| Caption | **Exactly** `组件能力示例。查看演示` — same copy for every component; do not customize |
+| `查看演示` | Auto-linked to **开发指南** tab on the same page (not a route change) |
+
+Do not hand-write `<a>` tags or per-page caption variants.
+
+## Typography (frozen)
+
+| Element | Rule |
+|---------|------|
+| Body | `typography-body-small` (16px); `text-rendering: auto` |
+| `h1` | `typography-title-medium` (32px); top margin `scale-10` (0 if first) |
+| `h2` | `typography-title` (24px); margin `spacing-6` (`spacing-3` after `h1`) |
+| `h3` | `typography-body-medium` (18px), weight 500 |
+| `h4` | `typography-body-medium` (18px) |
+| `h5–h6` | weight `typography-body-large-strong` (size inherits from group margin rule) |
+| `strong` | weight 500 (not 700) |
+
+## Block spacing (frozen)
+
+| Element | Top margin |
+|---------|------------|
+| `p` | `spacing-3` |
+| `ul` | `spacing-2` |
+| `ol` | `spacing-2-5` |
+| `table` | `spacing-2` |
+| `blockquote`, `pre`, `hr` | `spacing-3` |
+| `h3–h6` | `spacing-2-5` |
+
+First child in `.markdownBody` → `margin-top: 0`.
+
+## Lists (frozen)
+
+- **No** `padding-left` on `ul` / `ol`
+- **Top-level** — `.markdownBody > ul > li + li`, `.markdownBody > ol > li + li` → `margin-top: spacing-2`
+- **Nested** — `.markdownBody li ul li + li`, `.markdownBody li ol li + li` → `margin-top: spacing-2`
+
+## Inline code (frozen)
+
+- Font: IBM Plex Mono; `typography-footnote-large` (14px)
+- Padding: `1px 6px` (hardcoded); `border-radius: 6px` (hardcoded); `display: inline-block`
+- bg `material-card-moderate`
+- Light: `#006e41` + `color(display-p3 0 0.4314 0.2549)`
+- Dark: `#69b091` + `color(display-p3 0.41 0.69 0.57)`
+
+## Fenced code blocks (frozen)
+
+**Block** (`docs-code-block`): margin `spacing-2` top; `radius-md`; bg `material-card-subtle`
+
+**Chrome** (`docs-code-chrome`): gap `spacing-2`; padding `spacing-2 spacing-1-5 spacing-1-5 spacing-2-5`
+- Lang label: EDS Text (`font-family-text`), `typography-body-medium`
+- Copy: `spacing-05` padding; green check on copy
+
+**Highlighted pre** (inside block): padding `spacing-2 spacing-4 spacing-4` — **no line numbers**
+**Plain pre**: padding `spacing-2`; bg `material-card-subtle`
+**Font**: IBM Plex Mono 14px / 20px lh; `pre-wrap`
+
+Syntax colors: hex fallback + display-p3 canonical pairs in `docMarkdown.module.css` — do not use global CSS or separate theme files.
+
+## Blockquote (frozen)
+
+- `border-left: stroke-xl solid stroke-divider-page`
+- Inner gap: `spacing-05` (flex column); `padding-left: spacing-2`
+- Color: `text-base-secondary`
+
+## Table (frozen)
+
+- Tables render inside `.docs-table-scroll` — `overflow-x: auto`; `max-width: 100%`
+- `table` — `width: max(100%, calc(70 * var(--scale-base)))`; `min-width: calc(70 * var(--scale-base))` (560px); `table-layout: auto`; `border-collapse: collapse`
+- `th, td` — `box-sizing: border-box`; `min-height: scale-5` (40px); `padding: spacing-1 spacing-1-5`; `vertical-align: middle`; `text-align: left`; `white-space: normal`; `overflow-wrap: anywhere`
+- `th, td` font — `typography-footnote-large` (14px)
+- Border (all cells): `stroke-xs solid stroke-outline-deep`
+- `th` only — `background: material-card-shallow`; weight `typography-body-medium-strong`
+- Inline `code` inside `th`/`td` — `display: inline`; wrap like cell text
+- Container narrower than 560px → horizontal scroll via `.docs-table-scroll`
+- `td` — no background override (inherits page)
+
+## HR (frozen)
+
+- `display: none` — markdown `---` separators are not shown
+
+## When adding new docs
+
+1. Write plain `.md` under `src/content/docs/` — **no** inline HTML for styling
+2. Wire content in `navigation.ts` only
+3. If a **new element type** is needed site-wide, extend `docMarkdown.module.css` + `renderMarkdown.ts`, not `DocPageView`

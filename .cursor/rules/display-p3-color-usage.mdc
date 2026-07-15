@@ -1,0 +1,28 @@
+---
+description: Design system colors resolve to display-p3; use CSS variables, not raw hex
+globs: src/**/*
+alwaysApply: false
+---
+
+# Display P3 Color Usage
+
+Color base tokens in `../evergreen-design-system-website/packages/tokens` ship **two declarations per variable**:
+
+```css
+--eds-base: #020304;                                    /* sRGB fallback only */
+--eds-base: color(display-p3 0.0078 0.0118 0.0157);     /* canonical value */
+```
+
+The **display-p3 line is the value to use**. The hex line exists only for browsers without `color(display-p3)` support.
+
+## Rules
+
+- **Always consume colors via CSS variables** (`var(--eds-*)`, `var(--text-*)`, `var(--material-*)`, `var(--effect-*)`). Never copy hex from `spec/` or `dist/` into component CSS.
+- **Semantic / effect mixes** are built with `color-mix(in display-p3, var(--eds-*) …)` so alpha blends stay in the p3 pipeline.
+- **Do not override token variables with sRGB-only hex** unless the surface is an intentional app-shell hardcode (see `hardcoded-shell-colors.mdc`).
+- Shell backgrounds (`--page-background`, `--nav-background`, etc.) also use hex + display-p3 pairs; the p3 line wins when supported.
+
+## Exceptions
+
+- App shell hardcoded backgrounds in `src/styles/global.css` are not design tokens — still follow the same hex-then-p3 pattern.
+- Markdown inline code / syntax highlighting in `src/markdown/docMarkdown.module.css` use frozen hex + display-p3 pairs.

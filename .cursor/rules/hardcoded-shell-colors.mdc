@@ -1,0 +1,20 @@
+---
+description: App shell backgrounds use hardcoded display-p3, not design tokens
+globs: src/styles/**/*
+alwaysApply: false
+---
+
+# Hardcoded Shell Backgrounds
+
+Navigation (AppRail), secondary menu (SectionNav), and page/content shell backgrounds are **design-spec hardcodes**. Do **not** map them to color tokens (`--material-*`, `--box-page`, etc.).
+
+Define them only in `src/styles/global.css` as sRGB fallback + `color(display-p3 …)` (p3 line is canonical):
+
+| Variable | Used by |
+|----------|---------|
+| `--page-background` | `html`, `body`, `#app`, layout shell |
+| `--content-background` | Main content area |
+| `--nav-background` | AppRail |
+| `--section-nav-background` | SectionNav |
+
+When adding light/dark theme values, add explicit hex + display-p3 pairs per theme block. Do not reference `@evergreen/tokens` semantic colors for these four variables.

@@ -1,0 +1,27 @@
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2-5);
+  color: var(--text-base-primary);
+}
+
+.prose :global(h2) {
+  margin: 0;
+  font-size: var(--typography-headline-size);
+  line-height: var(--typography-headline-line-height);
+  font-weight: var(--typography-headline-weight);
+}
+
+.prose :global(h3) {
+  margin: 0;
+  font-size: var(--typography-title-size);
+  line-height: var(--typography-title-line-height);
+  font-weight: var(--typography-title-weight);
+}
+
+.prose :global(p) {
+  margin: 0;
+  font-size: var(--typography-body-medium-size);
+  line-height: var(--typography-body-medium-line-height);
+  font-weight: var(--typography-body-medium-weight);
+}
