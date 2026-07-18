@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -15,11 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: evergreen-design-system-doc
     steps:
       - name: Checkout doc site
         uses: actions/checkout@v4
@@ -51,25 +48,18 @@ jobs:
           pnpm build:tokens
 
       - name: Install doc dependencies
+        working-directory: evergreen-design-system-doc
         run: pnpm install --frozen-lockfile
 
       - name: Build doc site
+        working-directory: evergreen-design-system-doc
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
         run: pnpm build
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: evergreen-design-system-doc/dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: evergreen-design-system-doc/dist
+          force_orphan: true

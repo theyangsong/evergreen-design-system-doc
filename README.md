@@ -73,8 +73,10 @@ pnpm dev
 
 ### 前置条件
 
-1. 仓库 **Settings → Pages → Build and deployment** 选择 **GitHub Actions**
-2. 同级仓库 **`evergreen-design-system-website`** 需存在于同一 GitHub 账户（CI 用于构建 `@evergreen/tokens`）
+1. 仓库 **Settings → Pages → Build and deployment** 选 **Deploy from a branch**，Branch 选 **gh-pages** / **/ (root)**（首次 workflow 跑完会自动创建 `gh-pages` 分支）
+2. 同级仓库 **`evergreen-design-system-website`** 需在同一 GitHub 账户（CI 构建 `@evergreen/tokens`）
+
+推送 `main` 后 workflow **自动运行**，无需手动触发或 Environment 审批。
 
 本地模拟 Pages 构建：
 
