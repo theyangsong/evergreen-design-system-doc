@@ -6,6 +6,7 @@
 export {
   COPIED_ICON_SVG,
   COPY_ICON_SVG,
+  getDocsMediaUrlPrefix,
   renderMarkdown,
   type MarkdownSectionIds,
 } from './renderMarkdown';

@@ -97,13 +97,30 @@ function normalizeSectionTitle(text: string): string {
   return text.replace(/^\d+\.\s*/, '').trim();
 }
 
+/** Public URL prefix for media in `public/docs/` (includes Vite `base` on GitHub Pages). */
+export function getDocsMediaUrlPrefix(): string {
+  const base = import.meta.env.BASE_URL ?? '/';
+  const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+  return `${normalizedBase}docs/`;
+}
+
+function rewriteHardcodedDocsMediaUrls(markdown: string): string {
+  const prefix = getDocsMediaUrlPrefix();
+  if (prefix === '/docs/') {
+    return markdown;
+  }
+
+  return markdown.replace(/\/docs\//g, prefix);
+}
+
 function preprocessMarkdown(markdown: string, imageAssetDir?: string): string {
   let result = markdown;
+  const docsPrefix = getDocsMediaUrlPrefix();
 
   if (imageAssetDir) {
     result = result.replace(/^!(.+)$/gm, (_, filename: string) => {
       const trimmed = filename.trim();
-      const url = `/docs/${imageAssetDir}/${trimmed}`;
+      const url = `${docsPrefix}${imageAssetDir}/${trimmed}`;
       if (/\.(mp4|webm|mov)$/i.test(trimmed)) {
         return `<video src="${url}" controls playsinline></video>`;
       }
@@ -116,7 +133,7 @@ function preprocessMarkdown(markdown: string, imageAssetDir?: string): string {
     '组件能力示例。<a href="#doc-develop" class="docs-develop-link" data-doc-develop-link>查看演示</a>',
   );
 
-  return result;
+  return rewriteHardcodedDocsMediaUrls(result);
 }
 
 function resolveHeadingId(
@@ -137,8 +154,9 @@ function appendMediaCacheBust(html: string, cacheBust?: string): string {
   }
 
   const suffix = `?v=${encodeURIComponent(cacheBust)}`;
+  const docsPrefix = getDocsMediaUrlPrefix().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return html.replace(
-    /((?:src|href)=(["']))(\/docs\/[^"'?#]+)\2/g,
+    new RegExp(`((?:src|href)=(["']))(${docsPrefix}[^"'?#]+)\\2`, 'g'),
     `$1$3${suffix}$2`,
   );
 }
