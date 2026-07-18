@@ -5,10 +5,14 @@ import styles from './PersonAvatar.module.css';
 
 const props = defineProps<{
   name: string;
+  /** Shifts palette index when multiple people share one meta row. */
+  paletteOffset?: number;
 }>();
 
 const initial = computed(() => getPersonInitial(props.name));
-const backgroundColor = computed(() => getAvatarColor(props.name));
+const backgroundColor = computed(() =>
+  getAvatarColor(props.name, props.paletteOffset ?? 0),
+);
 </script>
 
 <template>
@@ -18,6 +22,6 @@ const backgroundColor = computed(() => getAvatarColor(props.name));
     role="img"
     :aria-label="`${name} avatar`"
   >
-    {{ initial }}
+    <span :class="styles.initial">{{ initial }}</span>
   </span>
 </template>

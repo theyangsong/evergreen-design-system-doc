@@ -3,6 +3,9 @@
  * to EverGreen Design System (Website) semantic tokens.
  */
 :root {
+  --event-focus-primary: var(--event-focus-brand);
+  --event-focus-secondary: var(--event-focus);
+
   --typography-display-size: var(--typography-display-small-size);
   --typography-display-weight: var(--typography-display-small-weight);
   --typography-display-line-height: var(--typography-display-small-line-height);

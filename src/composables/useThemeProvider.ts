@@ -5,6 +5,7 @@ import {
   toggleTheme as toggleThemeMode,
   type ThemeMode,
 } from './useTheme';
+import { reapplyCurrentBrand } from './useBrand';
 
 const theme: Ref<ThemeMode> = ref('light');
 let initialized = false;
@@ -33,10 +34,12 @@ export function useThemeProvider() {
   function setTheme(next: ThemeMode) {
     theme.value = next;
     applyTheme(next);
+    reapplyCurrentBrand();
   }
 
   function toggleTheme() {
     theme.value = toggleThemeMode(theme.value);
+    reapplyCurrentBrand();
   }
 
   return { theme, setTheme, toggleTheme };

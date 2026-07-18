@@ -9,6 +9,10 @@ function isPersonMetaField(label: string): boolean {
   return PERSON_META_LABELS.has(label);
 }
 
+function isIdMetaField(label: string): boolean {
+  return label === 'ID';
+}
+
 defineProps<{
   fields: DocMetaField[];
 }>();
@@ -33,11 +37,18 @@ defineProps<{
             {{ field.value }}
           </template>
           <span v-else :class="styles.personList">
-            <span v-for="name in parsePersonList(field.value)" :key="name" :class="styles.person">
-              <PersonAvatar :name="name" />
+            <span
+              v-for="(name, index) in parsePersonList(field.value)"
+              :key="name"
+              :class="styles.person"
+            >
+              <PersonAvatar :name="name" :palette-offset="index" />
               <span>{{ name }}</span>
             </span>
           </span>
+        </template>
+        <template v-else-if="isIdMetaField(field.label)">
+          <code :class="styles.idCode">{{ field.value }}</code>
         </template>
         <template v-else>
           {{ field.value }}

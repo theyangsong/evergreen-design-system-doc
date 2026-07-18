@@ -1,0 +1,70 @@
+---
+description: Component doc naming — slug, meta 名称, ID eds-{prefix}-{slug}; nav label may differ
+globs: src/content/docs/**,scripts/scaffold-component-doc.mjs,src/config/navigation.ts
+alwaysApply: false
+---
+
+# Component Doc Naming (冻结)
+
+侧栏 **中文菜单名** 与 **组件英文名 / 目录 / ID** 分离。新建或迁移组件文档时必须遵守。
+
+## 三者对应关系
+
+| 概念 | 规则 | 示例 |
+|------|------|------|
+| **组件名**（meta **名称**） | 英文 Pascal / Title Case，与 slug 语义一致 | `Data Submission` |
+| **目录 / 路由 slug** | 组件名的 **kebab-case**，= 文件夹名 = URL 最后一段 | `data-submission` → `/scenes/data-submission` |
+| **组件 ID**（meta **ID**） | `eds-{导航模块缩写}-{slug}` | `eds-biz-data-submission` |
+
+**slug 永远等于组件名的 kebab-case，不要用中文菜单名或临时描述作目录名。**
+
+反例（禁止）：菜单「复合型数据提交引擎」→ 目录 `composite-data-submit`；组件名已是 `Data Submission` 时应为 `data-submission`。
+
+## ID 前缀（AppRail / sectionId）
+
+| sectionId | 前缀 | meta 类型 | AppRail 层级名 |
+|-----------|------|-----------|----------------|
+| `atoms` | `vars` | 全局变量 | 原子 |
+| `molecules` | `mol` | 基础组件 | 分子 |
+| `organisms` | `org` | 基础组件 | 模块 |
+| `templates` | `tmpl` | 基础组件 | 结构 |
+| `scenes` | `biz` | 业务组件 | 场景化 |
+| `motion` | `motion` | Motion | 动效 |
+
+扩展：`pg` = Pages，`biz` = Business Components（与 scenes 一致）。
+
+默认 ID：`eds-{prefix}-{slug}` — scaffold 已自动生成，**仅当 slug 正确时可省略 `--id`**。
+
+## 导航菜单
+
+`navigation.ts` 里 `label` 可为中文产品名；`to` 必须指向 `/{sectionId}/{slug}`，slug 仍按组件英文名。
+
+```ts
+{ label: '复合型数据提交引擎', to: '/scenes/data-submission' },
+```
+
+## 简介页（非组件）
+
+如「了解场景化」「了解分子」— 由 `navigation.ts` `page()` 生成，meta ID 为 `—`，**不适用**上述 ID 规则。
+
+## Scaffold 命令模板
+
+```bash
+pnpm scaffold:doc scenes data-submission "Data Submission" --preview
+# → ID 默认 eds-biz-data-submission
+# → src/content/docs/scenes/data-submission/
+# → public/docs/scenes/data-submission/
+```
+
+```bash
+pnpm scaffold:doc organisms nav-bar "NavBar" --preview
+# → eds-org-nav-bar
+```
+
+## 检查清单
+
+1. `title`（名称）= 英文组件名
+2. `slug` = `title` 的 kebab-case
+3. `path` / 目录 / `imageAssetDir` 均含同一 slug
+4. `ID` = `eds-{prefix}-{slug}`
+5. 侧栏 `label` 中文可独立，但 `to` 路径 slug 不变

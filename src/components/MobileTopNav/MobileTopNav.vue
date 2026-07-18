@@ -103,7 +103,7 @@ onBeforeUnmount(() => {
           :aria-label="`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`"
           @click="toggleTheme"
         >
-          <EdsIcon name="light" :class="styles.themeIcon" />
+          <EdsIcon name="thematic" :class="styles.themeIcon" />
         </button>
       </div>
     </div>

@@ -5,7 +5,7 @@
   gap: var(--spacing-4);
   width: 100%;
   padding: var(--spacing-2-5) var(--spacing-3);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   background: var(--material-card-shallow);
 }
 
@@ -31,6 +31,25 @@
   line-height: var(--typography-footnote-large-line-height);
   font-weight: var(--typography-footnote-large-strong-weight);
   white-space: nowrap;
+}
+
+/* Match docMarkdown inline code — frozen: 1px 6px, radius 6px */
+.idCode {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--material-card-moderate);
+  color: #006D42;
+  color: color(display-p3 0 0.4275 0.2588);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: var(--typography-footnote-large-size);
+  line-height: var(--typography-footnote-large-line-height);
+  font-weight: var(--typography-footnote-large-weight);
+}
+
+[data-theme='dark'] .idCode {
+  color: #69b091;
+  color: color(display-p3 0.4118 0.6902 0.5686);
 }
 
 .personList {

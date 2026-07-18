@@ -1,16 +1,33 @@
 /* Person avatar — frozen. See .cursor/rules/person-avatar.mdc */
 
 .avatar {
+  position: relative;
   display: inline-flex;
   flex: none;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   box-sizing: border-box;
   width: 16px;
   height: 16px;
   border-radius: var(--radius-full);
+}
+
+/* 2× render + scale(0.5) — crisp ~8px initial on retina / subpixel layouts */
+.initial {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 32px;
+  height: 32px;
   color: var(--text-same-white-primary);
-  font: 600 8px/1 var(--font-family-text);
+  font: 600 16px/1 var(--font-family-text);
   letter-spacing: 0;
   text-transform: uppercase;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

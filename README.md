@@ -64,3 +64,21 @@ pnpm dev
 | `pnpm dev` | 开发服务器 + 监听 website tokens |
 | `pnpm build` | 生产构建 |
 | `pnpm typecheck` | TypeScript 检查 |
+
+## GitHub Pages
+
+推送 `main` 分支后，[Deploy GitHub Pages](.github/workflows/deploy-pages.yml) 会自动构建并发布：
+
+**https://\<username\>.github.io/evergreen-design-system-doc/**
+
+### 前置条件
+
+1. 仓库 **Settings → Pages → Build and deployment** 选择 **GitHub Actions**
+2. 同级仓库 **`evergreen-design-system-website`** 需存在于同一 GitHub 账户（CI 用于构建 `@evergreen/tokens`）
+
+本地模拟 Pages 构建：
+
+```bash
+VITE_BASE_PATH=/evergreen-design-system-doc/ pnpm build
+pnpm preview
+```

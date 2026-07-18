@@ -1,5 +1,5 @@
-import colorSystemDesignContent from '@/content/docs/atoms/color-system.design.md?raw';
-import dataListDesignContent from '@/content/docs/organisms/data-list.design.md?raw';
+import { componentDocPages } from '@/content/docs/registry';
+import type { DocContentBundle } from '@/content/docPage';
 
 export type PrimaryNavItem =
   | { type: 'link'; id: string; label: string; icon: string; to: string }
@@ -40,6 +40,8 @@ export type DocPageConfig = {
   defaultContent?: string;
   /** Public asset dir under `/docs/` for `!filename.png` shorthand, e.g. `organisms/data-list` */
   imageAssetDir?: string;
+  /** Per-platform markdown bundles for component doc pages */
+  bundles?: DocContentBundle;
 };
 
 const DEFAULT_DESIGN_SECTION_TITLES = [
@@ -69,20 +71,6 @@ function createDesignSections(): DocPageSection[] {
   }));
 }
 
-function createDesignSectionsFromTitles(
-  titles: readonly string[],
-  options?: { leadingPreview?: boolean },
-): DocPageSection[] {
-  return titles.map((title, index) => {
-    if (options?.leadingPreview && index === 0) {
-      return { id: 'design-section-preview', title };
-    }
-
-    const sectionIndex = options?.leadingPreview ? index : index + 1;
-    return { id: `design-section-${sectionIndex}`, title };
-  });
-}
-
 function createDevelopSectionTitle(index: number): string {
   const number = index + 1;
   return number % 2 === 1 ? `开发定义 ${number}` : `开发单位 ${number}`;
@@ -98,57 +86,10 @@ function createDevelopSections(): DocPageSection[] {
 const defaultDesignSections = createDesignSections();
 const defaultDevelopSections = createDevelopSections();
 
-const COLOR_SYSTEM_DESIGN_SECTION_TITLES = [
-  '定位',
-  '设计决策与演进',
-  '使用者指南',
-  '变量映射管理',
-  '变体与状态系统',
-  '交互与视觉行为',
-  '数据模型与逻辑',
-  '使用规范',
-  '开发实现',
-  '组合与依赖关系',
-  '无障碍',
-  '性能限制',
-  '边界情况',
-  '拓展性',
-  '生命周期与版本管理',
-] as const;
-
-const colorSystemDesignSections: DocPageSection[] =
-  COLOR_SYSTEM_DESIGN_SECTION_TITLES.map((title, index) => ({
-    id: `design-section-${index + 1}`,
-    title,
-  }));
-
-const DATA_LIST_DESIGN_SECTION_TITLES = [
-  '预览',
-  '定位',
-  '设计决策与演进',
-  '使用者指南',
-  '结构拆解',
-  '变体与状态系统',
-  '交互行为',
-  '数据模型与逻辑',
-  '使用规范',
-  '开发实现',
-  '组合与依赖关系',
-  '无障碍',
-  '性能限制',
-  '边界',
-  '拓展性',
-  '生命周期与版本管理',
-] as const;
-
-const dataListDesignSections = createDesignSectionsFromTitles(
-  DATA_LIST_DESIGN_SECTION_TITLES,
-  { leadingPreview: true },
-);
-
 export const primaryNav: PrimaryNavItem[] = [
   { type: 'link', id: 'explore', label: '探索', icon: 'book', to: '/explore' },
   { type: 'link', id: 'started', label: '开始', icon: 'tree', to: '/started' },
+  { type: 'link', id: 'motion', label: '动效', icon: 'motion', to: '/motion' },
   { type: 'divider', id: 'divider-main' },
   { type: 'link', id: 'atoms', label: '原子', icon: 'atoms', to: '/atoms' },
   { type: 'link', id: 'molecules', label: '分子', icon: 'molecules', to: '/molecules' },
@@ -188,6 +129,32 @@ export const sectionNavById: Record<string, SectionNavConfig> = {
         items: [
           { label: '快速接入', to: '/started/quick-start' },
           { label: '运营与维护', to: '/started/operations' },
+        ],
+      },
+    ],
+  },
+  motion: {
+    title: '动效',
+    groups: [
+      {
+        title: '基础',
+        items: [
+          { label: '淡入淡出', to: '/motion/fade' },
+          { label: '位移', to: '/motion/translate' },
+          { label: '时间轴', to: '/motion/timeline' },
+          { label: '缓动', to: '/motion/easing' },
+          { label: '数值变化', to: '/motion/value-change' },
+          { label: 'SVG线性动画', to: '/motion/svg-linear' },
+          { label: 'SVG形变动画', to: '/motion/svg-morph' },
+          { label: '路径动画', to: '/motion/path-motion' },
+        ],
+      },
+      {
+        title: '封装',
+        items: [
+          { label: '页面切换', to: '/motion/page-transition' },
+          { label: '抽屉展开与折叠', to: '/motion/drawer' },
+          { label: '块位移', to: '/motion/block-translate' },
         ],
       },
     ],
@@ -297,7 +264,7 @@ export const sectionNavById: Record<string, SectionNavConfig> = {
       {
         title: '场景化',
         items: [
-          { label: '复合型数据提交引擎', to: '/scenes/composite-data-submit' },
+          { label: '复合型数据提交引擎', to: '/scenes/data-submission' },
           { label: '资产发送', to: '/scenes/asset-send' },
           { label: '资产接收', to: '/scenes/asset-receive' },
           { label: '审批流程', to: '/scenes/approval-flow' },
@@ -365,44 +332,12 @@ function buildDocPages(): Record<string, DocPageConfig> {
 
 export const docPages: Record<string, DocPageConfig> = {
   ...buildDocPages(),
-  '/atoms/color-system': page('atoms', 'Color System', {
-    description:
-      'Color System 是 EverGreen Design System 的基础视觉层，用于定义所有 UI 组件的颜色表达规则，并通过 Token 化方式确保跨设计与开发的一致性。',
-    meta: [
-      { label: '名称', value: 'Color System' },
-      { label: 'ID', value: 'eds-vars-color-system' },
-      { label: '类型', value: 'Variables' },
-      { label: '状态', value: 'Enable' },
-      { label: '版本', value: 'v1.1' },
-      { label: '维护', value: 'EDS Yang' },
-      { label: '贡献', value: 'EDS Yang、Dev.' },
-      { label: '最后更新', value: '2026/6/1' },
-    ],
-    designSections: colorSystemDesignSections,
-    designContent: colorSystemDesignContent,
-    imageAssetDir: 'color-system',
-  }),
-  '/organisms/data-list': page('organisms', 'Data List', {
-    description:
-      'eds-org-data-list 是一个响应式只读数据列表，用于在固定宽度容器内展示结构化数据，支持多选、批处理、列排序与渐进式响应式适配。',
-    meta: [
-      { label: '名称', value: 'Data List' },
-      { label: 'ID', value: 'eds-org-data-list' },
-      { label: '类型', value: 'Organisms' },
-      { label: '状态', value: 'Enable' },
-      { label: '版本', value: 'v1.0' },
-      { label: '维护', value: 'EDS Yang' },
-      { label: '贡献', value: 'EDS Yang、Jojo、Sam、Dev.' },
-      { label: '最后更新', value: '2026/6/9' },
-    ],
-    designSections: dataListDesignSections,
-    designContent: dataListDesignContent,
-    imageAssetDir: 'organisms/data-list',
-  }),
+  ...componentDocPages,
 };
 
 export const sectionDefaultRoute: Record<string, string> = {
   started: '/started/overview',
+  motion: '/motion/fade',
   atoms: '/atoms/color-system',
   molecules: '/molecules/overview',
   organisms: '/organisms/overview',
@@ -412,6 +347,27 @@ export const sectionDefaultRoute: Record<string, string> = {
 
 export function getSectionTitle(sectionId: string): string | undefined {
   return sectionNavById[sectionId]?.title;
+}
+
+/** Insert 层级 (AppRail section title) between 类型 and 状态. */
+export function resolveDocMetaFields(
+  fields: DocMetaField[] | undefined,
+  sectionId: string,
+): DocMetaField[] | undefined {
+  if (!fields?.length) {
+    return fields;
+  }
+
+  const tier = getSectionTitle(sectionId) ?? '—';
+  const withoutTier = fields.filter((field) => field.label !== '层级');
+  const typeIndex = withoutTier.findIndex((field) => field.label === '类型');
+  const insertAt = typeIndex >= 0 ? typeIndex + 1 : withoutTier.length;
+
+  return [
+    ...withoutTier.slice(0, insertAt),
+    { label: '层级', value: tier },
+    ...withoutTier.slice(insertAt),
+  ];
 }
 
 export function getDocPage(path: string): DocPageConfig | undefined {

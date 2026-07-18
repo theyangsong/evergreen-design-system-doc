@@ -1,0 +1,118 @@
+.root {
+  display: flex;
+  flex: none;
+  flex-shrink: 0;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--spacing-05);
+  width: max-content;
+  min-height: var(--scale-5);
+  margin-bottom: var(--spacing-4);
+  padding: 0;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.buttonWrap {
+  position: relative;
+  display: flex;
+  flex: none;
+  overflow: visible;
+}
+
+.button {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--scale-5);
+  height: var(--scale-5);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  appearance: none;
+  background-color: transparent;
+  color: var(--stroke-base-secondary);
+  cursor: pointer;
+  transition:
+    background-color var(--eds-hover-transition-duration) ease,
+    outline-color var(--eds-hover-transition-duration) ease;
+}
+
+.button:hover:not(.buttonActive) {
+  background-color: var(--event-hover);
+}
+
+.button:focus-visible:not(.buttonActive) {
+  background-color: var(--event-focus-secondary);
+  outline: var(--stroke-lg) solid var(--event-focus-primary);
+  outline-offset: 2px;
+}
+
+.button:focus-visible {
+  outline: var(--stroke-lg) solid var(--event-focus-primary);
+  outline-offset: 2px;
+}
+
+.buttonActive {
+  background-color: color-mix(in srgb, var(--material-brand-primary) 12%, transparent);
+}
+
+.icon {
+  width: var(--icon-md);
+  height: var(--icon-md);
+}
+
+.icon :global(path[stroke]),
+.icon :global(circle[stroke]),
+.icon :global(rect[stroke]) {
+  stroke: var(--stroke-base-secondary);
+}
+
+.buttonActive .icon :global(path[stroke]),
+.buttonActive .icon :global(circle[stroke]),
+.buttonActive .icon :global(rect[stroke]) {
+  stroke: var(--stroke-base-secondary);
+}
+
+.tooltip {
+  position: absolute;
+  top: calc(100% + var(--spacing-1));
+  left: 50%;
+  z-index: 10;
+  display: flex;
+  gap: var(--spacing-05);
+  padding: var(--spacing-1);
+  border: var(--stroke-xs) solid var(--stroke-outline-subtle);
+  border-radius: var(--radius-md);
+  background: var(--box-page);
+  box-shadow: var(--effect-shadow-subtle);
+  color: var(--text-base-primary);
+  font-size: var(--typography-footnote-medium-strong-size);
+  line-height: var(--typography-footnote-medium-strong-line-height);
+  font-weight: var(--typography-footnote-medium-strong-weight);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, calc(-1 * var(--spacing-05)));
+  transition:
+    opacity var(--eds-motion-hover-duration) var(--eds-motion-ease-standard),
+    transform var(--eds-motion-hover-duration) var(--eds-motion-ease-standard);
+}
+
+.buttonWrap:hover .tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transition: none;
+    transform: translate(-50%, 0);
+  }
+
+  .buttonWrap:hover .tooltip {
+    transform: translate(-50%, 0);
+  }
+}

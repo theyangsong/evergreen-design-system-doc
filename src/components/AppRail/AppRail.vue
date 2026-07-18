@@ -73,7 +73,7 @@ function iconName(id: string): EdsIconName {
         :aria-label="`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`"
         @click="toggleTheme"
       >
-        <EdsIcon name="light" :class="styles.themeIcon" />
+        <EdsIcon :name="iconName('theme')" :class="styles.themeIcon" />
       </button>
     </div>
   </aside>

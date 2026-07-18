@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { rescanCornerSmoothing } from '@evergreen/tokens/corner-smoothing';
-import { formatBrandColor, type BrandId } from '@/config/brands';
+import {
+  formatBrandColor,
+  getBrandDisplayP3,
+  type BrandDefinition,
+  type BrandId,
+} from '@/config/brands';
 import { useBrand } from '@/composables/useBrand';
+import { useThemeProvider } from '@/composables/useThemeProvider';
 import styles from './BrandSwitcher.module.css';
 
 const open = ref(false);
@@ -11,6 +17,7 @@ const triggerRef = ref<HTMLButtonElement | null>(null);
 const popoverRef = ref<HTMLElement | null>(null);
 const popoverStyle = ref<{ top: string; left: string }>({ top: '0px', left: '0px' });
 const { brandId, setBrand, brands } = useBrand();
+const { theme } = useThemeProvider();
 
 function updatePopoverPosition() {
   if (!triggerRef.value) {
@@ -20,7 +27,7 @@ function updatePopoverPosition() {
   const rect = triggerRef.value.getBoundingClientRect();
 
   popoverStyle.value = {
-    top: `${rect.top + rect.height / 2}px`,
+    top: `${rect.bottom}px`,
     left: `${rect.right}px`,
   };
 }
@@ -35,8 +42,8 @@ function selectBrand(id: BrandId) {
   open.value = false;
 }
 
-function swatchStyle(displayP3: [number, number, number]) {
-  return { background: formatBrandColor(displayP3) };
+function swatchStyle(brand: BrandDefinition) {
+  return { background: formatBrandColor(getBrandDisplayP3(brand, theme.value)) };
 }
 
 watch(open, (isOpen) => {
@@ -97,14 +104,8 @@ onUnmounted(() => {
         aria-label="Brand"
         @click.stop
       >
-        <div class="effect-flotation-box" :class="styles.menu">
-          <div class="effect-flotation-box__bg" aria-hidden="true">
-            <div class="effect-flotation-box__fill" />
-            <div class="effect-flotation-box__shadow-glow" />
-            <div class="effect-flotation-box__glass" />
-            <div class="effect-flotation-box__glass-shadow" />
-          </div>
-          <ul class="effect-flotation-box__content" :class="styles.list">
+        <div :class="styles.menu">
+          <ul :class="styles.list">
             <li v-for="brand in brands" :key="brand.id" :class="styles.listItem">
               <button
                 type="button"
@@ -113,7 +114,7 @@ onUnmounted(() => {
                 :aria-selected="brandId === brand.id"
                 @click="selectBrand(brand.id)"
               >
-                <span :class="styles.swatch" :style="swatchStyle(brand.displayP3)" />
+                <span :class="styles.swatch" :style="swatchStyle(brand)" />
                 <span :class="styles.label">{{ brand.label }}</span>
               </button>
             </li>

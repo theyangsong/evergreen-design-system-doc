@@ -5,12 +5,14 @@
   "description": "EverGreen Design System documentation site — consumes Website tokens",
   "type": "module",
   "scripts": {
-    "predev": "pnpm --dir ../evergreen-design-system-website build:tokens",
+    "sync:favicon": "cp src/assets/icons/favicon.svg public/favicon.svg",
+    "predev": "pnpm sync:favicon && pnpm --dir ../evergreen-design-system-website build:tokens",
     "dev": "vite",
-    "prebuild": "pnpm --dir ../evergreen-design-system-website build:tokens",
-    "build": "vue-tsc --noEmit && vite build",
+    "prebuild": "pnpm sync:favicon && pnpm --dir ../evergreen-design-system-website build:tokens",
+    "build": "vue-tsc --noEmit && vite build && cp dist/index.html dist/404.html",
     "preview": "vite preview",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "scaffold:doc": "node scripts/scaffold-component-doc.mjs"
   },
   "dependencies": {
     "@blocksuite/blocks": "0.19.5",

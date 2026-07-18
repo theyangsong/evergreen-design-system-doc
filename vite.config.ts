@@ -82,11 +82,7 @@ export default defineConfig(({ mode }) => ({
       allow: [projectRoot, websiteRepoRoot],
     },
     watch: {
-      ignored: [
-        '**/.git/**',
-        '**/node_modules/**',
-        '**/packages/tokens/dist/**',
-      ],
+      ignored: ['**/.git/**', '**/node_modules/**'],
     },
   },
 }));

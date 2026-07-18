@@ -100,22 +100,11 @@
   line-height: 1.4;
 }
 
-.footerLinks {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-4);
-  pointer-events: auto;
-}
-
-.footerLink {
+.footerCopyright {
+  margin: 0;
   color: rgba(255, 255, 255, 0.55);
   font-size: 12px;
   font-weight: 500;
   line-height: 1.4;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.footerLink:hover {
-  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
 }

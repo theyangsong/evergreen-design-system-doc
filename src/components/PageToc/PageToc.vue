@@ -10,6 +10,7 @@ import {
 import { useRoute, useRouter } from 'vue-router';
 import { pageHeaderIcons } from '@/assets/icons';
 import EdsIcon from '@/components/EdsIcon/EdsIcon.vue';
+import type { DocMode } from '@/content/docPage';
 import { useScrollSpy } from '@/composables/useScrollSpy';
 import { usePreventScrollChaining } from '@/composables/usePreventScrollChaining';
 import { waitForIndicatorPaint } from '@/motion/waitForIndicatorPaint';
@@ -20,7 +21,7 @@ const props = defineProps<{
   items: Array<{ id: string; label: string }>;
 }>();
 
-const mode = defineModel<'design' | 'develop'>('mode', { default: 'design' });
+const mode = defineModel<DocMode>('mode', { default: 'design' });
 
 const route = useRoute();
 const router = useRouter();
@@ -30,7 +31,7 @@ const { activeId, resetActive } = useScrollSpy(sectionIds);
 
 const listRef = ref<HTMLElement | null>(null);
 const tocBlockRef = ref<HTMLElement | null>(null);
-const toggleRef = ref<HTMLElement | null>(null);
+const modeToggleRef = ref<HTMLElement | null>(null);
 const designButtonRef = ref<HTMLElement | null>(null);
 const developButtonRef = ref<HTMLElement | null>(null);
 
@@ -41,12 +42,12 @@ const indicatorTop = ref(0);
 const indicatorHeight = ref(0);
 const indicatorVisible = ref(false);
 const indicatorMoveTransition = ref(true);
-const toggleIndicatorLeft = ref(0);
-const toggleIndicatorWidth = ref(0);
-const toggleIndicatorVisible = ref(false);
-const toggleIndicatorMoveTransition = ref(true);
+const modeIndicatorLeft = ref(0);
+const modeIndicatorWidth = ref(0);
+const modeIndicatorVisible = ref(false);
+const modeIndicatorMoveTransition = ref(true);
 let resizeObserver: ResizeObserver | undefined;
-let toggleResizeObserver: ResizeObserver | undefined;
+let modeToggleResizeObserver: ResizeObserver | undefined;
 
 function setLinkRef(id: string, element: Element | null) {
   if (element instanceof HTMLElement) {
@@ -105,55 +106,55 @@ async function updateIndicator(
   indicatorVisible.value = true;
 }
 
-function getActiveToggleButton() {
+function getActiveModeButton() {
   return mode.value === 'design' ? designButtonRef.value : developButtonRef.value;
 }
 
-function syncToggleIndicatorPosition() {
-  const button = getActiveToggleButton();
+function syncModeIndicatorPosition() {
+  const button = getActiveModeButton();
 
   if (!button) {
-    toggleIndicatorVisible.value = false;
+    modeIndicatorVisible.value = false;
     return;
   }
 
-  toggleIndicatorLeft.value = button.offsetLeft;
-  toggleIndicatorWidth.value = button.offsetWidth;
-  toggleIndicatorVisible.value = true;
+  modeIndicatorLeft.value = button.offsetLeft;
+  modeIndicatorWidth.value = button.offsetWidth;
+  modeIndicatorVisible.value = true;
 }
 
-async function updateToggleIndicator(
-  options: { animateMove?: boolean; previousMode?: 'design' | 'develop' | '' } = {},
+async function updateModeIndicator(
+  options: { animateMove?: boolean; previousMode?: DocMode | '' } = {},
 ) {
   const { animateMove = true, previousMode = '' } = options;
 
   await nextTick();
 
-  if (!getActiveToggleButton()) {
-    toggleIndicatorMoveTransition.value = false;
-    toggleIndicatorVisible.value = false;
+  if (!getActiveModeButton()) {
+    modeIndicatorMoveTransition.value = false;
+    modeIndicatorVisible.value = false;
     return;
   }
 
   const isFirstAppearance = !previousMode;
 
-  toggleIndicatorMoveTransition.value = animateMove && !isFirstAppearance;
+  modeIndicatorMoveTransition.value = animateMove && !isFirstAppearance;
 
-  if (toggleIndicatorMoveTransition.value) {
+  if (modeIndicatorMoveTransition.value) {
     await nextTick();
     await waitForIndicatorPaint();
   }
 
-  syncToggleIndicatorPosition();
+  syncModeIndicatorPosition();
 
   if (isFirstAppearance) {
-    toggleIndicatorVisible.value = false;
+    modeIndicatorVisible.value = false;
     await nextTick();
-    toggleIndicatorVisible.value = true;
+    modeIndicatorVisible.value = true;
     return;
   }
 
-  toggleIndicatorVisible.value = true;
+  modeIndicatorVisible.value = true;
 }
 
 function scrollToSection(event: MouseEvent, id: string) {
@@ -172,7 +173,7 @@ function scrollToSection(event: MouseEvent, id: string) {
 watch(mode, (_nextMode, previousMode) => {
   resetActive();
   indicatorVisible.value = false;
-  void updateToggleIndicator({
+  void updateModeIndicator({
     animateMove: Boolean(previousMode),
     previousMode: previousMode ?? '',
   });
@@ -194,7 +195,7 @@ watch(
 
 onMounted(() => {
   void updateIndicator({ animateMove: false, previousActiveId: '' });
-  void updateToggleIndicator({ animateMove: false, previousMode: '' });
+  void updateModeIndicator({ animateMove: false, previousMode: '' });
 
   if (listRef.value) {
     resizeObserver = new ResizeObserver(() => {
@@ -203,24 +204,24 @@ onMounted(() => {
     resizeObserver.observe(listRef.value);
   }
 
-  if (toggleRef.value) {
-    toggleResizeObserver = new ResizeObserver(() => {
-      syncToggleIndicatorPosition();
+  if (modeToggleRef.value) {
+    modeToggleResizeObserver = new ResizeObserver(() => {
+      syncModeIndicatorPosition();
     });
-    toggleResizeObserver.observe(toggleRef.value);
+    modeToggleResizeObserver.observe(modeToggleRef.value);
   }
 });
 
 onBeforeUnmount(() => {
   resizeObserver?.disconnect();
-  toggleResizeObserver?.disconnect();
+  modeToggleResizeObserver?.disconnect();
 });
 </script>
 
 <template>
   <aside :class="styles.sidebar" aria-label="Page sidebar">
     <div
-      ref="toggleRef"
+      ref="modeToggleRef"
       :class="styles.toggle"
       role="tablist"
       aria-label="Content mode"
@@ -228,12 +229,12 @@ onBeforeUnmount(() => {
       <div
         :class="[
           styles.toggleIndicator,
-          toggleIndicatorVisible && styles.toggleIndicatorVisible,
-          toggleIndicatorMoveTransition && styles.toggleIndicatorMove,
+          modeIndicatorVisible && styles.toggleIndicatorVisible,
+          modeIndicatorMoveTransition && styles.toggleIndicatorMove,
         ]"
         :style="{
-          transform: `translateX(${toggleIndicatorLeft}px)`,
-          width: `${toggleIndicatorWidth}px`,
+          transform: `translateX(${modeIndicatorLeft}px)`,
+          width: `${modeIndicatorWidth}px`,
         }"
         aria-hidden="true"
       />

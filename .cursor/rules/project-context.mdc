@@ -59,8 +59,15 @@ Projects/
 - Common sizes: 14px `footnote-large`, 16px `body-small`, 18px `body-medium`, 24px `title`, 32px `title-medium`, 64px `headline-large`.
 - Inline code: hardcoded `1px 6px` + `border-radius: 6px`.
 
+## Component doc naming
+
+- **目录 slug** = 组件英文名（meta **名称**）的 kebab-case，如 `Data Submission` → `data-submission`
+- **ID** = `eds-{prefix}-{slug}`（vars / mol / org / tmpl / biz …）
+- 侧栏 **中文 label** 可与组件名不同；路由仍用 slug。详见 `component-doc-naming.mdc`
+
 ## Frozen rule files
 
 - `website-token-dependency.mdc` — website 三包边界
+- `component-doc-naming.mdc` — 组件文档 slug / 名称 / ID
 - `doc-markdown.mdc`, `docs-layout-molde-shadow.mdc`, `person-avatar.mdc`
 - `hardcoded-shell-colors.mdc`, `corner-smoothing.mdc`, `display-p3-color-usage.mdc`, `no-text-break-on-nav.mdc`

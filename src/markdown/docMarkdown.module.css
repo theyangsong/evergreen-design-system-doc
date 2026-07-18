@@ -120,8 +120,8 @@
   padding: 1px 6px;
   border-radius: 6px;
   background: var(--material-card-moderate);
-  color: #006e41;
-  color: color(display-p3 0 0.4314 0.2549);
+  color: #006D42;
+  color: color(display-p3 0 0.4275 0.2588);
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: var(--typography-footnote-large-size);
   line-height: var(--typography-footnote-large-line-height);
@@ -129,7 +129,7 @@
 
 [data-theme='dark'] .markdownBody :not(pre) > code {
   color: #69b091;
-  color: color(display-p3 0.41 0.69 0.57);
+  color: color(display-p3 0.4118 0.6902 0.5686);
 }
 
 /* GFM fenced blocks (classes come from v-html — must use :global). */
@@ -151,9 +151,9 @@
 .markdownBody :global(.docs-code-lang) {
   color: var(--text-base-secondary);
   font-family: var(--font-family-text);
-  font-size: var(--typography-body-medium-size);
-  line-height: var(--typography-body-medium-line-height);
-  font-weight: var(--typography-body-medium-weight);
+  font-size: var(--typography-footnote-large-size);
+  line-height: var(--typography-footnote-large-line-height);
+  font-weight: var(--typography-footnote-large-weight);
 }
 
 .markdownBody :global(.docs-code-copy) {
@@ -182,13 +182,13 @@
 }
 
 .markdownBody :global(.docs-code-copy--copied) {
-  color: #006e41;
-  color: color(display-p3 0 0.4314 0.2549);
+  color: #006D42;
+  color: color(display-p3 0 0.4275 0.2588);
 }
 
 .markdownBody :global(.docs-code-copy--copied:hover) {
-  color: #006e41;
-  color: color(display-p3 0 0.4314 0.2549);
+  color: #006D42;
+  color: color(display-p3 0 0.4275 0.2588);
   background: transparent;
 }
 
@@ -245,8 +245,8 @@
 .markdownBody :global(pre.docs-fence-highlighted .hljs-name),
 .markdownBody :global(pre.docs-fence-highlighted .hljs-selector-id),
 .markdownBody :global(pre.docs-fence-highlighted .hljs-selector-class) {
-  color: #006e41;
-  color: color(display-p3 0 0.4314 0.2549);
+  color: #006D42;
+  color: color(display-p3 0 0.4275 0.2588);
 }
 
 .markdownBody :global(pre.docs-fence-highlighted .hljs-title),
@@ -283,8 +283,8 @@
 }
 
 .markdownBody :global(pre.docs-fence-highlighted .hljs-attr) {
-  color: #006e41;
-  color: color(display-p3 0 0.4314 0.2549);
+  color: #006D42;
+  color: color(display-p3 0 0.4275 0.2588);
 }
 
 .markdownBody :global(pre.docs-fence-highlighted .hljs-symbol),

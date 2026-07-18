@@ -28,6 +28,27 @@ export const WEB3_AVATAR_COLORS = [
   '#485669',
 ] as const;
 
+/** web3 palette slots skipped — green / teal / gray-green family. */
+const GREENISH_PALETTE_INDICES = new Set<number>([1, 4, 8, 11, 13]);
+
+function resolvePaletteIndex(name: string, paletteOffset: number): number {
+  const base =
+    (hashString(name.trim()) + paletteOffset) % WEB3_AVATAR_COLORS.length;
+
+  if (!GREENISH_PALETTE_INDICES.has(base)) {
+    return base;
+  }
+
+  for (let step = 1; step < WEB3_AVATAR_COLORS.length; step += 1) {
+    const next = (base + step) % WEB3_AVATAR_COLORS.length;
+    if (!GREENISH_PALETTE_INDICES.has(next)) {
+      return next;
+    }
+  }
+
+  return base;
+}
+
 /** Deterministic hash — same algorithm as avatar-gen-js. */
 export function hashString(str: string): number {
   let hash = 0;
@@ -39,10 +60,30 @@ export function hashString(str: string): number {
   return Math.abs(hash);
 }
 
-export function getAvatarColor(name: string): string {
-  const index = hashString(name) % WEB3_AVATAR_COLORS.length;
+export function getAvatarColor(name: string, paletteOffset = 0): string {
+  const trimmed = name.trim();
+  const swapPartner = AVATAR_COLOR_SWAP_PARTNER[trimmed];
+  if (swapPartner) {
+    return colorFromPaletteIndex(
+      resolvePaletteIndex(swapPartner.name, swapPartner.paletteOffset),
+    );
+  }
+
+  return colorFromPaletteIndex(resolvePaletteIndex(trimmed, paletteOffset));
+}
+
+function colorFromPaletteIndex(index: number): string {
   return WEB3_AVATAR_COLORS[index]!;
 }
+
+/** Swap hashed palette colors between recurring meta-panel pairs. */
+const AVATAR_COLOR_SWAP_PARTNER: Record<
+  string,
+  { name: string; paletteOffset: number }
+> = {
+  'EDS Yang': { name: 'Dev.', paletteOffset: 1 },
+  'Dev.': { name: 'EDS Yang', paletteOffset: 0 },
+};
 
 /** Last word's first letter; `EDS Yang` → `Y`, `Dev.` → `D`. */
 export function getPersonInitial(name: string): string {

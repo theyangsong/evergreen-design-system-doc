@@ -27,9 +27,11 @@
 .helpButtonOpen,
 .helpButtonOpen:hover {
   background: var(--event-focus-secondary);
+  outline: var(--stroke-lg) solid var(--event-focus-primary);
+  outline-offset: 2px;
 }
 
-.helpButton:focus-visible {
+.helpButton:focus-visible:not(.helpButtonOpen) {
   background: var(--event-focus-secondary);
   outline: var(--stroke-lg) solid var(--event-focus-primary);
   outline-offset: 2px;
@@ -45,24 +47,26 @@
 .popoverShell {
   position: fixed;
   z-index: 1000;
-  transform: translateY(-50%) translateX(var(--spacing-1));
-}
-
-:global([data-theme='light']) .menu:global(.effect-flotation-box),
-:global([data-theme='dark']) .menu:global(.effect-flotation-box) {
-  padding: var(--spacing-05);
-  border-radius: var(--scale-1-5);
+  transform: translateY(-100%) translateX(var(--spacing-05));
 }
 
 .menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
   box-sizing: border-box;
+  padding: var(--spacing-1);
+  border: var(--stroke-xs) solid var(--stroke-outline-subtle);
+  border-radius: var(--radius-md);
+  background: var(--box-page);
+  box-shadow: var(--effect-shadow-subtle);
 }
 
 .list {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1px;
+  gap: var(--spacing-05);
   width: 100%;
   margin: 0;
   padding: 0;
@@ -86,26 +90,38 @@
   margin: 0;
   padding: var(--spacing-1-5) var(--spacing-2);
   border: 0;
-  border-radius: var(--scale-1-5);
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--text-base-primary);
   font-family: inherit;
   text-align: left;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color var(--eds-hover-transition-duration) ease;
+  transition: background-color var(--eds-motion-hover-duration) var(--eds-motion-ease-standard);
 }
 
 .item:hover:not(.itemActive) {
   background: var(--event-hover);
 }
 
+.item:focus-visible {
+  background: var(--event-focus-secondary);
+  outline: var(--stroke-lg) solid var(--event-focus-primary);
+  outline-offset: 2px;
+}
+
+.itemActive:focus-visible,
+.itemActive:focus-visible:hover {
+  outline: var(--stroke-lg) solid var(--event-focus-primary);
+  outline-offset: 2px;
+}
+
 .itemActive {
-  background: color-mix(in display-p3, var(--eds-base) 7%, transparent);
+  background: color-mix(in srgb, var(--material-brand-primary) 12%, transparent);
 }
 
 .itemActive:hover {
-  background: color-mix(in display-p3, var(--eds-base) 7%, transparent);
+  background: color-mix(in srgb, var(--material-brand-primary) 12%, transparent);
 }
 
 .label {

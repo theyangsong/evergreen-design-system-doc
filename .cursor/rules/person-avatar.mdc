@@ -39,8 +39,10 @@ Multi-person row (e.g. DocMetaPanel 维护/贡献):
 ## Color (frozen)
 
 - Palette: Figma **web3-avatar-1…20**
-- Selection: `hashString(name) % 20` — same hash as [avatar-gen-js](https://github.com/kohaiy/avatar-gen-js/)
-- Same name → same color (deterministic)
+- Selection: `(hashString(name) + paletteOffset) % 20` — same hash as [avatar-gen-js](https://github.com/kohaiy/avatar-gen-js/)
+- Same name → same color (deterministic); multi-person rows add `paletteOffset` (list index)
+- Green-family palette slots (indices 1, 4, 8, 11, 13) are skipped — walk to next non-green slot
+- `EDS Yang` ↔ `Dev.` use each other's hashed palette color (offset 0 / 1)
 
 ## Initial (frozen)
 
@@ -55,7 +57,8 @@ Multi-person row (e.g. DocMetaPanel 维护/贡献):
 | Shape | `border-radius: var(--radius-full)` (squircle via global corner-smoothing) |
 | Background | inline `backgroundColor` from `getAvatarColor(name)` |
 | Text color | `var(--text-same-white-primary)` |
-| Font | `var(--font-family-text)`, 8px, weight **600**, line-height 1 |
+| Font | `var(--font-family-text)`, **16px rendered at scale(0.5)** → ~8px visual, weight **600**, line-height 1 |
+| Crisp small type | Inner `.initial` at 2× size + `transform: scale(0.5)`; `-webkit-font-smoothing: antialiased` |
 
 ## Person list layout (DocMetaPanel)
 

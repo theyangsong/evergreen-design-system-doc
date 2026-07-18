@@ -128,6 +128,12 @@
   height: var(--icon-xl);
 }
 
+.icon :global(path[stroke]),
+.icon :global(circle[stroke]),
+.icon :global(rect[stroke]) {
+  stroke: var(--stroke-base-secondary);
+}
+
 .label {
   font-size: var(--typography-footnote-size);
   line-height: var(--typography-footnote-line-height);
@@ -171,4 +177,8 @@
 .themeIcon {
   width: var(--icon-md);
   height: var(--icon-md);
+}
+
+.themeIcon :global(path[fill]:not([fill='none'])) {
+  fill: var(--material-base-secondary);
 }

@@ -45,6 +45,13 @@
   margin-top: calc(11 * var(--scale-base));
 }
 
+.emptyState {
+  margin: 0;
+  color: var(--text-base-tertiary);
+  font-size: var(--typography-body-small-size);
+  line-height: var(--typography-body-small-line-height);
+}
+
 .section {
   flex: none;
   flex-shrink: 0;

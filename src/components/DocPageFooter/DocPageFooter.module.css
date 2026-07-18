@@ -21,24 +21,7 @@
   font-weight: var(--typography-footnote-large-weight);
 }
 
-.links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-1);
-  margin-top: var(--scale-1-5);
-}
-
 .copyright {
-  margin-top: var(--scale-6);
-}
-
-.link {
-  color: var(--text-base-secondary);
-  font-weight: var(--typography-footnote-large-weight);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
-
-.link:hover {
-  color: var(--text-base-primary);
+  margin-top: var(--scale-1-5);
+  text-decoration: none;
 }

@@ -1,0 +1,47 @@
+---
+description: Scaffold doc + media dirs before editing a component doc item
+globs: src/content/docs/**,public/docs/**
+alwaysApply: true
+---
+
+# Component Doc Scaffold (编辑前必建目录)
+
+When the user **starts editing a component's documentation** (new or existing nav item without a full item folder), **first** ensure the item directory and media folders exist — then edit markdown.
+
+## Prefer the scaffold command
+
+```bash
+pnpm scaffold:doc <sectionId> <slug> "<title>" [--id eds-...] [--preview]
+```
+
+Creates all markdown files, `index.ts`, `registry.ts` entry, and media subdirs.
+
+## Manual layout (must match)
+
+```
+src/content/docs/{section}/{slug}/
+  design.desktop.md / design.mobile.md / design.website.md
+  develop.desktop.md / develop.mobile.md / develop.website.md
+  index.ts
+
+public/docs/{imageAssetDir}/
+  desktop/    ← design.desktop
+  mobile/
+  website/
+  (no develop/ — 开发指南无图形)
+```
+
+`imageAssetDir`: atoms → `{slug}`; others → `{section}/{slug}`.
+
+## After scaffold
+
+1. Register in `src/content/docs/registry.ts` (if not using command)
+2. Add nav item in `src/config/navigation.ts` → `sectionNavById`
+3. Put assets in the **scope folder matching the active Tab** (`!file.png` → `public/docs/.../{scope}/file.png`)
+
+## Do not
+
+- Edit prose before item folder exists
+- Put develop-guide media under `public/docs/`
+
+See `src/content/docs/README.md`.

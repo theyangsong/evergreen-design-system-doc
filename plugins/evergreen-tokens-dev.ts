@@ -8,6 +8,7 @@ const tokensSpecDir = resolve(tokensRoot, 'spec');
 const tokensLiquidGlassSource = resolve(tokensRoot, 'src/liquid-glass.js');
 const tokensCornerSmoothingSource = resolve(tokensRoot, 'src/corner-smoothing.js');
 const tokensBuildScript = resolve(tokensRoot, 'scripts/build.mjs');
+const tokensDistCssDir = resolve(tokensRoot, 'dist/css');
 
 function isTokensSourceFile(file: string) {
   return (
@@ -15,6 +16,10 @@ function isTokensSourceFile(file: string) {
     file === tokensLiquidGlassSource ||
     file === tokensCornerSmoothingSource
   );
+}
+
+function isTokensDistCssFile(file: string) {
+  return file.startsWith(tokensDistCssDir) && file.endsWith('.css');
 }
 
 function runTokensBuild(): Promise<void> {
@@ -45,6 +50,7 @@ export function evergreenTokensDevPlugin(): Plugin {
   let rebuildInFlight: Promise<void> | null = null;
   let reloadTimer: ReturnType<typeof setTimeout> | undefined;
   let rebuilding = false;
+  let startupSyncDone = false;
 
   const scheduleReload = (server: ViteDevServer) => {
     clearTimeout(reloadTimer);
@@ -88,7 +94,11 @@ export function evergreenTokensDevPlugin(): Plugin {
     name: 'evergreen-tokens-dev',
     apply: 'serve',
     async configureServer(server) {
-      server.watcher.add([tokensSpecDir, tokensLiquidGlassSource, tokensCornerSmoothingSource]);
+      server.watcher.add([
+        tokensSpecDir,
+        tokensLiquidGlassSource,
+        tokensCornerSmoothingSource,
+      ]);
 
       try {
         rebuilding = true;
@@ -98,7 +108,10 @@ export function evergreenTokensDevPlugin(): Plugin {
         server.config.logger.warn(`tokens build on startup failed: ${String(error)}`);
       } finally {
         rebuilding = false;
+        startupSyncDone = true;
       }
+
+      server.watcher.add(tokensDistCssDir);
 
       server.middlewares.use((_req, res, next) => {
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
@@ -107,25 +120,30 @@ export function evergreenTokensDevPlugin(): Plugin {
         next();
       });
 
-      server.watcher.on('change', (file) => {
-        if (rebuilding || rebuildInFlight) {
+      const onWatcherEvent = (file: string, event: 'change' | 'add') => {
+        if (isTokensSourceFile(file)) {
+          if (rebuilding || rebuildInFlight) {
+            return;
+          }
+
+          scheduleRebuild(server, file.slice(tokensRoot.length + 1));
           return;
         }
 
-        if (isTokensSourceFile(file)) {
-          scheduleRebuild(server, file.slice(tokensRoot.length + 1));
+        if (
+          event === 'change' &&
+          isTokensDistCssFile(file) &&
+          startupSyncDone &&
+          !rebuilding &&
+          !rebuildInFlight
+        ) {
+          server.config.logger.info('tokens dist css changed, reloading page');
+          scheduleReload(server);
         }
-      });
+      };
 
-      server.watcher.on('add', (file) => {
-        if (rebuilding || rebuildInFlight) {
-          return;
-        }
-
-        if (isTokensSourceFile(file)) {
-          scheduleRebuild(server, file.slice(tokensRoot.length + 1));
-        }
-      });
+      server.watcher.on('change', (file) => onWatcherEvent(file, 'change'));
+      server.watcher.on('add', (file) => onWatcherEvent(file, 'add'));
     },
   };
 }

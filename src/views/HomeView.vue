@@ -36,16 +36,7 @@ useLiquidGlassBubbles(canvasHost, {
 
     <footer :class="styles.footer">
       <p :class="styles.footerTagline">{{ siteConfig.footer.tagline }}</p>
-      <div :class="styles.footerLinks">
-        <a
-          v-for="link in siteConfig.footer.links"
-          :key="link.label"
-          :href="link.href"
-          :class="styles.footerLink"
-        >
-          {{ link.label }}
-        </a>
-      </div>
+      <p :class="styles.footerCopyright">{{ siteConfig.footer.copyright }}</p>
     </footer>
   </div>
 </template>

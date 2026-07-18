@@ -120,6 +120,10 @@
   height: var(--scale-3);
 }
 
+.themeIcon :global(path[fill]:not([fill='none'])) {
+  fill: var(--material-base-secondary);
+}
+
 .backdrop {
   position: fixed;
   inset: 0;

@@ -43,6 +43,8 @@ onBeforeUnmount(() => {
     <span :class="styles.pageTitleText">{{ displayTitle }}</span>
   </h1>
 
+  <slot name="after-title" />
+
   <div v-if="meta?.length" :class="styles.intro">
     <DocMetaPanel :fields="meta" />
   </div>

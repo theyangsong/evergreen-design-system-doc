@@ -30,6 +30,8 @@
   --nav-background: color(display-p3 0.9569 0.9529 0.9412);
   --section-nav-background: #f4f3f0;
   --section-nav-background: color(display-p3 0.9569 0.9529 0.9412);
+  --toggle-background: #ffffff;
+  --toggle-background: color(display-p3 1 1 1);
 }
 
 [data-theme='dark'] {
@@ -39,6 +41,8 @@
   --nav-background: color(display-p3 0.1211 0.1174 0.11);
   --section-nav-background: #1f1e1c;
   --section-nav-background: color(display-p3 0.1211 0.1174 0.11);
+  --toggle-background: #252421;
+  --toggle-background: color(display-p3 0.1451 0.1412 0.1294);
 }
 
 *,
