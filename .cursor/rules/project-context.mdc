@@ -54,6 +54,7 @@ Projects/
 
 ## Spacing / typography conventions
 
+- **Website scale:** `--spacing-N` = `N × 8px` (`--spacing-3` = 24px, `--spacing-6` = 48px). See `website-token-dependency.mdc`.
 - **Halve doc content spacing** by smaller token **names** (`spacing-5` → `spacing-2-5`), not parent `--spacing-*` overrides on `.contentShellDoc`.
 - Hover on nav/menu: `var(--event-hover)`.
 - Common sizes: 14px `footnote-large`, 16px `body-small`, 18px `body-medium`, 24px `title`, 32px `title-medium`, 64px `headline-large`.

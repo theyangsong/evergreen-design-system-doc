@@ -1,20 +1,13 @@
 .panel {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: var(--spacing-4);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: var(--spacing-4);
+  row-gap: var(--scale-1-5);
   width: 100%;
   padding: var(--spacing-2-5) var(--spacing-3);
   border-radius: var(--radius-md);
   background: var(--material-card-shallow);
-}
-
-.labels,
-.values {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--scale-1-5);
 }
 
 .label {
@@ -26,6 +19,7 @@
 }
 
 .value {
+  min-width: 0;
   color: var(--text-base-primary);
   font-size: var(--typography-footnote-large-size);
   line-height: var(--typography-footnote-large-line-height);

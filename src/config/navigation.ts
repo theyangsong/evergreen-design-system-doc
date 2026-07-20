@@ -20,7 +20,7 @@ export type DocMetaField = {
   value: string;
 };
 
-export type DocPageSection = { id: string; title: string };
+export type DocPageSection = { id: string; title: string; depth?: 1 | 2 };
 
 export type DocPageConfig = {
   title: string;
@@ -125,9 +125,11 @@ export const sectionNavById: Record<string, SectionNavConfig> = {
         ],
       },
       {
-        title: '开发流程',
+        title: '快速介入',
         items: [
-          { label: '快速接入', to: '/started/quick-start' },
+          { label: 'AI接入', to: '/started/ai-access' },
+          { label: '设计接入', to: '/started/design-access' },
+          { label: '开发接入', to: '/started/development-access' },
           { label: '运营与维护', to: '/started/operations' },
         ],
       },
@@ -272,6 +274,15 @@ export const sectionNavById: Record<string, SectionNavConfig> = {
           { label: '安全验证系统', to: '/scenes/security-verification' },
         ],
       },
+      {
+        title: '一致性',
+        items: [
+          { label: '数据刷新', to: '/scenes/data-refresh' },
+          { label: '空页面', to: '/scenes/empty-page' },
+          { label: '无权限', to: '/scenes/no-permission' },
+          { label: '列表字段', to: '/scenes/list-fields' },
+        ],
+      },
     ],
   },
 };
@@ -349,7 +360,7 @@ export function getSectionTitle(sectionId: string): string | undefined {
   return sectionNavById[sectionId]?.title;
 }
 
-/** Insert 层级 (AppRail section title) between 类型 and 状态. */
+/** Insert 层级 (AppRail section title) between 类型 and 状态. Scenes omit 层级. */
 export function resolveDocMetaFields(
   fields: DocMetaField[] | undefined,
   sectionId: string,
@@ -358,8 +369,13 @@ export function resolveDocMetaFields(
     return fields;
   }
 
-  const tier = getSectionTitle(sectionId) ?? '—';
   const withoutTier = fields.filter((field) => field.label !== '层级');
+
+  if (sectionId === 'scenes') {
+    return withoutTier;
+  }
+
+  const tier = getSectionTitle(sectionId) ?? '—';
   const typeIndex = withoutTier.findIndex((field) => field.label === '类型');
   const insertAt = typeIndex >= 0 ? typeIndex + 1 : withoutTier.length;
 

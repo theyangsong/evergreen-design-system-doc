@@ -69,7 +69,10 @@ export function getAvatarColor(name: string, paletteOffset = 0): string {
     );
   }
 
-  return colorFromPaletteIndex(resolvePaletteIndex(trimmed, paletteOffset));
+  const canonicalOffset = CANONICAL_PALETTE_OFFSET[trimmed];
+  const effectiveOffset = canonicalOffset ?? paletteOffset;
+
+  return colorFromPaletteIndex(resolvePaletteIndex(trimmed, effectiveOffset));
 }
 
 function colorFromPaletteIndex(index: number): string {
@@ -83,6 +86,11 @@ const AVATAR_COLOR_SWAP_PARTNER: Record<
 > = {
   'EDS Yang': { name: 'Dev.', paletteOffset: 1 },
   'Dev.': { name: 'EDS Yang', paletteOffset: 0 },
+};
+
+/** Shared doc contributors — fixed palette slot regardless of list index. */
+const CANONICAL_PALETTE_OFFSET: Record<string, number> = {
+  Sam: 1,
 };
 
 /** Last word's first letter; `EDS Yang` → `Y`, `Dev.` → `D`. */

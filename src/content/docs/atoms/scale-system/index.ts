@@ -20,7 +20,7 @@ export const scaleSystemDocPage = defineComponentDocPage({
     { label: '状态', value: '已启用' },
     { label: '版本', value: 'v1.0' },
     { label: '维护', value: 'EDS Yang' },
-    { label: '贡献', value: 'EDS Yang、Dev.' },
+    { label: '贡献', value: 'EDS Yang、Sam、Dev.' },
     { label: '最后更新', value: '2026年7月18日' },
   ],
   imageAssetDir: 'scale-system',

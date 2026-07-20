@@ -208,23 +208,27 @@
 .markdownBody :global(pre.docs-fence) {
   padding: var(--spacing-2);
   border-radius: var(--radius-md);
-  overflow-x: hidden;
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 14px;
   line-height: 20px;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  word-break: break-word;
 }
 
 .markdownBody :global(pre.docs-fence-plain) {
   background: var(--material-card-subtle);
   color: var(--text-base-primary);
+  overflow-x: auto;
+  white-space: pre;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .markdownBody :global(pre.docs-fence-highlighted) {
   background: var(--material-card-subtle);
   color: var(--text-base-primary);
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .markdownBody :global(pre.docs-fence-highlighted .hljs) {

@@ -49,7 +49,7 @@ pnpm scaffold:doc <sectionId> <slug> "<title>" [options]
 | 状态 | 已启用 |
 | 版本 | 1.0 |
 | 维护 | EDS Yang |
-| 贡献 | EDS Yang、Dev. |
+| 贡献 | EDS Yang、Sam、Dev. |
 | 最后更新 | 创建当日（中文，如 2026年7月18日） |
 
 ### 示例

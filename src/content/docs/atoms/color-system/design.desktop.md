@@ -35,12 +35,6 @@
 - 非系统级临时视觉效果
 - 单一页面定制色
 
-## 替代方案
-
-- 当前方案：`v1.0`
-- 替代方案：暂未定义
-- 被替代原因：色彩表达不一致、管理混乱
-
 ---
 
 # 2. 设计决策与演进
@@ -78,7 +72,7 @@
 
 # 3. 使用者指南
 
-本系统将角色分为三层：UED（交互/视觉）、PM & 运营 & 外部协作方、Dev（前端/后端）。
+本系统将角色分为三层：UED（交互/视觉）、PM and Others、DEV（前端/后端）。
 
 ## UED
 
@@ -90,7 +84,7 @@
     - Semantic Color
 - 状态颜色必须绑定 UI 状态（Hover / Active / Focus）
 
-## Dev
+## DEV
 
 - 所有颜色通过 CSS Variables 或 Design Tokens 输出
 - 禁止 HardCode HEX
@@ -98,7 +92,7 @@
 - 颜色映射必须 1:1 对齐 Design Tokens
 - Tab 颜色映射单独维护
 
-## PM & Others
+## PM and Others
 
 - EDS Brand= 产品识别核心
 - EDS Match= 说明、注释

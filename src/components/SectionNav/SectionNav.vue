@@ -21,6 +21,7 @@ const props = defineProps<{
 
 const route = useRoute();
 const groupsRef = ref<HTMLElement | null>(null);
+const isGroupsScrolled = ref(false);
 
 usePreventScrollChaining(groupsRef);
 
@@ -96,7 +97,19 @@ async function updateIndicator(
   indicatorVisible.value = true;
 }
 
+function updateGroupsScrollState() {
+  const element = groupsRef.value;
+  if (!element) {
+    isGroupsScrolled.value = false;
+    return;
+  }
+
+  isGroupsScrolled.value = element.scrollTop > 4;
+}
+
 function handleGroupsScroll() {
+  updateGroupsScrollState();
+
   if (indicatorVisible.value) {
     syncIndicatorPosition();
   }
@@ -130,11 +143,13 @@ watch(
 );
 
 onMounted(() => {
+  updateGroupsScrollState();
   void updateIndicator({ animateMove: false, previousActivePath: '' });
 
   if (groupsRef.value) {
     resizeObserver = new ResizeObserver(() => {
       syncIndicatorPosition();
+      updateGroupsScrollState();
     });
     resizeObserver.observe(groupsRef.value);
     groupsRef.value.addEventListener('scroll', handleGroupsScroll, {
@@ -165,7 +180,12 @@ onBeforeUnmount(() => {
     <div :class="styles.navContent">
       <h2 :class="styles.title">{{ config.title }}</h2>
 
-      <div ref="groupsRef" :class="styles.groups">
+      <div
+        ref="groupsRef"
+        :class="[styles.groups, isGroupsScrolled && styles.groupsScrolled]"
+      >
+        <div :class="styles.groupsScrollFade" aria-hidden="true" />
+
         <div
           :class="[
             styles.activeIndicator,

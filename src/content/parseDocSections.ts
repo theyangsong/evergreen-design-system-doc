@@ -16,7 +16,7 @@ export function buildDocSectionId(
   return `${mode}-${scope}-${slug}`;
 }
 
-/** Parse top-level `#` headings into TOC sections for a bundle markdown file. */
+/** Parse `#` and `##` headings into TOC sections for a bundle markdown file. */
 export function parseDocSections(
   markdown: string,
   mode: DocMode,
@@ -26,15 +26,27 @@ export function parseDocSections(
   const sections: DocPageSection[] = [];
 
   for (const line of markdown.split('\n')) {
-    if (!/^# [^#]/.test(line)) {
+    const h1Match = /^# ([^#].*)$/.exec(line);
+    const h2Match = /^## ([^#].*)$/.exec(line);
+
+    if (h1Match) {
+      const title = normalizeSectionTitle(h1Match[1]);
+      sections.push({
+        id: buildDocSectionId(mode, scope, title, used),
+        title,
+        depth: 1,
+      });
       continue;
     }
 
-    const title = normalizeSectionTitle(line.slice(2));
-    sections.push({
-      id: buildDocSectionId(mode, scope, title, used),
-      title,
-    });
+    if (h2Match) {
+      const title = normalizeSectionTitle(h2Match[1]);
+      sections.push({
+        id: buildDocSectionId(mode, scope, title, used),
+        title,
+        depth: 2,
+      });
+    }
   }
 
   return sections;

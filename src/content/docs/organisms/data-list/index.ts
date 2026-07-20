@@ -21,7 +21,7 @@ export const dataListDocPage = defineComponentDocPage({
     { label: '状态', value: 'Enable' },
     { label: '版本', value: 'v1.0' },
     { label: '维护', value: 'EDS Yang' },
-    { label: '贡献', value: 'EDS Yang、Jojo、Sam、Dev.' },
+    { label: '贡献', value: 'EDS Yang、Sam、Jojo、Dev.' },
     { label: '最后更新', value: '2026/6/9' },
   ],
   imageAssetDir: 'organisms/data-list',

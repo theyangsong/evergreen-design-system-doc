@@ -33,6 +33,21 @@
 图：NavBar 折叠（72px）→ Module Menu 240px；NavBar 展开（210px）→ Module Menu 280px
 ```
 
+# AI总结
+
+```
+-------------------------------------------------------
+| 1、Module Menu 是 NavBar 子系统，展示选中模块下的二级菜单：
+|    Header Slot → Group → Item → Sub-level。
+| 2、使用：NavBar 选中模块后自动展开；点击 Item 跳转；可展开
+|    Sub-level；Item 可带 Message。
+| 3、可配置：Group 标题、Item Icon/Label/Message、Sub-level
+|    深度、Reddot、240px / 280px 宽度联动。
+| 4、典型：一模块多分组，每组若干 Item，复杂项可三级嵌套。
+| 5、注意：跨模块切换回 NavBar；展开态与 NavBar 布局同步。
+-------------------------------------------------------
+```
+
 # 1. 定位
 
 `Module Menu` 是 NavBar 的**子系统组件**，用于展示选中模块下的二级菜单结构。当用户在 NavBar 中选中一个模块时，Module Menu 自动展开，显示该模块的分组（Group）和菜单项（Item）。
@@ -86,12 +101,6 @@ NavBar（主导航）
 - 页面内 Tab 导航
 - 临时菜单
 - 表单内导航结构
-
-## 替代方案
-
-- 当前方案：Module Menu `v1.0`
-- 替代方案：简单 Sidebar Menu（扁平、无分组）
-- 被替代原因：实现混乱，无统一规则
 
 ---
 
@@ -149,7 +158,7 @@ NavBar（主导航）
 
 # 3. 使用者指南
 
-本系统将角色分为三层：UED（交互/视觉）、PM & 运营 & 外部协作方、Dev（前端/后端）。
+本系统将角色分为三层：UED（交互/视觉）、PM and Others、DEV（前端/后端）。
 
 ## UED
 
@@ -228,7 +237,7 @@ NavBar（主导航）
 > ❌ 禁止：设计超过 2 层的层级结构
 > 
 
-## PM & 外部协作方
+## PM and Others
 
 #### **须定义的内容清单**
 
@@ -364,7 +373,7 @@ NavBar（主导航）
 > ❌ **禁止**：为 Message 或 Reddot 添加交互行为（纯展示）
 > 
 
-## Dev
+## DEV
 
 - **核心架构**
     

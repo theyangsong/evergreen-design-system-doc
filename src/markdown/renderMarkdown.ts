@@ -12,6 +12,8 @@ import typescript from 'highlight.js/lib/languages/typescript';
 
 export type MarkdownSectionIds = Record<string, string>;
 
+type TocAnchorSection = { id: string; depth?: 1 | 2 };
+
 const LANGUAGE_ALIASES: Record<string, string> = {
   js: 'javascript',
   jsx: 'javascript',
@@ -166,19 +168,38 @@ export function renderMarkdown(
   sectionIdsByTitle: MarkdownSectionIds = {},
   imageAssetDir?: string,
   mediaCacheBust?: string,
+  tocSections: TocAnchorSection[] = [],
 ): string {
   if (!markdown.trim()) {
     return '';
   }
 
+  let tocSectionIndex = 0;
+
   class DocRenderer extends Renderer {
     heading({ tokens, depth }: Tokens.Heading) {
       const text = this.parser.parseInline(tokens);
       const plain = plainHeadingText(text);
-      const id =
-        depth === 1
-          ? resolveHeadingId(plain, sectionIdsByTitle)
-          : slugifyHeading(plain);
+      let id: string;
+
+      if (depth === 1) {
+        id = resolveHeadingId(plain, sectionIdsByTitle);
+        const section = tocSections[tocSectionIndex];
+        if (section && (section.depth ?? 1) === 1) {
+          tocSectionIndex += 1;
+        }
+      } else if (depth === 2) {
+        const section = tocSections[tocSectionIndex];
+        if (section?.depth === 2) {
+          id = section.id;
+          tocSectionIndex += 1;
+        } else {
+          id = slugifyHeading(plain);
+        }
+      } else {
+        id = slugifyHeading(plain);
+      }
+
       const content = depth === 1 ? normalizeSectionTitle(plain) : text;
       return `<h${depth} id="${id}">${content}</h${depth}>\n`;
     }

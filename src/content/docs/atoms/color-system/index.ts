@@ -21,7 +21,7 @@ export const colorSystemDocPage = defineComponentDocPage({
     { label: '状态', value: '已启用' },
     { label: '版本', value: 'v1.1' },
     { label: '维护', value: 'EDS Yang' },
-    { label: '贡献', value: 'EDS Yang、Dev.' },
+    { label: '贡献', value: 'EDS Yang、Sam、Dev.' },
     { label: '最后更新', value: '2026年6月1日' },
   ],
   imageAssetDir: 'color-system',

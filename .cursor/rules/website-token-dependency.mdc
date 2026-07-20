@@ -46,3 +46,21 @@ Everything that is not the three packages above lives under `src/`:
 | BlockSuite editor | `src/components/DocEditor/` |
 
 When adding a feature, ask: **is it a reusable design-system primitive or scene?** → website package. **Is it doc-site-specific?** → this repo.
+
+## Website spacing scale (8px grid — do not assume Desktop names)
+
+`@evergreen/tokens` uses **`--scale-base: 8px`**. Semantic spacing maps `--spacing-N` → `--scale-N` → `N × 8px`:
+
+| Token | px | Common use |
+|-------|-----|------------|
+| `--spacing-05` | 4 | Tight gaps |
+| `--spacing-1` | 8 | Compact padding |
+| `--spacing-2` | 16 | List item gap |
+| `--spacing-3` | **24** | Section gap, doc bottom inset |
+| `--spacing-4` | 32 | Block spacing |
+| `--spacing-5` | 40 | Control height tier |
+| `--spacing-6` | **48** | **Not 24px** — large shell padding only |
+
+**Invalid in Website tokens:** `--spacing-025` (use `--spacing-05`). Do not use Desktop-era “spacing number = px” mental model.
+
+Doc prose halving: pick the **smaller token name** (e.g. doc block gap `spacing-3` not `spacing-6` for 24px). Prefer semantic aliases when intent is clear: `--depth-deep` / `--radius-lg` / `--icon-xl` = 24px.

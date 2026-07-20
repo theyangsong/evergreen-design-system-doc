@@ -20,18 +20,12 @@ defineProps<{
 
 <template>
   <section :class="styles.panel" aria-label="Document metadata">
-    <div :class="styles.labels">
-      <div v-for="field in fields" :key="field.label" :class="styles.label">
+    <template v-for="field in fields" :key="field.label">
+      <div :class="styles.label">
         {{ field.label }}
       </div>
-    </div>
 
-    <div :class="styles.values">
-      <div
-        v-for="field in fields"
-        :key="`${field.label}-value`"
-        :class="[styles.value, isPersonMetaField(field.label) && styles.valuePeople]"
-      >
+      <div :class="styles.value">
         <template v-if="isPersonMetaField(field.label)">
           <template v-if="parsePersonList(field.value).length === 0">
             {{ field.value }}
@@ -54,6 +48,6 @@ defineProps<{
           {{ field.value }}
         </template>
       </div>
-    </div>
+    </template>
   </section>
 </template>

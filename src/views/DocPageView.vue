@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import DocPageCommon from '@/components/DocPageCommon/DocPageCommon.vue';
 import DocPageFooter from '@/components/DocPageFooter/DocPageFooter.vue';
@@ -141,16 +141,31 @@ const renderedBodyHtml = computed(() =>
     sectionIdsByTitle.value,
     imageAssetDir.value,
     devMediaCacheBust,
+    sections.value,
   ),
 );
 
 const tocItems = computed(() =>
-  sections.value.map((section) => ({ id: section.id, label: section.title })),
+  sections.value.map((section) => ({
+    id: section.id,
+    label: section.title,
+    depth: section.depth ?? 1,
+  })),
 );
 
 const showEmptyState = computed(
   () => usesBundles.value && !markdownContent.value.trim(),
 );
+
+const pageTocRef = ref<{ refreshSpy: () => void } | null>(null);
+
+watch([renderedBodyHtml, tocItems], () => {
+  nextTick(() => {
+    requestAnimationFrame(() => {
+      pageTocRef.value?.refreshSpy();
+    });
+  });
+});
 
 watch(mode, () => {
   syncScopeForMode(mode.value);
@@ -217,6 +232,7 @@ watch(
       </article>
 
       <PageToc
+        ref="pageTocRef"
         v-model:mode="mode"
         :class="styles.tocColumn"
         :items="tocItems"

@@ -69,7 +69,7 @@ const DEFAULT_META = {
   status: '已启用',
   version: '1.0',
   maintainer: 'EDS Yang',
-  contributors: 'EDS Yang、Dev.',
+  contributors: 'EDS Yang、Sam、Dev.',
 };
 
 const PLATFORMS = ['desktop', 'mobile', 'website'];
@@ -95,7 +95,7 @@ Sections:
 }
 
 function slugToCamel(slug) {
-  return slug.replace(/-([a-z0-9]+)/g, (_, char) => char.toUpperCase());
+  return slug.replace(/-([a-z0-9]+)/g, (_, segment) => segment[0].toUpperCase() + segment.slice(1));
 }
 
 /** Component title → directory slug (kebab-case). */
@@ -289,7 +289,10 @@ function main() {
       DESCRIPTION: description,
       COMPONENT_ID: id,
       TYPE_LABEL: TYPE_LABELS[sectionId],
-      TIER_LABEL: TIER_LABELS[sectionId] ?? sectionId,
+      TIER_META_LINE:
+        sectionId === 'scenes'
+          ? ''
+          : `    { label: '层级', value: '${TIER_LABELS[sectionId] ?? sectionId}' },\n`,
       LAST_UPDATED: formatChineseDate(),
       META_STATUS: DEFAULT_META.status,
       META_VERSION: DEFAULT_META.version,

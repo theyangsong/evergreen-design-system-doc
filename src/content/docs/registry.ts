@@ -94,10 +94,30 @@ import {
   dataSubmissionDocPage,
   dataSubmissionDocPath,
 } from './scenes/data-submission';
+import {
+  dataRefreshDocPage,
+  dataRefreshDocPath,
+} from './scenes/data-refresh';
+import {
+  emptyPageDocPage,
+  emptyPageDocPath,
+} from './scenes/empty-page';
+import {
+  noPermissionDocPage,
+  noPermissionDocPath,
+} from './scenes/no-permission';
+import {
+  listFieldsDocPage,
+  listFieldsDocPath,
+} from './scenes/list-fields';
 import type { DocPageConfig } from '@/config/navigation';
 
 /** Component doc pages with per-platform markdown bundles. */
 export const componentDocPages: Record<string, DocPageConfig> = {
+  [listFieldsDocPath]: listFieldsDocPage,
+  [noPermissionDocPath]: noPermissionDocPage,
+  [emptyPageDocPath]: emptyPageDocPage,
+  [dataRefreshDocPath]: dataRefreshDocPage,
   [dataSubmissionDocPath]: dataSubmissionDocPage,
   [batchBarDocPath]: batchBarDocPage,
   [dataTableEditDocPath]: dataTableEditDocPage,
