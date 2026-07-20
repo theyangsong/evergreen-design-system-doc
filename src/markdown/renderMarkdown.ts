@@ -116,7 +116,9 @@ function rewriteHardcodedDocsMediaUrls(markdown: string): string {
 }
 
 function preprocessMarkdown(markdown: string, imageAssetDir?: string): string {
-  let result = markdown;
+  // Rewrite legacy hardcoded `/docs/…` paths before expanding `!file` shorthand,
+  // so prefixed image URLs are not double-rewritten to `/base/base/docs/…`.
+  let result = rewriteHardcodedDocsMediaUrls(markdown);
   const docsPrefix = getDocsMediaUrlPrefix();
 
   if (imageAssetDir) {
@@ -130,12 +132,10 @@ function preprocessMarkdown(markdown: string, imageAssetDir?: string): string {
     });
   }
 
-  result = result.replace(
+  return result.replace(
     /^组件能力示例。查看演示$/gm,
     '组件能力示例。<a href="#doc-develop" class="docs-develop-link" data-doc-develop-link>查看演示</a>',
   );
-
-  return rewriteHardcodedDocsMediaUrls(result);
 }
 
 function resolveHeadingId(
