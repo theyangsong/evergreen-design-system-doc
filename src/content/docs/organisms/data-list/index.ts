@@ -18,7 +18,7 @@ export const dataListDocPage = defineComponentDocPage({
     { label: '名称', value: 'Data List' },
     { label: 'ID', value: 'eds-org-data-list' },
     { label: '类型', value: 'Organisms' },
-    { label: '状态', value: 'Enable' },
+    { label: '状态', value: '已启用' },
     { label: '版本', value: 'v1.0' },
     { label: '维护', value: 'EDS Yang' },
     { label: '贡献', value: 'EDS Yang、Sam、Jojo、Dev.' },

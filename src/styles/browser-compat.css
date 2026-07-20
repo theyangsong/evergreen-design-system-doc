@@ -1,0 +1,29 @@
+/*
+ * Doc-shell cross-browser fixes (Safari / Firefox / Chromium).
+ * Component tokens stay in @evergreen/tokens — only shell-level quirks here.
+ */
+
+/* Font rendering — improves CJK hinting on WebKit. */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/*
+ * Safari: clip-path: path() needs a prefixed property; corner-smoothing runtime
+ * sets webkitClipPath in JS. Keep border-radius as fallback when path() is unsupported.
+ */
+@supports not (clip-path: url(#x)) {
+  .eds-corner-smoothed {
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+  }
+}
+
+/* Safari / iOS: prevent elastic scroll chaining on the doc shell. */
+html {
+  overscroll-behavior: none;
+}
+
+/* color(display-p3 …) fallbacks live in global.css / hardcoded-shell-colors.mdc */

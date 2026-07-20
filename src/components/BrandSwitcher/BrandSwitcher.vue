@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
-import { rescanCornerSmoothing } from '@evergreen/tokens/corner-smoothing';
+import { useCornerSmoothingRescan } from '@/cornerSmoothing/useCornerSmoothingRescan';
 import {
   formatBrandColor,
   getBrandDisplayP3,
@@ -48,14 +48,11 @@ function swatchStyle(brand: BrandDefinition) {
 
 watch(open, (isOpen) => {
   if (isOpen) {
-    nextTick(() => {
-      updatePopoverPosition();
-      if (popoverRef.value) {
-        rescanCornerSmoothing(popoverRef.value);
-      }
-    });
+    nextTick(updatePopoverPosition);
   }
 });
+
+useCornerSmoothingRescan(popoverRef, open);
 
 function onDocumentClick(event: MouseEvent) {
   if (!open.value) {

@@ -20,6 +20,21 @@ export function getContainerMaxScrollTop(container: HTMLElement): number {
   return Math.max(0, container.scrollHeight - container.clientHeight);
 }
 
+/** True when the scroll container is at (or effectively at) its lower edge. */
+export function isScrollAtBottom(
+  container: HTMLElement,
+  tolerancePx?: number,
+): boolean {
+  const maxScrollTop = getContainerMaxScrollTop(container);
+  if (maxScrollTop <= 1) {
+    return true;
+  }
+
+  const tolerance =
+    tolerancePx ?? Math.max(64, Math.round(maxScrollTop * 0.05));
+  return maxScrollTop - container.scrollTop <= tolerance;
+}
+
 export function clampContainerScrollTop(container: HTMLElement, value: number): number {
   return Math.max(0, Math.min(getContainerMaxScrollTop(container), value));
 }

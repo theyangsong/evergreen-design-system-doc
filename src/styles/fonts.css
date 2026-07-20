@@ -1,0 +1,81 @@
+/*
+ * Cross-browser text fonts for the doc shell.
+ *
+ * EDS Text is the design-system family name. When no proprietary files are
+ * bundled, register local system CJK faces under that name; if none match,
+ * the stack falls through to Noto Sans SC (loaded in index.html).
+ *
+ * IBM Plex Mono stays self-hosted for code blocks.
+ */
+
+@font-face {
+  font-family: 'EDS Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local('PingFang SC'),
+    local('PingFangSC-Regular'),
+    local('PingFang SC Regular'),
+    local('Hiragino Sans GB'),
+    local('Microsoft YaHei');
+}
+
+@font-face {
+  font-family: 'EDS Text';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local('PingFang SC Medium'),
+    local('PingFangSC-Medium'),
+    local('PingFang SC Medium');
+}
+
+@font-face {
+  font-family: 'EDS Text';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local('PingFang SC Semibold'),
+    local('PingFangSC-Semibold'),
+    local('PingFang SC Semibold');
+}
+
+@font-face {
+  font-family: 'EDS Text';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local('PingFang SC Bold'),
+    local('PingFangSC-Bold'),
+    local('PingFang SC Bold');
+}
+
+:root {
+  --font-family-text: 'EDS Text', 'PingFang SC', 'PingFangSC-Regular', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Noto Sans SC', 'Source Han Sans SC', 'Apple Color Emoji',
+    'Segoe UI Emoji', sans-serif;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src:
+    url('@/assets/fonts/IBMPlexMono-Regular.ttf') format('truetype'),
+    url('@/assets/fonts/IBMPlexMono-Regular.ttf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src:
+    url('@/assets/fonts/IBMPlexMono-Medium.ttf') format('truetype'),
+    url('@/assets/fonts/IBMPlexMono-Medium.ttf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

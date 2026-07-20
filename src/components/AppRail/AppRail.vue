@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRoute } from 'vue-router';
 import { useThemeProvider } from '@/composables/useThemeProvider';
 import { appRailIcons, type EdsIconName } from '@/assets/icons';
 import EdsIcon from '@/components/EdsIcon/EdsIcon.vue';
@@ -16,7 +16,16 @@ const emit = defineEmits<{
   openSectionNav: [];
 }>();
 
+const route = useRoute();
 const { theme, toggleTheme } = useThemeProvider();
+
+function resolveRailLink(itemId: string, fallbackTo: string): string {
+  if (props.activeSectionId === itemId) {
+    return route.path;
+  }
+
+  return sectionDefaultRoute[itemId] ?? fallbackTo;
+}
 
 function handleNavClick(event: MouseEvent, itemId: string) {
   if (props.activeSectionId === itemId) {
@@ -48,7 +57,7 @@ function iconName(id: string): EdsIconName {
 
         <RouterLink
           v-else
-          :to="sectionDefaultRoute[item.id] ?? item.to"
+          :to="resolveRailLink(item.id, item.to)"
           :class="styles.item"
           @click="handleNavClick($event, item.id)"
         >

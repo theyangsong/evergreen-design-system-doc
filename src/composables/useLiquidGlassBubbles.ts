@@ -5,6 +5,7 @@ import {
   type Ref,
 } from 'vue';
 import * as THREE from 'three';
+import { DOC_FONT_FAMILY_TEXT } from '@/styles/fontStack';
 
 const MAX_DROPLETS = 40;
 const FIXED_DT_MS = 8;
@@ -33,8 +34,7 @@ const CURSOR_SPRING = 0.32;
 const CURSOR_DAMP = 0.68;
 const CURSOR_MAX_SPEED = 0.045;
 
-const TITLE_FONT =
-  '"EDS Text", "PingFang SC", "SourceHanSansSC", "Apple Color Emoji", "Segoe UI Emoji", sans-serif';
+const TITLE_FONT = DOC_FONT_FAMILY_TEXT;
 const SUBTITLE_FONT = "'Space Grotesk', sans-serif";
 
 type Droplet = {

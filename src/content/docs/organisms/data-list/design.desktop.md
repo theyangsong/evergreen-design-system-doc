@@ -205,6 +205,7 @@
 !data-list-overflow.png
 
 图例：数据溢出时 `ToolTip` 插槽
+<br><br>
     
 9. **空状态**
     - 当 `rows.length === 0` 时，显示通用“空界面”模版（居中图标 + 文案“暂无数据”）
@@ -212,6 +213,7 @@
 !data-list-empty.png
 
 图例：空页面
+<br><br>
 
 10. **数据刷新**
     - 进行中：显示加载中 Animation
@@ -219,7 +221,8 @@
 
 !data-list-refresh.png
 
-已刷新反馈
+图例：已刷新反馈
+<br><br>
 
 11. **Loading**
     - 一致性：使用全局通用的加载样式
@@ -228,6 +231,7 @@
 !data-list-loading.png
 
 图例：DataList 的加载中样式
+<br><br>
 
 12. **列配置属性**
     

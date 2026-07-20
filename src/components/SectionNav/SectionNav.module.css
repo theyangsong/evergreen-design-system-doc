@@ -51,7 +51,7 @@
   flex: none;
   align-self: stretch;
   margin: 0;
-  padding: 0 0 var(--spacing-4) var(--spacing-2);
+  padding: 0 0 var(--spacing-1) var(--spacing-2);
   font-size: var(--typography-title-size);
   line-height: var(--typography-title-line-height);
   font-weight: var(--typography-title-weight);

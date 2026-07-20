@@ -12,8 +12,10 @@ Every rounded corner in this project uses **Figma/iOS squircle** at **60%** smoo
 
 - Smoothing level: `--corner-smoothing: 0.6` (in `../evergreen-design-system-website/packages/tokens/spec/scale/semantic.json`)
 - Radius tokens: `var(--radius-xs|sm|md|lg|full)` — never hardcode px radii in components unless explicitly frozen (e.g. inline code `6px`)
-- Global init (already wired): `initCornerSmoothing()` in `src/main.ts`
-- Engine: `@evergreen/tokens/corner-smoothing` (bundles `figma-squircle`, applies `clip-path: path(...)`)
+- Global init (already wired): `initDocCornerSmoothing()` in `src/main.ts` via `@/cornerSmoothing`
+- Engine: `@evergreen/tokens/corner-smoothing` (bundles `figma-squircle`)
+- Runtime mounts paths in hidden `#eds-corner-defs` SVG; elements only get class `eds-corner-smoothed` + `style="--eds-cs: url(#eds-cs-N)"`.
+- **Doc imports:** use `@/cornerSmoothing` and `@/cornerSmoothing/useCornerSmoothingRescan` — do not import the tokens package directly in components.
 
 ## CSS rules
 
@@ -30,7 +32,7 @@ Every rounded corner in this project uses **Figma/iOS squircle** at **60%** smoo
 ```
 
 - Do **not** add per-component squircle JS or custom `clip-path` — the global scanner binds all non-zero `border-radius` automatically.
-- Opt out only when squircle breaks an effect: `data-no-corner-smoothing` on element or ancestor.
+- Opt out only when squircle breaks an effect: `data-no-corner-smoothing` on element or ancestor. Do not hand-write `clip-path` on components.
 
 ## Effect boxes
 
@@ -42,11 +44,9 @@ Every rounded corner in this project uses **Figma/iOS squircle** at **60%** smoo
 After async mount, rescan so elements with layout get bound:
 
 ```ts
-import { rescanCornerSmoothing } from '@evergreen/tokens/corner-smoothing';
+import { useCornerSmoothingRescan } from '@/cornerSmoothing/useCornerSmoothingRescan';
 
-nextTick(() => {
-  if (rootRef.value) rescanCornerSmoothing(rootRef.value);
-});
+useCornerSmoothingRescan(popoverRef, open);
 ```
 
 ## Known limits

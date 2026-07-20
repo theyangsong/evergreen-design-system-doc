@@ -11,6 +11,8 @@
 }
 
 .label {
+  display: flex;
+  align-items: center;
   color: var(--text-base-secondary);
   font-size: var(--typography-footnote-large-size);
   line-height: var(--typography-footnote-large-line-height);
@@ -19,6 +21,8 @@
 }
 
 .value {
+  display: flex;
+  align-items: center;
   min-width: 0;
   color: var(--text-base-primary);
   font-size: var(--typography-footnote-large-size);

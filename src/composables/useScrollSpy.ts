@@ -7,7 +7,31 @@ import {
   type ComputedRef,
   type Ref,
 } from 'vue';
-import { getDocScrollContainer, getDocScrollTopOffset } from '@/utils/scrollToSection';
+import {
+  getDocScrollContainer,
+  getDocScrollTopOffset,
+  isScrollAtBottom,
+} from '@/utils/scrollToSection';
+
+function resolveTailActiveId(container: HTMLElement, ids: string[]): string {
+  const containerRect = container.getBoundingClientRect();
+  const threshold = containerRect.top + getDocScrollTopOffset(container);
+  const viewBottom = containerRect.bottom;
+
+  for (let index = ids.length - 1; index >= 0; index -= 1) {
+    const element = document.getElementById(ids[index]);
+    if (!element) {
+      continue;
+    }
+
+    const rect = element.getBoundingClientRect();
+    if (rect.top <= threshold + 1 || rect.top <= viewBottom) {
+      return ids[index];
+    }
+  }
+
+  return ids[ids.length - 1] ?? '';
+}
 
 export function useScrollSpy(sectionIds: Ref<string[]> | ComputedRef<string[]>) {
   const activeId = ref('');
@@ -24,6 +48,10 @@ export function useScrollSpy(sectionIds: Ref<string[]> | ComputedRef<string[]>) 
     const container = scrollContainer ?? getDocScrollContainer();
     if (!container) {
       return ids[0] ?? '';
+    }
+
+    if (isScrollAtBottom(container)) {
+      return resolveTailActiveId(container, ids);
     }
 
     const topOffset = getDocScrollTopOffset(container);

@@ -14,7 +14,7 @@ import type { DocMode } from '@/content/docPage';
 import { useScrollSpy } from '@/composables/useScrollSpy';
 import { useSpringScrollContainer } from '@/composables/useSpringScrollContainer';
 import { waitForIndicatorPaint } from '@/motion/waitForIndicatorPaint';
-import { scrollContainerToSpring, cancelContainerScrollAnimation, getDocScrollContainer, scrollToSectionById } from '@/utils/scrollToSection';
+import { scrollContainerToSpring, cancelContainerScrollAnimation, getDocScrollContainer, isScrollAtBottom, scrollToSectionById } from '@/utils/scrollToSection';
 import styles from './PageToc.module.css';
 
 const props = defineProps<{
@@ -103,6 +103,32 @@ function scrollTocToTop(container: HTMLElement) {
   updateTocScrollState();
 }
 
+function ensureTocLinkVisible(container: HTMLElement, link: HTMLElement) {
+  const edgeInset = 12;
+  const containerRect = container.getBoundingClientRect();
+  const linkRect = link.getBoundingClientRect();
+
+  if (linkRect.top < containerRect.top + edgeInset) {
+    const nextScrollTop =
+      container.scrollTop + (linkRect.top - containerRect.top - edgeInset);
+
+    if (nextScrollTop < 1) {
+      scrollTocToTop(container);
+      return;
+    }
+
+    scrollContainerToSpring(container, nextScrollTop);
+    return;
+  }
+
+  if (linkRect.bottom > containerRect.bottom - edgeInset) {
+    scrollContainerToSpring(
+      container,
+      container.scrollTop + (linkRect.bottom - containerRect.bottom + edgeInset),
+    );
+  }
+}
+
 function bindTocScrollListener() {
   const element = tocScrollRef.value;
   if (!element) {
@@ -133,28 +159,8 @@ function scrollActiveTocLinkIntoView(id: string) {
     return;
   }
 
-  const containerRect = container.getBoundingClientRect();
-  const linkRect = link.getBoundingClientRect();
-  const edgeInset = 12;
-
-  if (linkRect.top < containerRect.top + edgeInset) {
-    const nextScrollTop = container.scrollTop + (linkRect.top - containerRect.top - edgeInset);
-
-    if (nextScrollTop < 1) {
-      scrollTocToTop(container);
-      return;
-    }
-
-    scrollContainerToSpring(container, nextScrollTop);
-    return;
-  }
-
-  if (linkRect.bottom > containerRect.bottom - edgeInset) {
-    scrollContainerToSpring(
-      container,
-      container.scrollTop + (linkRect.bottom - containerRect.bottom + edgeInset),
-    );
-  }
+  ensureTocLinkVisible(container, link);
+  updateTocScrollState();
 }
 
 useSpringScrollContainer(tocScrollRef, { onUserScroll: markTocUserScrollIntent });
@@ -223,6 +229,17 @@ function bindPageScrollListener() {
 }
 
 function onPageScroll() {
+  const pageContainer = getDocScrollContainer();
+
+  if (
+    pageContainer &&
+    isScrollAtBottom(pageContainer) &&
+    shouldAutoFollowToc() &&
+    activeId.value
+  ) {
+    scrollActiveTocLinkIntoView(activeId.value);
+  }
+
   window.clearTimeout(pageScrollStopTimer);
   pageScrollStopTimer = window.setTimeout(() => {
     if (activeId.value) {
