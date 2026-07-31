@@ -17,9 +17,17 @@ import { waitForIndicatorPaint } from '@/motion/waitForIndicatorPaint';
 import { scrollContainerToSpring, cancelContainerScrollAnimation, getDocScrollContainer, isScrollAtBottom, scrollToSectionById } from '@/utils/scrollToSection';
 import styles from './PageToc.module.css';
 
-const props = defineProps<{
-  items: Array<{ id: string; label: string; depth?: 1 | 2 }>;
-}>();
+const props = withDefaults(
+  defineProps<{
+    items: Array<{ id: string; label: string; depth?: 1 | 2 }>;
+    designTabLabel?: string;
+    showTocLabel?: boolean;
+  }>(),
+  {
+    designTabLabel: '使用规范',
+    showTocLabel: true,
+  },
+);
 
 const mode = defineModel<DocMode>('mode', { default: 'design' });
 
@@ -430,7 +438,7 @@ onBeforeUnmount(() => {
         @click="mode = 'design'"
       >
         <EdsIcon :name="pageHeaderIcons.design" :class="styles.toggleIcon" />
-        使用规范
+        {{ designTabLabel }}
       </button>
       <button
         ref="developButtonRef"
@@ -452,12 +460,13 @@ onBeforeUnmount(() => {
       v-if="items.length"
       :class="[
         styles.tocBlock,
+        !showTocLabel && styles.tocBlockNoLabel,
         isTocOverflow && styles.tocBlockOverflow,
         isTocScrolled && styles.tocBlockScrolled,
         isTocAtBottom && styles.tocBlockAtBottom,
       ]"
     >
-      <p :class="styles.label">On this page</p>
+      <p v-if="showTocLabel" :class="styles.label">On this page</p>
 
       <div ref="tocScrollRef" :class="styles.listViewport">
         <nav ref="listRef" :class="styles.list">

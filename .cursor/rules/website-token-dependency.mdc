@@ -6,18 +6,18 @@ alwaysApply: false
 
 # Website Package Dependency
 
-Doc site (`evergreen-design-system-doc`) **only** imports from three published packages in sibling repo `evergreen-design-system-website`:
+Doc site (`eds-doc`) **only** imports from three published packages in sibling repo `eds-website`:
 
 | Package | Path | What to import |
 |---------|------|----------------|
-| `@evergreen/tokens` | `packages/tokens` | CSS variables (`@import '@evergreen/tokens'`), `liquid-glass`, `corner-smoothing` |
-| `@evergreen/components` | `packages/components` | Vue UI primitives (Button, Input, NavBar, …) when doc needs live previews |
-| `@evergreen/scenes` | `packages/scenes` | Composed marketing/business blocks when doc needs scene demos |
+| `@eds/website-tokens` | `packages/tokens` | CSS variables (`@import '@eds/website-tokens'`), `liquid-glass`, `corner-smoothing` |
+| `@eds/website-components` | `packages/components` | Vue UI primitives (Button, Input, NavBar, …) when doc needs live previews |
+| `@eds/website-scenes` | `packages/scenes` | Composed marketing/business blocks when doc needs scene demos |
 
 Link in `package.json` (add components/scenes when needed):
 
 ```json
-"@evergreen/tokens": "link:../evergreen-design-system-website/packages/tokens"
+"@eds/website-tokens": "link:../eds-website/packages/tokens"
 ```
 
 Dev rebuild: `plugins/evergreen-tokens-dev.ts` watches `packages/tokens/spec/`. `predev` / `prebuild` run `build:tokens` in website repo.
@@ -25,7 +25,7 @@ Dev rebuild: `plugins/evergreen-tokens-dev.ts` watches `packages/tokens/spec/`. 
 ## Do NOT import from website
 
 - Website repo has **no app layer** — only `packages/*`. Never deep-import website source paths.
-- Do not point any `@evergreen/*` at `evergreen-design-system-desktop`.
+- Do not point any `@eds/website-*` at `eds-desktop`.
 - Do not copy token/component/scene **source** into doc — consume built packages.
 
 ## Doc-owned (stays in this repo)
@@ -49,7 +49,7 @@ When adding a feature, ask: **is it a reusable design-system primitive or scene?
 
 ## Website spacing scale (8px grid — do not assume Desktop names)
 
-`@evergreen/tokens` uses **`--scale-base: 8px`**. Semantic spacing maps `--spacing-N` → `--scale-N` → `N × 8px`:
+`@eds/website-tokens` uses **`--scale-base: 8px`**. Semantic spacing maps `--spacing-N` → `--scale-N` → `N × 8px`:
 
 | Token | px | Common use |
 |-------|-----|------------|

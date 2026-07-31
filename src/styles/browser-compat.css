@@ -1,6 +1,6 @@
 /*
  * Doc-shell cross-browser fixes (Safari / Firefox / Chromium).
- * Component tokens stay in @evergreen/tokens — only shell-level quirks here.
+ * Component tokens stay in @eds/website-tokens — only shell-level quirks here.
  */
 
 /* Font rendering — improves CJK hinting on WebKit. */

@@ -30,7 +30,7 @@ declare module '*.png' {
   export default src;
 }
 
-declare module '@evergreen/tokens/liquid-glass' {
+declare module '@eds/website-tokens/liquid-glass' {
   export function attachLiquidGlass(
     element: HTMLElement,
     options?: Record<string, unknown>,
@@ -43,7 +43,7 @@ declare module '@evergreen/tokens/liquid-glass' {
   ): unknown[];
 }
 
-declare module '@evergreen/tokens/corner-smoothing' {
+declare module '@eds/website-tokens/corner-smoothing' {
   export function attachCornerSmoothing(element: HTMLElement): unknown;
 
   export function detachCornerSmoothing(element: HTMLElement): void;

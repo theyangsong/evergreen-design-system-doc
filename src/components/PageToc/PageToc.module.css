@@ -156,6 +156,10 @@
   opacity: 1;
 }
 
+.tocBlockNoLabel .tocScrollFade {
+  top: 0;
+}
+
 .tocScrollFadeBottom {
   position: absolute;
   bottom: 0;

@@ -3,21 +3,21 @@ description: EverGreen doc site — repo layout, migration origin, conventions (
 alwaysApply: true
 ---
 
-# Project Context — evergreen-design-system-doc
+# Project Context — eds-doc
 
 ## Origin
 
-Standalone doc site **split from** `evergreen-design-system-desktop/apps/website`. Do **not** edit the desktop repo. Historical paths like `apps/website/src/...` in old notes map to **`src/...`** in this repo.
+Standalone doc site **split from** `eds-desktop/apps/website`. Do **not** edit the desktop repo. Historical paths like `apps/website/src/...` in old notes map to **`src/...`** in this repo.
 
 ## Repository boundary (核心原则)
 
-**从 `evergreen-design-system-website` 只引用规范包：**
+**从 `eds-website` 只引用规范包：**
 
 | 允许引用 | 包名 |
 |----------|------|
-| Tokens | `@evergreen/tokens` |
-| 组件 | `@evergreen/components` |
-| 场景化组件 | `@evergreen/scenes` |
+| Tokens | `@eds/website-tokens` |
+| 组件 | `@eds/website-components` |
+| 场景化组件 | `@eds/website-scenes` |
 
 **其余一切均在本文档站仓库内实现** — 壳层、布局、导航、Markdown、动效、主题、文档内容、路由、编辑器集成等，不得放在 website 或 desktop 仓库。
 
@@ -30,13 +30,13 @@ doc 仓库   = 文档站应用 + 所有 doc 专属代码
 
 ```
 Projects/
-  evergreen-design-system-doc/        ← this repo (app)
-  evergreen-design-system-website/  ← design system packages only
+  eds-doc/        ← this repo (app)
+  eds-website/  ← design system packages only
 ```
 
-- Tokens: `link:../evergreen-design-system-website/packages/tokens`
+- Tokens: `link:../eds-website/packages/tokens`
 - Components / scenes: link same way when doc needs them (not wired yet)
-- `predev` / `prebuild` run `pnpm --dir ../evergreen-design-system-website build:tokens`
+- `predev` / `prebuild` run `pnpm --dir ../eds-website build:tokens`
 - Dev: `pnpm dev` → **http://localhost:5176/**
 
 ## Module map (doc-owned, canonical paths)

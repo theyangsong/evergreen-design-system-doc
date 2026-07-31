@@ -3,7 +3,7 @@ import { applyTheme, type ThemeMode } from '@/composables/useTheme';
 import App from './App.vue';
 import { initBrandProvider } from '@/composables/useBrand';
 import { router } from './router';
-import { initLiquidGlass } from '@evergreen/tokens/liquid-glass';
+import { initLiquidGlass } from '@eds/website-tokens/liquid-glass';
 import { initDocCornerSmoothing } from '@/cornerSmoothing';
 import './styles/global.css';
 

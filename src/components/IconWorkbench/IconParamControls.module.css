@@ -1,0 +1,138 @@
+.params {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--spacing-3);
+  padding-top: var(--spacing-1);
+  border-top: var(--stroke-xs) solid var(--stroke-outline-subtle);
+}
+
+.paramControl {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+  min-width: 0;
+}
+
+.paramLabel {
+  color: var(--text-base-secondary);
+  font-size: var(--typography-footnote-medium-size);
+  line-height: var(--typography-footnote-medium-line-height);
+  font-weight: var(--typography-footnote-medium-strong-weight);
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-05);
+  height: 36px;
+  padding: 0 var(--spacing-05);
+  border: var(--stroke-xs) solid var(--stroke-base-secondary);
+  border-radius: var(--radius-full);
+  background: var(--material-card-strong);
+  box-sizing: border-box;
+}
+
+.stepperButton {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-base-primary);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: background-color var(--eds-motion-hover-duration) ease;
+}
+
+.stepperButton:hover:not(:disabled) {
+  background: var(--event-hover);
+}
+
+.stepperButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.stepperValue {
+  min-width: 36px;
+  padding: 0 var(--spacing-05);
+  color: var(--text-base-primary);
+  font-size: var(--typography-footnote-large-size);
+  line-height: var(--typography-footnote-large-line-height);
+  font-weight: var(--typography-footnote-large-strong-weight);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.colorField {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  height: 36px;
+  padding: 0 var(--spacing-1) 0 var(--spacing-1-5);
+  border: var(--stroke-xs) solid var(--stroke-base-secondary);
+  border-radius: var(--radius-full);
+  background: var(--material-card-strong);
+  box-sizing: border-box;
+}
+
+.colorPickerTrigger {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.colorPickerIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-base-secondary);
+}
+
+.colorSwatch {
+  display: block;
+  width: 18px;
+  height: 3px;
+  border-radius: var(--radius-full);
+}
+
+.colorPickerInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.colorHexInput {
+  width: 88px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-base-primary);
+  font-size: var(--typography-footnote-large-size);
+  line-height: var(--typography-footnote-large-line-height);
+  font-weight: var(--typography-footnote-large-strong-weight);
+  outline: none;
+}
+
+.colorHexInput::placeholder {
+  color: var(--text-base-tertiary);
+}
+
+@media (max-width: 768px) {
+  .params {
+    gap: var(--spacing-2);
+  }
+}

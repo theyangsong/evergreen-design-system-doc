@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 import { evergreenTokensDevPlugin } from './plugins/evergreen-tokens-dev';
 
 const projectRoot = resolve(__dirname);
-const websiteRepoRoot = resolve(projectRoot, '../evergreen-design-system-website');
+const websiteRepoRoot = resolve(projectRoot, '../eds-website');
 const tokensRoot = resolve(websiteRepoRoot, 'packages/tokens');
 
 function docsMediaNoCacheMiddleware(): Connect.NextHandleFunction {
@@ -46,14 +46,14 @@ export default defineConfig(({ mode }) => ({
       '@blocksuite/icons/lit': resolve(projectRoot, 'src/shims/blocksuite-icons-lit.ts'),
       ...(mode === 'development'
         ? {
-            '@evergreen/tokens/liquid-glass': resolve(tokensRoot, 'src/liquid-glass.js'),
-            '@evergreen/tokens/corner-smoothing': resolve(tokensRoot, 'src/corner-smoothing.js'),
+            '@eds/website-tokens/liquid-glass': resolve(tokensRoot, 'src/liquid-glass.js'),
+            '@eds/website-tokens/corner-smoothing': resolve(tokensRoot, 'src/corner-smoothing.js'),
           }
         : {}),
     },
   },
   optimizeDeps: {
-    exclude: ['@evergreen/tokens'],
+    exclude: ['@eds/website-tokens'],
     include: [
       '@blocksuite/presets',
       '@blocksuite/blocks',

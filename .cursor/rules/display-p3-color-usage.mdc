@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Display P3 Color Usage
 
-Color base tokens in `../evergreen-design-system-website/packages/tokens` ship **two declarations per variable**:
+Color base tokens in `../eds-website/packages/tokens` ship **two declarations per variable**:
 
 ```css
 --eds-base: #020304;                                    /* sRGB fallback only */

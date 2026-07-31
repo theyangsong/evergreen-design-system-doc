@@ -1,12 +1,12 @@
 import {
   initCornerSmoothing as initCornerSmoothingEngine,
   rescanCornerSmoothing as rescanCornerSmoothingEngine,
-} from '@evergreen/tokens/corner-smoothing';
+} from '@eds/website-tokens/corner-smoothing';
 
 export {
   attachCornerSmoothing,
   detachCornerSmoothing,
-} from '@evergreen/tokens/corner-smoothing';
+} from '@eds/website-tokens/corner-smoothing';
 
 /** Doc-site entry: global squircle scanner (call once from `main.ts`). */
 export function initDocCornerSmoothing(): void {

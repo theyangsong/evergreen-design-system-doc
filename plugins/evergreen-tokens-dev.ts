@@ -2,7 +2,7 @@ import { spawn } from 'node:child_process';
 import { resolve } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
 
-const websiteRepoRoot = resolve(__dirname, '../../evergreen-design-system-website');
+const websiteRepoRoot = resolve(__dirname, '../../eds-website');
 const tokensRoot = resolve(websiteRepoRoot, 'packages/tokens');
 const tokensSpecDir = resolve(tokensRoot, 'spec');
 const tokensLiquidGlassSource = resolve(tokensRoot, 'src/liquid-glass.js');
@@ -36,7 +36,7 @@ function runTokensBuild(): Promise<void> {
         return;
       }
 
-      reject(new Error(`@evergreen/tokens build failed with exit code ${code ?? 'unknown'}`));
+      reject(new Error(`@eds/website-tokens build failed with exit code ${code ?? 'unknown'}`));
     });
   });
 }
@@ -70,7 +70,7 @@ export function evergreenTokensDevPlugin(): Plugin {
         return;
       }
 
-      server.config.logger.info(`rebuilding @evergreen/tokens (${reason})…`);
+      server.config.logger.info(`rebuilding @eds/website-tokens (${reason})…`);
       rebuilding = true;
 
       rebuildInFlight = runTokensBuild()

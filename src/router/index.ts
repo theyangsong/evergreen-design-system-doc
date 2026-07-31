@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import DocsLayout from '@/layouts/DocsLayout.vue';
 import DocPageView from '@/views/DocPageView.vue';
+import IconsPageView from '@/views/IconsPageView.vue';
 import HomeView from '@/views/HomeView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import UnderConstructionView from '@/views/UnderConstructionView.vue';
@@ -10,12 +11,16 @@ import {
 } from '@/config/navigation';
 import { scrollToSectionById, cancelDocScrollAnimation, getDocScrollContainer } from '@/utils/scrollToSection';
 
-const docRoutes = Object.keys(docPages).map((fullPath) => ({
-  path: fullPath.slice(1),
-  name: fullPath.slice(1).replace(/\//g, '-'),
-  component: DocPageView,
-  meta: { docPath: fullPath },
-}));
+const ICONS_PAGE_PATH = '/atoms/icons';
+
+const docRoutes = Object.keys(docPages)
+  .filter((fullPath) => fullPath !== ICONS_PAGE_PATH)
+  .map((fullPath) => ({
+    path: fullPath.slice(1),
+    name: fullPath.slice(1).replace(/\//g, '-'),
+    component: DocPageView,
+    meta: { docPath: fullPath },
+  }));
 
 const sectionRedirects = Object.entries(sectionDefaultRoute).map(([section, fullPath]) => ({
   path: section,
@@ -40,6 +45,12 @@ export const router = createRouter({
           component: UnderConstructionView,
         },
         ...sectionRedirects,
+        {
+          path: 'atoms/icons',
+          name: 'atoms-icons',
+          component: IconsPageView,
+          meta: { docPath: ICONS_PAGE_PATH },
+        },
         ...docRoutes,
         {
           path: ':pathMatch(.*)*',

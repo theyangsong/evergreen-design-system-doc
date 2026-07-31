@@ -20,9 +20,9 @@ importers:
       '@blocksuite/store':
         specifier: 0.19.5
         version: 0.19.5(lit@3.3.3)(yjs@13.6.31)
-      '@evergreen/tokens':
-        specifier: link:../evergreen-design-system-website/packages/tokens
-        version: link:../evergreen-design-system-website/packages/tokens
+      '@eds/website-tokens':
+        specifier: link:../eds-website/packages/tokens
+        version: link:../eds-website/packages/tokens
       highlight.js:
         specifier: ^11.11.1
         version: 11.11.1

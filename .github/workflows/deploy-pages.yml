@@ -21,13 +21,13 @@ jobs:
       - name: Checkout doc site
         uses: actions/checkout@v4
         with:
-          path: evergreen-design-system-doc
+          path: eds-doc
 
       - name: Checkout design-system website (tokens)
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/evergreen-design-system-website
-          path: evergreen-design-system-website
+          repository: ${{ github.repository_owner }}/eds-website
+          path: eds-website
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -40,21 +40,21 @@ jobs:
           node-version: 20
           cache: pnpm
           cache-dependency-path: |
-            evergreen-design-system-doc/pnpm-lock.yaml
-            evergreen-design-system-website/pnpm-lock.yaml
+            eds-doc/pnpm-lock.yaml
+            eds-website/pnpm-lock.yaml
 
       - name: Install & build tokens (website)
-        working-directory: evergreen-design-system-website
+        working-directory: eds-website
         run: |
           pnpm install --frozen-lockfile
           pnpm build:tokens
 
       - name: Install doc dependencies
-        working-directory: evergreen-design-system-doc
+        working-directory: eds-doc
         run: pnpm install --frozen-lockfile
 
       - name: Build doc site
-        working-directory: evergreen-design-system-doc
+        working-directory: eds-doc
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
         run: pnpm build
@@ -63,5 +63,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: evergreen-design-system-doc/dist
+          publish_dir: eds-doc/dist
           force_orphan: true

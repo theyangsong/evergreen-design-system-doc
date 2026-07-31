@@ -1,0 +1,58 @@
+.iconsStickyChrome {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  align-self: stretch;
+  width: 100%;
+  margin-bottom: var(--spacing-7);
+  background: var(--content-background);
+}
+
+.iconsStickyChrome :global(h1) {
+  position: static;
+  margin-bottom: var(--spacing-1);
+}
+
+.iconsStickyChrome :global(h1)::after {
+  display: none;
+}
+
+.iconsStickyChrome::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: var(--scale-5);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--eds-motion-chrome-fade-duration) ease;
+  background: linear-gradient(
+    to bottom,
+    var(--content-background) 0%,
+    color-mix(in srgb, var(--content-background) 50%, transparent) 55%,
+    transparent 100%
+  );
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 1) 0%,
+    rgb(0 0 0 / 0.35) 55%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 1) 0%,
+    rgb(0 0 0 / 0.35) 55%,
+    transparent 100%
+  );
+}
+
+.iconsStickyChromeScrolled::after {
+  opacity: 1;
+}
+
+.body {
+  margin-top: 0;
+}

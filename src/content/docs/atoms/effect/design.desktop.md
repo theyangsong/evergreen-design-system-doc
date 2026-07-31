@@ -425,7 +425,7 @@ Composite Layer（复合层）
    * ② 注入 SVG <filter>：feImage + feDisplacementMap（x→R, y→G）
    * ③ backdrop-filter: url(#filter) blur() contrast() brightness() saturate()
    * ④ CSS 变量：effect/liquid-glass.css → --effect-glass-bg-* / --effect-glass-bg-surface
-   * ⑤ JS 入口：import { initLiquidGlass } from '@evergreen/tokens/liquid-glass'
+   * ⑤ JS 入口：import { initLiquidGlass } from '@eds/website-tokens/liquid-glass'
    * ⑥ 语义类：.effect-glass-bg（init 前 fallback → --effect-glass-bg-fallback）
    * ⑦ 用于 Card / Button / Input 表面；不与 shadow 层级混用
    */
@@ -444,7 +444,7 @@ Composite Layer（复合层）
    * ② 注入 SVG <filter>：feImage + feDisplacementMap（x→R, y→G）
    * ③ backdrop-filter: url(#filter) blur() contrast() brightness() saturate()
    * ④ CSS 变量：effect/liquid-glass.css → --effect-glass-bg-* / --effect-glass-bg-surface
-   * ⑤ JS 入口：import { initLiquidGlass } from '@evergreen/tokens/liquid-glass'
+   * ⑤ JS 入口：import { initLiquidGlass } from '@eds/website-tokens/liquid-glass'
    * ⑥ 语义类：.effect-glass-bg（init 前 fallback → --effect-glass-bg-fallback）
    * ⑦ 用于 Card / Button / Input 表面；不与 shadow 层级混用
    */

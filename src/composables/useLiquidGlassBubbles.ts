@@ -35,7 +35,7 @@ const CURSOR_DAMP = 0.68;
 const CURSOR_MAX_SPEED = 0.045;
 
 const TITLE_FONT = DOC_FONT_FAMILY_TEXT;
-const SUBTITLE_FONT = "'Space Grotesk', sans-serif";
+const SUBTITLE_FONT = DOC_FONT_FAMILY_TEXT;
 
 type Droplet = {
   id: number;

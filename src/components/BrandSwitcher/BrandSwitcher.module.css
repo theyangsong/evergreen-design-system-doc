@@ -51,15 +51,7 @@
 }
 
 .menu {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-05);
-  box-sizing: border-box;
-  padding: var(--spacing-1);
-  border: var(--stroke-xs) solid var(--stroke-outline-subtle);
-  border-radius: var(--radius-md);
-  background: var(--box-page);
-  box-shadow: var(--effect-shadow-subtle);
+  min-width: var(--scale-8);
 }
 
 .list {

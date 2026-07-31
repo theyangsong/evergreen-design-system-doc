@@ -10,10 +10,10 @@ Every rounded corner in this project uses **Figma/iOS squircle** at **60%** smoo
 
 ## Token & runtime
 
-- Smoothing level: `--corner-smoothing: 0.6` (in `../evergreen-design-system-website/packages/tokens/spec/scale/semantic.json`)
+- Smoothing level: `--corner-smoothing: 0.6` (in `../eds-website/packages/tokens/spec/scale/semantic.json`)
 - Radius tokens: `var(--radius-xs|sm|md|lg|full)` — never hardcode px radii in components unless explicitly frozen (e.g. inline code `6px`)
 - Global init (already wired): `initDocCornerSmoothing()` in `src/main.ts` via `@/cornerSmoothing`
-- Engine: `@evergreen/tokens/corner-smoothing` (bundles `figma-squircle`)
+- Engine: `@eds/website-tokens/corner-smoothing` (bundles `figma-squircle`)
 - Runtime mounts paths in hidden `#eds-corner-defs` SVG; elements only get class `eds-corner-smoothed` + `style="--eds-cs: url(#eds-cs-N)"`.
 - **Doc imports:** use `@/cornerSmoothing` and `@/cornerSmoothing/useCornerSmoothingRescan` — do not import the tokens package directly in components.
 

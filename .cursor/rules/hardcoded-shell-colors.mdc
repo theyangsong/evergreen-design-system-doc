@@ -17,4 +17,4 @@ Define them only in `src/styles/global.css` as sRGB fallback + `color(display-p3
 | `--nav-background` | AppRail |
 | `--section-nav-background` | SectionNav |
 
-When adding light/dark theme values, add explicit hex + display-p3 pairs per theme block. Do not reference `@evergreen/tokens` semantic colors for these four variables.
+When adding light/dark theme values, add explicit hex + display-p3 pairs per theme block. Do not reference `@eds/website-tokens` semantic colors for these four variables.

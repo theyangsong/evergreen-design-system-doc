@@ -1,0 +1,106 @@
+.gridItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-1);
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--material-card-subtle);
+  cursor: pointer;
+  outline: none;
+  transition: background-color var(--eds-hover-transition-duration) ease;
+}
+
+.tile:not(.tileActive):hover {
+  background: var(--event-hover);
+}
+
+.tile:focus-visible:not(.tileActive) {
+  background: var(--event-focus-secondary);
+  outline: var(--stroke-lg) solid var(--event-focus-primary);
+  outline-offset: 2px;
+}
+
+.tileActive {
+  background: color-mix(in srgb, var(--material-brand-primary) 12%, transparent);
+}
+
+.tileActive:focus-visible {
+  outline: var(--stroke-lg) solid var(--event-focus-primary);
+  outline-offset: 2px;
+}
+
+.batchCheckbox {
+  position: absolute;
+  top: var(--spacing-1);
+  right: var(--spacing-1);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: var(--stroke-xs) solid var(--stroke-base-secondary);
+  border-radius: var(--radius-xs);
+  background: var(--material-card-strong);
+  color: var(--text-inverted-primary);
+  cursor: pointer;
+  transition:
+    background-color var(--eds-hover-transition-duration) ease,
+    border-color var(--eds-hover-transition-duration) ease;
+}
+
+.batchCheckbox:hover {
+  border-color: var(--stroke-base-primary);
+  background: var(--event-hover);
+}
+
+.batchCheckboxChecked {
+  border-color: var(--stroke-base-primary);
+  background: var(--material-base-primary);
+}
+
+.batchCheckIcon {
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+.preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--text-base-primary);
+  pointer-events: none;
+}
+
+.preview :global(svg) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.name {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--text-base-secondary);
+  font-size: var(--typography-footnote-medium-strong-size);
+  line-height: var(--typography-footnote-medium-strong-line-height);
+  font-weight: var(--typography-footnote-medium-strong-weight);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}

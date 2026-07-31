@@ -1,4 +1,4 @@
-@import '@evergreen/tokens';
+@import '@eds/website-tokens';
 @import '@/styles/token-aliases.css';
 @import '@/styles/fonts.css';
 @import '@/styles/browser-compat.css';
@@ -18,6 +18,22 @@
   --section-nav-background: color(display-p3 0.9569 0.9529 0.9412);
   --toggle-background: #ffffff;
   --toggle-background: color(display-p3 1 1 1);
+  --doc-dropdown-shadow: 0 var(--spacing-2) var(--spacing-6) color-mix(in srgb, #000 12%, transparent);
+  --doc-floating-bar-liquid-blur: 3px;
+  --doc-floating-bar-liquid-contrast: 1.2;
+  --doc-floating-bar-liquid-brightness: 1.05;
+  --doc-floating-bar-liquid-saturate: 1.1;
+  --doc-floating-bar-liquid-surface: color-mix(in display-p3, var(--eds-face) 88%, transparent);
+  --doc-floating-bar-liquid-shader-edge-start: 0.8;
+  --doc-floating-bar-liquid-shader-edge-end: 0.01;
+  --doc-floating-bar-liquid-shader-edge-offset: 0.15;
+  --doc-floating-bar-liquid-shader-rect-inset-x: 0.2;
+  --doc-floating-bar-liquid-shader-rect-inset-y: 0.15;
+  --doc-floating-bar-liquid-shader-corner-radius: 1;
+  --doc-floating-bar-liquid-shader-interior-refraction: 6;
+  --doc-floating-bar-liquid-shader-interior-frequency-x: 1.2;
+  --doc-floating-bar-liquid-shader-interior-frequency-y: 0.8;
+  --doc-floating-bar-liquid-refraction-scale: 0.5;
 }
 
 [data-theme='dark'] {
@@ -53,6 +69,9 @@ body {
   line-height: var(--typography-body-small-line-height);
   font-synthesis: none;
   color: var(--text-base-primary);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /*
@@ -81,6 +100,13 @@ a {
 
 button {
   font: inherit;
+}
+
+.effect-subtle-card {
+  border-radius: var(--scale-3);
+  border: var(--stroke-xs) solid var(--stroke-outline-subtle);
+  background: var(--box-page);
+  box-shadow: var(--effect-shadow-subtle);
 }
 
 .hideScrollbar {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
+import FloatingBarShell from '@/components/FloatingBarShell/FloatingBarShell.vue';
 import { useCornerSmoothingRescan } from '@/cornerSmoothing/useCornerSmoothingRescan';
 import {
   formatBrandColor,
@@ -101,7 +102,10 @@ onUnmounted(() => {
         aria-label="Brand"
         @click.stop
       >
-        <div :class="styles.menu">
+        <FloatingBarShell
+          layout="column"
+          :root-class="styles.menu"
+        >
           <ul :class="styles.list">
             <li v-for="brand in brands" :key="brand.id" :class="styles.listItem">
               <button
@@ -116,7 +120,7 @@ onUnmounted(() => {
               </button>
             </li>
           </ul>
-        </div>
+        </FloatingBarShell>
       </div>
     </Teleport>
   </div>

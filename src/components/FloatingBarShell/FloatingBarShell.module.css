@@ -1,0 +1,28 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  min-height: var(--scale-8);
+  padding: var(--spacing-1) 10px var(--spacing-1) var(--spacing-2-5);
+  border: var(--stroke-xs) solid var(--stroke-outline-subtle);
+  border-radius: var(--radius-lg);
+  background-color: var(--material-card-moderate);
+  box-shadow: var(--doc-dropdown-shadow);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  transition:
+    padding 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms ease,
+    background-color 320ms ease,
+    box-shadow 420ms ease,
+    backdrop-filter 420ms ease,
+    -webkit-backdrop-filter 420ms ease;
+}
+
+.barColumn {
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-1);
+  gap: var(--spacing-05);
+}

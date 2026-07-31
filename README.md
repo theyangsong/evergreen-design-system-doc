@@ -1,12 +1,12 @@
 # EverGreen Design System — Doc
 
-独立文档站。从 `evergreen-design-system-desktop/apps/website` 剥离，**应用层代码全部在本仓库**。
+独立文档站。从 `eds-desktop/apps/website` 剥离，**应用层代码全部在本仓库**。
 
-仅通过 npm link 消费同级 [evergreen-design-system-website](../evergreen-design-system-website) 的**规范包**：
+仅通过 npm link 消费同级 [eds-website](../eds-website) 的**规范包**：
 
-- `@evergreen/tokens` — 全局变量
-- `@evergreen/components` — 组件库（按需引用）
-- `@evergreen/scenes` — 场景化组件（按需引用）
+- `@eds/website-tokens` — 全局变量
+- `@eds/website-components` — 组件库（按需引用）
+- `@eds/website-scenes` — 场景化组件（按需引用）
 
 ## 仓库边界
 
@@ -22,14 +22,14 @@
 
 ```
 Projects/
-  evergreen-design-system-doc/      ← 本项目
-  evergreen-design-system-website/  ← 设计系统规范包
+  eds-doc/      ← 本项目
+  eds-website/  ← 设计系统规范包
 ```
 
 ## 安装与启动
 
 ```bash
-cd evergreen-design-system-doc
+cd eds-doc
 pnpm install
 pnpm dev
 ```
@@ -42,9 +42,9 @@ pnpm dev
 
 | 包 | 来源 | 用途 |
 |----|------|------|
-| `@evergreen/tokens` | `../evergreen-design-system-website/packages/tokens` | 颜色、尺度、排版、效果 |
-| `@evergreen/components` | `../evergreen-design-system-website/packages/components` | 组件预览（按需 link） |
-| `@evergreen/scenes` | `../evergreen-design-system-website/packages/scenes` | 场景演示（按需 link） |
+| `@eds/website-tokens` | `../eds-website/packages/tokens` | 颜色、尺度、排版、效果 |
+| `@eds/website-components` | `../eds-website/packages/components` | 组件预览（按需 link） |
+| `@eds/website-scenes` | `../eds-website/packages/scenes` | 场景演示（按需 link） |
 
 ### 本项目自有（不在 website 中）
 
@@ -69,18 +69,18 @@ pnpm dev
 
 推送 `main` 分支后，[Deploy GitHub Pages](.github/workflows/deploy-pages.yml) 会自动构建并发布：
 
-**https://\<username\>.github.io/evergreen-design-system-doc/**
+**https://\<username\>.github.io/eds-doc/**
 
 ### 前置条件
 
 1. 仓库 **Settings → Pages → Build and deployment** 选 **Deploy from a branch**，Branch 选 **gh-pages** / **/ (root)**（首次 workflow 跑完会自动创建 `gh-pages` 分支）
-2. 同级仓库 **`evergreen-design-system-website`** 需在同一 GitHub 账户（CI 构建 `@evergreen/tokens`）
+2. 同级仓库 **`eds-website`** 需在同一 GitHub 账户（CI 构建 `@eds/website-tokens`）
 
 推送 `main` 后 workflow **自动运行**，无需手动触发或 Environment 审批。
 
 本地模拟 Pages 构建：
 
 ```bash
-VITE_BASE_PATH=/evergreen-design-system-doc/ pnpm build
+VITE_BASE_PATH=/eds-doc/ pnpm build
 pnpm preview
 ```
