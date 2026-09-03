@@ -69,9 +69,6 @@ body {
   line-height: var(--typography-body-small-line-height);
   font-synthesis: none;
   color: var(--text-base-primary);
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /*

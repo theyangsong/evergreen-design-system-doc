@@ -1,8 +1,8 @@
 /*
- * Doc shell fonts — self-hosted only (no Google Fonts).
+ * Doc shell fonts — self-hosted EDS Text + IBM Plex Mono.
  *
- * EDS Text: primary UI family (src/assets/fonts/EDSText-*.ttf)
- * IBM Plex Mono: code blocks
+ * EDS Text uses PingFang SC vertical metrics so layout matches the previous
+ * doc shell (when EDS Text mapped to local PingFang via @font-face).
  */
 
 @font-face {
@@ -10,6 +10,9 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
+  ascent-override: 106%;
+  descent-override: 34%;
+  line-gap-override: 0%;
   src: url('@/assets/fonts/EDSText-Regular.ttf') format('truetype');
 }
 
@@ -18,6 +21,9 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
+  ascent-override: 106%;
+  descent-override: 34%;
+  line-gap-override: 0%;
   src: url('@/assets/fonts/EDSText-Medium.ttf') format('truetype');
 }
 
@@ -26,6 +32,9 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
+  ascent-override: 106%;
+  descent-override: 34%;
+  line-gap-override: 0%;
   src: url('@/assets/fonts/EDSText-SemiBold.ttf') format('truetype');
 }
 
@@ -34,12 +43,16 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
+  ascent-override: 106%;
+  descent-override: 34%;
+  line-gap-override: 0%;
   src: url('@/assets/fonts/EDSText-Bold.ttf') format('truetype');
 }
 
 :root {
   --font-family-text: 'EDS Text', 'PingFang SC', 'PingFangSC-Regular', 'Hiragino Sans GB',
-    'Microsoft YaHei', 'Source Han Sans SC', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+    'Microsoft YaHei', 'Noto Sans SC', 'Source Han Sans SC', 'Apple Color Emoji',
+    'Segoe UI Emoji', sans-serif;
 }
 
 @font-face {

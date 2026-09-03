@@ -30,7 +30,7 @@
 |                                                      |
 |                                                      |
 -------------------------------------------------------
-图：NavBar 折叠（72px）→ Module Menu 240px；NavBar 展开（210px）→ Module Menu 280px
+图：NavBar 折叠（74px）→ Module Menu 240px；NavBar 展开（210px）→ Module Menu 280px
 ```
 
 # AI总结
@@ -219,7 +219,7 @@ NavBar（主导航）
     
     | **NavBar 状态** | **Module Menu 宽度** | **动画** |
     | --- | --- | --- |
-    | 折叠（72px） | **240px** | CSS transition |
+    | 折叠（74px） | **240px** | CSS transition |
     | 展开（210px） | **280px** | CSS transition |
 4. **响应式与主题适配**
     
@@ -696,7 +696,7 @@ NavBar（主导航）
     
     | **NavBar 状态** | **Module Menu 宽度** |
     | --- | --- |
-    | 折叠（72px） | **240px** |
+    | 折叠（74px） | **240px** |
     | 展开（210px） | **280px** |
 4. **权限约束**
     - 权限过滤在渲染前执行

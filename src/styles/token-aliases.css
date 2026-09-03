@@ -1,32 +1,103 @@
 /**
  * Maps legacy Desktop-era typography token names used in doc CSS
- * to EverGreen Design System (Website) semantic tokens.
+ * to EverGreen Design System (Website) semantic tokens (`--eds-*`).
  */
 :root {
   --event-focus-primary: var(--event-focus-brand);
   --event-focus-secondary: var(--event-focus);
 
-  --typography-display-size: var(--typography-display-small-size);
-  --typography-display-weight: var(--typography-display-small-weight);
-  --typography-display-line-height: var(--typography-display-small-line-height);
+  /* typography-* → eds-* (Website tokens renamed in eds-website sync) */
+  --typography-display-large-size: var(--eds-display-large-size);
+  --typography-display-large-weight: var(--eds-display-large-weight);
+  --typography-display-large-line-height: var(--eds-display-large-line-height);
+  --typography-display-medium-size: var(--eds-display-medium-size);
+  --typography-display-medium-weight: var(--eds-display-medium-weight);
+  --typography-display-medium-line-height: var(--eds-display-medium-line-height);
+  --typography-display-small-size: var(--eds-display-small-size);
+  --typography-display-small-weight: var(--eds-display-small-weight);
+  --typography-display-small-line-height: var(--eds-display-small-line-height);
 
-  --typography-headline-size: var(--typography-headline-small-size);
-  --typography-headline-weight: var(--typography-headline-small-weight);
-  --typography-headline-line-height: var(--typography-headline-small-line-height);
+  --typography-headline-large-size: var(--eds-headline-large-size);
+  --typography-headline-large-weight: var(--eds-headline-large-weight);
+  --typography-headline-large-line-height: var(--eds-headline-large-line-height);
+  --typography-headline-medium-size: var(--eds-headline-medium-size);
+  --typography-headline-medium-weight: var(--eds-headline-medium-weight);
+  --typography-headline-medium-line-height: var(--eds-headline-medium-line-height);
+  --typography-headline-small-size: var(--eds-headline-small-size);
+  --typography-headline-small-weight: var(--eds-headline-small-weight);
+  --typography-headline-small-line-height: var(--eds-headline-small-line-height);
 
-  --typography-title-size: var(--typography-title-small-size);
-  --typography-title-weight: var(--typography-title-small-weight);
-  --typography-title-line-height: var(--typography-title-small-line-height);
+  --typography-title-large-size: var(--eds-title-large-size);
+  --typography-title-large-weight: var(--eds-title-large-weight);
+  --typography-title-large-line-height: var(--eds-title-large-line-height);
+  --typography-title-medium-size: var(--eds-title-medium-size);
+  --typography-title-medium-weight: var(--eds-title-medium-weight);
+  --typography-title-medium-line-height: var(--eds-title-medium-line-height);
+  --typography-title-small-size: var(--eds-title-small-size);
+  --typography-title-small-weight: var(--eds-title-small-weight);
+  --typography-title-small-line-height: var(--eds-title-small-line-height);
 
-  --typography-footnote-size: var(--typography-footnote-medium-size);
-  --typography-footnote-weight: var(--typography-footnote-medium-weight);
-  --typography-footnote-line-height: var(--typography-footnote-medium-line-height);
+  --typography-body-large-size: var(--eds-body-large-size);
+  --typography-body-large-weight: var(--eds-body-large-weight);
+  --typography-body-large-line-height: var(--eds-body-large-line-height);
+  --typography-body-large-strong-size: var(--eds-body-large-strong-size);
+  --typography-body-large-strong-weight: var(--eds-body-large-strong-weight);
+  --typography-body-large-strong-line-height: var(--eds-body-large-strong-line-height);
+  --typography-body-medium-size: var(--eds-body-medium-size);
+  --typography-body-medium-weight: var(--eds-body-medium-weight);
+  --typography-body-medium-line-height: var(--eds-body-medium-line-height);
+  --typography-body-medium-strong-size: var(--eds-body-medium-strong-size);
+  --typography-body-medium-strong-weight: var(--eds-body-medium-strong-weight);
+  --typography-body-medium-strong-line-height: var(--eds-body-medium-strong-line-height);
+  --typography-body-small-size: var(--eds-body-small-size);
+  --typography-body-small-weight: var(--eds-body-small-weight);
+  --typography-body-small-line-height: var(--eds-body-small-line-height);
+  --typography-body-small-strong-size: var(--eds-body-small-strong-size);
+  --typography-body-small-strong-weight: var(--eds-body-small-strong-weight);
+  --typography-body-small-strong-line-height: var(--eds-body-small-strong-line-height);
 
-  --typography-footnote-strong-size: var(--typography-footnote-medium-strong-size);
-  --typography-footnote-strong-weight: var(--typography-footnote-medium-strong-weight);
-  --typography-footnote-strong-line-height: var(--typography-footnote-medium-strong-line-height);
+  --typography-footnote-large-size: var(--eds-footnote-large-size);
+  --typography-footnote-large-weight: var(--eds-footnote-large-weight);
+  --typography-footnote-large-line-height: var(--eds-footnote-large-line-height);
+  --typography-footnote-large-strong-size: var(--eds-footnote-large-strong-size);
+  --typography-footnote-large-strong-weight: var(--eds-footnote-large-strong-weight);
+  --typography-footnote-large-strong-line-height: var(--eds-footnote-large-strong-line-height);
+  --typography-footnote-medium-size: var(--eds-footnote-medium-size);
+  --typography-footnote-medium-weight: var(--eds-footnote-medium-weight);
+  --typography-footnote-medium-line-height: var(--eds-footnote-medium-line-height);
+  --typography-footnote-medium-strong-size: var(--eds-footnote-medium-strong-size);
+  --typography-footnote-medium-strong-weight: var(--eds-footnote-medium-strong-weight);
+  --typography-footnote-medium-strong-line-height: var(--eds-footnote-medium-strong-line-height);
+  --typography-footnote-strong-size: var(--eds-footnote-strong-size);
+  --typography-footnote-strong-weight: var(--eds-footnote-strong-weight);
+  --typography-footnote-strong-line-height: var(--eds-footnote-strong-line-height);
 
-  --typography-bar-size: var(--typography-footnote-medium-size);
-  --typography-bar-weight: var(--typography-footnote-medium-weight);
-  --typography-bar-line-height: var(--typography-footnote-medium-line-height);
+  /* Doc-only alias (no eds-footnote-small token) */
+  --typography-footnote-small-size: var(--eds-footnote-medium-size);
+  --typography-footnote-small-line-height: var(--eds-footnote-medium-line-height);
+
+  /* Semantic shortcuts used across doc shell */
+  --typography-display-size: var(--eds-display-small-size);
+  --typography-display-weight: var(--eds-display-small-weight);
+  --typography-display-line-height: var(--eds-display-small-line-height);
+
+  --typography-headline-size: var(--eds-headline-small-size);
+  --typography-headline-weight: var(--eds-headline-small-weight);
+  --typography-headline-line-height: var(--eds-headline-small-line-height);
+
+  --typography-title-size: var(--eds-title-small-size);
+  --typography-title-weight: var(--eds-title-small-weight);
+  --typography-title-line-height: var(--eds-title-small-line-height);
+
+  --typography-footnote-size: var(--eds-footnote-medium-size);
+  --typography-footnote-weight: var(--eds-footnote-medium-weight);
+  --typography-footnote-line-height: var(--eds-footnote-medium-line-height);
+
+  --typography-footnote-strong-size: var(--eds-footnote-medium-strong-size);
+  --typography-footnote-strong-weight: var(--eds-footnote-medium-strong-weight);
+  --typography-footnote-strong-line-height: var(--eds-footnote-medium-strong-line-height);
+
+  --typography-bar-size: var(--eds-footnote-medium-size);
+  --typography-bar-weight: var(--eds-footnote-medium-weight);
+  --typography-bar-line-height: var(--eds-footnote-medium-line-height);
 }

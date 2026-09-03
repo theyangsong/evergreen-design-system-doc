@@ -19,7 +19,7 @@
 |                                                      |
 |                                                      |
 -------------------------------------------------------
-图：折叠态（72px）与展开态（210px）的视觉对比
+图：折叠态（74px）与展开态（210px）的视觉对比
 ```
 
 ```
@@ -40,7 +40,7 @@
 | 1、NavBar 是应用级主导航：模块切换、用户入口、DIN、布局
 |    展开/收起，由权限 + 状态矩阵 + 布局引擎驱动。
 | 2、使用：按权限配置模块；点击模块展开 Module Menu；折叠
-|    72px / 展开 210px，1250px 断点切换策略。
+|    74px / 展开 210px，1250px 断点切换策略。
 | 3、可配置：模块与权限映射、DIN/通知、Overflow Mask、
 |    Header 区域内容。
 | 4、联动：NavBar 折叠 → Module Menu 240px；展开 → 280px。
@@ -173,7 +173,7 @@ NavBar = “权限系统（Permission System）→ 状态矩阵系统（State Ma
 
 | **资产** | **格式** | **说明** |
 | --- | --- | --- |
-| **布局状态变体** | Figma 变体 | 折叠态（72px）与展开态（210px）的视觉样式 |
+| **布局状态变体** | Figma 变体 | 折叠态（74px）与展开态（210px）的视觉样式 |
 | **响应式断点规范** | 设计稿 | 1250px 断点处展开/禁用的交互说明 |
 | **DIN 交互状态** | Figma 变体 | 默认/悬浮 DIN 的视觉变化（徽章隐藏、操作显示） |
 | **Overflow Mask 样式** | 设计稿 | 溢出时的渐变遮罩 + 分割线样式 |
@@ -198,10 +198,10 @@ NavBar = “权限系统（Permission System）→ 状态矩阵系统（State Ma
     
     | **状态** | **NavBar 宽度** | **模块图标** | **模块名称** | **头像方向** | **Module Menu 宽度** |
     | --- | --- | --- | --- | --- | --- |
-    | **折叠态（Collapsed）** | ~72px | 显示 | 显示 | 垂直 | 240px |
+    | **折叠态（Collapsed）** | ~74px | 显示 | 显示 | 垂直 | 240px |
     | **展开态（Expanded）** | 210px | 显示 | 显示 | 水平 | 280px |
 2. **折叠态文本换行规则**
-    - 折叠态下，模块名称文本若超出容器宽度（72px - 16「左右`padding=8`」内），应**自动换行**，而非截断或省略
+    - 折叠态下，模块名称文本若超出容器宽度（74px - 16「左右`padding=8`」内），应**自动换行**，而非截断或省略
     - 若模块名称过长（如超过 2 行），使用省略，鼠标悬浮时，使用`ToolTip` 展示完整名称
 3. **展开态文本换行规则**
     - 展开态下，模块名称文本若超出容器宽度（210px 内），应**自动换行**，而非截断或省略
@@ -309,7 +309,7 @@ NavBar = “权限系统（Permission System）→ 状态矩阵系统（State Ma
     {
       "layout": {
         "expanded": false,
-        "collapsedWidth": 72,
+        "collapsedWidth": 74,
         "expandedWidth": 210,
         "breakpoint": 1250
       },
@@ -356,7 +356,7 @@ NavBar = “权限系统（Permission System）→ 状态矩阵系统（State Ma
     // 布局状态由状态矩阵系统管理
     const layoutState = {
       expanded: false,        // 当前是否展开
-      width: 72,              // 当前宽度
+      width: 74,              // 当前宽度
       canExpand: viewportWidth >= 1250,  // 是否允许展开
     };
     
@@ -451,7 +451,7 @@ NavBar = “权限系统（Permission System）→ 状态矩阵系统（State Ma
 
 | **变体** | **说明** |
 | --- | --- |
-| `layout: collapsed` | 折叠态，宽度 72px |
+| `layout: collapsed` | 折叠态，宽度 74px |
 | `layout: expanded` | 展开态，宽度 210px |
 | `state: default` | 正常显示 |
 | `state: empty` | 无权限模块，仅系统导航 |
@@ -526,7 +526,7 @@ NavBar = “权限系统（Permission System）→ 状态矩阵系统（State Ma
 {
   "layout": {
     "expanded": false,
-    "collapsedWidth": 72,
+    "collapsedWidth": 74,
     "expandedWidth": 210,
     "breakpoint": 1250
   },
@@ -562,7 +562,7 @@ NavBar = “权限系统（Permission System）→ 状态矩阵系统（State Ma
 
 | **字段** | **UI 表示** | **规则** |
 | --- | --- | --- |
-| `layout.expanded` | 导航宽度 | `true` → 210px；`false` → 72px |
+| `layout.expanded` | 导航宽度 | `true` → 210px；`false` → 74px |
 | `modules[].visible` | 模块是否渲染 | 由 `permissionId` 在权限列表中决定 |
 | `state.empty` | 是否显示系统导航仅 | 无任何可见模块时 `true` |
 | `secondaryMenu` | 二级菜单宽度 | 随主布局联动 |
@@ -601,7 +601,7 @@ NavBar = “权限系统（Permission System）→ 状态矩阵系统（State Ma
 
 | **约束项** | **限制** |
 | --- | --- |
-| 折叠态宽度 | 72px（固定） |
+| 折叠态宽度 | 74px（固定） |
 | 展开态宽度 | 210px（固定） |
 | 响应式断点 | 1250px（固定） |
 | 二级菜单宽度（折叠） | 240px |
@@ -649,7 +649,7 @@ const isEmpty = computed(() => visibleModules.value.length === 0);
 // 布局状态
 const layout = reactive({
   expanded: false,
-  width: computed(() => layout.expanded ? 210 : 72),
+  width: computed(() => layout.expanded ? 210 : 74),
   canExpand: computed(() => window.innerWidth >= props.breakpoint),
 });
 
@@ -833,7 +833,7 @@ v1.0
    └── 输出：确定的“最终状态”
    ↓
 布局引擎（Layout Engine）
-   ├── 折叠态（Collapsed）：72px
+   ├── 折叠态（Collapsed）：74px
    └── 展开态（Expanded）：210px
    ↓
 模块运行时层（Module Runtime Layer）
